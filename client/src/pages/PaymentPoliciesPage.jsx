@@ -52,7 +52,7 @@ const PaymentPoliciesPage = () => {
             <div className="flex flex-col md:flex-row justify-between items-center mb-6">
               <div>
                 <p className="text-gray-700 mb-2">Standard Registration Fee:</p>
-                <p className="text-3xl font-bold text-green-700">GH₵1,200</p>
+                <p className="text-3xl font-bold text-green-700">GH₵ 900</p>
               </div>
               <div className="mt-4 md:mt-0">
                 <p className="text-gray-700 mb-2">Registration Deadline:</p>
