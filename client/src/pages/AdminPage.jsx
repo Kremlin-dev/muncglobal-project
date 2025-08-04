@@ -51,7 +51,7 @@ const AdminPage = () => {
     console.log('Sending to server:', JSON.stringify(key.replace(/\s/g, '')));
     
     try {
-      const response = await fetch('http://localhost:5000/api/registration', {
+      const response = await fetch('https://muncglobal-project-server.onrender.com/api/registration', {
         headers: {
           'x-api-key': key.replace(/\s/g, '') // Remove all spaces
         }
@@ -132,7 +132,7 @@ const AdminPage = () => {
   // Export functions
   const exportCSV = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/registration/export/csv', {
+      const response = await fetch('https://muncglobal-project-server.onrender.com/api/registration/export/csv', {
         headers: {
           'x-api-key': apiKey
         }
@@ -159,7 +159,7 @@ const AdminPage = () => {
 
   const exportJSON = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/registration/export/json', {
+      const response = await fetch('https://muncglobal-project-server.onrender.com/api/registration/export/json', {
         headers: {
           'x-api-key': apiKey
         }
