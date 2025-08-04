@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import CountdownContainer from '../components/Common/CountdownContainer';
+import CountdownContainer from '../components/common/CountdownContainer';
 
 const HomePage = () => {
   const fadeIn = {
