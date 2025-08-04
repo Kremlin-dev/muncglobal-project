@@ -110,7 +110,7 @@ For development, you'll need to run both the client and server:
    npm run dev
    ```
 
-The client will be available at http://localhost:5173 and will proxy API requests to the server at http://localhost:5000.
+The client will be available at http://localhost:5173 and will proxy API requests to the server at https://muncglobal-project-server.onrender.com.
 
 ## Deployment
 

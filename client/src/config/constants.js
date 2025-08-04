@@ -3,7 +3,7 @@
  */
 
 // API base URL - uses environment variable if available, otherwise defaults to localhost
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://muncglobal-project-server.onrender.com/api';
 
 // Registration fee in GHS
 export const REGISTRATION_FEE = 1;
