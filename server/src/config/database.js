@@ -94,6 +94,19 @@ const initDatabase = () => {
     )
   `);
 
+  // Add payment_reference column if it doesn't exist (after all tables are created)
+  setTimeout(() => {
+    db.run(`
+      ALTER TABLE registrations ADD COLUMN payment_reference TEXT
+    `, (err) => {
+      if (err && !err.message.includes('duplicate column name')) {
+        console.error('Error adding payment_reference column:', err.message);
+      } else {
+        console.log('Payment reference column check completed');
+      }
+    });
+  }, 100);
+  
   console.log('Database tables initialized');
 };
 

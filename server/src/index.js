@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url';
 
 // Routes
 import registrationRoutes from './routes/registration.js';
-import paymentRoutes from './routes/payment.js';
+import paymentRoutes from './routes/PaymentRoutes.js';
 
 // Initialize environment variables
 dotenv.config();

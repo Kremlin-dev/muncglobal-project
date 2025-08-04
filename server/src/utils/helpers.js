@@ -17,36 +17,31 @@ export const generateUniqueCode = () => {
 };
 
 /**
- * Create a test email transporter for development
- * In production, use actual SMTP credentials
+ * Create email transporter using actual SMTP credentials
+ * This will send real emails in both development and production
  */
 export const createEmailTransporter = () => {
-  // For development, use a test account or console logging
-  if (process.env.NODE_ENV !== 'production') {
-    // Log emails to console in development
-    return {
-      sendMail: (mailOptions) => {
-        console.log('========== EMAIL SENT ==========');
-        console.log('To:', mailOptions.to);
-        console.log('Subject:', mailOptions.subject);
-        console.log('Text:', mailOptions.text);
-        console.log('HTML:', mailOptions.html);
-        console.log('================================');
-        return Promise.resolve({ messageId: 'test-message-id' });
-      }
-    };
+  // Check if email credentials are available
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.warn('Email credentials not configured. Email functionality will be disabled.');
+    return null;
   }
-  
-  // For production, use actual SMTP server
-  return nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: process.env.EMAIL_SECURE === 'true',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS
-    }
-  });
+
+  try {
+    // Use actual SMTP server for both development and production
+    return nodemailer.createTransport({
+      host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+      port: parseInt(process.env.EMAIL_PORT || '465', 10),
+      secure: process.env.EMAIL_SECURE === 'true' || true, // Use SSL
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      }
+    });
+  } catch (error) {
+    console.error('Failed to create email transporter:', error.message);
+    return null;
+  }
 };
 
 /**
@@ -58,6 +53,12 @@ export const createEmailTransporter = () => {
  */
 export const sendRegistrationEmail = async ({ email, name, registrationCode }) => {
   const transporter = createEmailTransporter();
+  
+  // If no transporter available, log and continue without sending email
+  if (!transporter) {
+    console.log(`Email service unavailable. Would have sent registration email to ${email} with code ${registrationCode}`);
+    return { messageId: 'email-disabled', info: 'Email service not configured' };
+  }
   
   const mailOptions = {
     from: '"MUNCGLOBAL" <info@muncglobal.org>',
@@ -142,3 +143,98 @@ export const generateUniqueCodePool = (count = 300) => {
 
 // Pre-generate a pool of 300 unique codes as specified in requirements
 export const uniqueCodePool = generateUniqueCodePool();
+
+/**
+ * Send payment confirmation email
+ * @param {object} registration - Registration object with user details
+ */
+export const sendPaymentConfirmationEmail = async (registration) => {
+  try {
+    const { first_name, surname, email, registration_code } = registration;
+    const transporter = createEmailTransporter();
+    
+    // If no transporter available, log and continue without sending email
+    if (!transporter) {
+      console.log(`Email service unavailable. Would have sent payment confirmation to ${email} for code ${registration_code}`);
+      return { messageId: 'email-disabled', info: 'Email service not configured' };
+    }
+    
+    // Format date for email
+    const formattedDate = new Date().toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+    
+    // Email subject
+    const subject = 'MUNCGLOBAL Conference 2025 - Payment Confirmation';
+    
+    // Email text content
+    const text = `
+      Dear ${first_name} ${surname},
+
+      Thank you for completing your payment for MUNCGLOBAL Conference 2025!
+
+      Your registration code is: ${registration_code}
+
+      Payment details:
+      - Amount: GHS 1 (Test amount)
+      - Date: ${formattedDate}
+      - Status: Confirmed
+
+      Please keep this email for your records. You will need your registration code for check-in at the event.
+
+      If you have any questions, please contact us at info@muncglobal.org or call 0302456789.
+
+      Best regards,
+      MUNCGLOBAL Team
+    `;
+    
+    // Email HTML content
+    const html = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 5px;">
+        <div style="text-align: center; margin-bottom: 20px;">
+          <h1 style="color: #1E40AF; margin: 0;">MUNCGLOBAL</h1>
+          <p style="color: #047857; font-style: italic;">Empower Your Tomorrow</p>
+        </div>
+
+        <p>Dear <strong>${first_name} ${surname}</strong>,</p>
+
+        <p>Thank you for completing your payment for <strong>MUNCGLOBAL Conference 2025</strong>!</p>
+
+        <div style="background-color: #f0f9ff; padding: 15px; border-radius: 5px; margin: 20px 0;">
+          <h3 style="margin-top: 0; color: #1E40AF;">Payment Confirmed</h3>
+          <p><strong>Registration Code:</strong> ${registration_code}</p>
+          <p><strong>Amount:</strong> GHS 1 (Test amount)</p>
+          <p><strong>Date:</strong> ${formattedDate}</p>
+          <p><strong>Status:</strong> <span style="color: #047857; font-weight: bold;">Confirmed</span></p>
+        </div>
+
+        <p>Please keep this email for your records. You will need your registration code for check-in at the event.</p>
+
+        <p>If you have any questions, please contact us at <a href="mailto:info@muncglobal.org">info@muncglobal.org</a> or call <strong>0302456789</strong>.</p>
+
+        <p>Best regards,<br>MUNCGLOBAL Team</p>
+
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0; text-align: center; font-size: 12px; color: #6b7280;">
+          <p>MUNCGLOBAL Conference 2025 | University of Ghana, Legon, Accra</p>
+        </div>
+      </div>
+    `;
+    
+    const mailOptions = {
+      from: '"MUNCGLOBAL" <info@muncglobal.org>',
+      to: email,
+      subject,
+      text,
+      html
+    };
+    
+    const info = await transporter.sendMail(mailOptions);
+    console.log(`Payment confirmation email sent to ${email}, messageId: ${info.messageId}`);
+    return info;
+  } catch (error) {
+    console.error('Error sending payment confirmation email:', error);
+    throw error;
+  }
+};
