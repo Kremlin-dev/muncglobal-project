@@ -28,19 +28,19 @@ const LeadershipPage = () => {
   // Leadership team data
   const leadershipTeam = [
     {
-      name: "Godisking Ameyaw",
+      name: "Owusu Ababio Godisking Ameyaw",
       role: "Executive Chairman",
       image: "/images/leadership/godisking-ameyaw.jpg", // Placeholder image path
       description: "Dedicated to empowering young leaders and championing innovative social initiatives."
     },
     {
-      name: "Kwadwo Marfo",
+      name: "Owusu Sekyere Kwadwo Marfo",
       role: "Operations Manager",
       image: "/images/leadership/kwadwo-marfo.jpg", // Placeholder image path
       description: "Excellent in coordinating conference logistics and streamlining organizational processes."
     },
     {
-      name: "Asante",
+      name: "Asante Samuel Christian",
       role: "Programs Director",
       image: "/images/leadership/asante.jpg", // Placeholder image path
       description: "Extensive experience in designing and delivering leadership development and community engagement initiatives."

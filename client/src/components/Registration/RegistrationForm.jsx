@@ -26,22 +26,25 @@ const schema = yup.object().shape({
   gender: yup.string().required('Gender is required'),
   email: yup.string().email('Invalid email format').required('Email is required'),
   phone: yup.string().required('Phone number is required'),
-  postalAddress: yup.string().required('Postal address is required'),
+  postalAddress: yup.string(), 
   institution: yup.string().required('Institution name is required'),
-  programOfStudy: yup.string().required('Program of study is required'),
+  programOfStudy: yup.string().when('educationalLevel', {
+    is: (val) => val === 'TERTIARY',
+    then: yup.string().required('Program of study is required for tertiary students'),
+    otherwise: yup.string()
+  }),
   educationalLevel: yup.string().required('Educational level is required'),
   nationality: yup.string().required('Nationality is required'),
   city: yup.string().required('City is required'),
   emergencyContact: yup.string().required('Emergency contact name is required'),
   emergencyPhone: yup.string().required('Emergency contact phone is required'),
   emergencyRelationship: yup.string().required('Relationship with emergency contact is required'),
-  specialNeeds: yup.string().required('Please indicate if you have any special needs'),
+  specialNeeds: yup.string().required('Please indicate if you have any physical/dietary needs'),
   specialNeedsDetails: yup.string().when('specialNeeds', {
     is: 'Yes',
-    then: yup.string().required('Please specify your special needs')
+    then: yup.string().required('Please specify your physical/dietary needs')
   }),
   previousExperience: yup.string().required('Please indicate if you have previous MUN experience'),
-  committee: yup.string().required('Committee preference is required'),
   howHeard: yup.string().required('Please tell us how you heard about us'),
   howHeardOther: yup.string().when('howHeard', {
     is: 'Other',
@@ -52,13 +55,16 @@ const schema = yup.object().shape({
 
 const RegistrationForm = ({ onSubmit }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [specialNeeds, setSpecialNeeds] = useState('No');
   const [howHeardSource, setHowHeardSource] = useState('');
   const toast = useToast();
   
-  const { register, handleSubmit, formState: { errors }, watch } = useForm({
+  const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm({
     resolver: yupResolver(schema),
-    mode: 'onBlur'
+    mode: 'onBlur',
+    defaultValues: {
+      specialNeeds: '',
+      specialNeedsDetails: ''
+    }
   });
   
   // Watch values for conditional fields
@@ -83,8 +89,8 @@ const RegistrationForm = ({ onSubmit }) => {
       // Add registration code to form data
       const registrationData = {
         ...data,
-        registrationCode,
-        committeePreference: data.committee // Map committee to committeePreference for backend
+        registrationCode
+        // Committee will be assigned by organizers
       };
       
       // Submit registration to backend API
@@ -254,14 +260,14 @@ const RegistrationForm = ({ onSubmit }) => {
             </div>
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                Phone Number * (format: +233...)
+                Phone Number *
               </label>
               <input
                 id="phone"
                 type="tel"
                 {...register('phone')}
                 className={`w-full px-3 py-2 border rounded-md ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
-                placeholder="e.g. +233 24 123 4567"
+                placeholder="e.g. 024 123 4567"
               />
               {errors.phone && (
                 <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
@@ -271,17 +277,14 @@ const RegistrationForm = ({ onSubmit }) => {
           
           <div className="mt-4">
             <label htmlFor="postalAddress" className="block text-sm font-medium text-gray-700 mb-1">
-              Postal Address *
+              Postal Address
             </label>
             <input
               id="postalAddress"
               type="text"
               {...register('postalAddress')}
-              className={`w-full px-3 py-2 border rounded-md ${errors.postalAddress ? 'border-red-500' : 'border-gray-300'}`}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md"
             />
-            {errors.postalAddress && (
-              <p className="mt-1 text-sm text-red-600">{errors.postalAddress.message}</p>
-            )}
           </div>
         </div>
 
@@ -303,21 +306,6 @@ const RegistrationForm = ({ onSubmit }) => {
           </div>
 
           <div className="mt-4">
-            <label htmlFor="programOfStudy" className="block text-sm font-medium text-gray-700 mb-1">
-              Programme of Study *
-            </label>
-            <input
-              id="programOfStudy"
-              type="text"
-              {...register('programOfStudy')}
-              className={`w-full px-3 py-2 border rounded-md ${errors.programOfStudy ? 'border-red-500' : 'border-gray-300'}`}
-            />
-            {errors.programOfStudy && (
-              <p className="mt-1 text-sm text-red-600">{errors.programOfStudy.message}</p>
-            )}
-          </div>
-          
-          <div className="mt-4">
             <label htmlFor="educationalLevel" className="block text-sm font-medium text-gray-700 mb-1">
               Educational Level *
             </label>
@@ -335,6 +323,24 @@ const RegistrationForm = ({ onSubmit }) => {
               <p className="mt-1 text-sm text-red-600">{errors.educationalLevel.message}</p>
             )}
           </div>
+          
+          {watch('educationalLevel') === 'TERTIARY' && (
+            <div className="mt-4">
+              <label htmlFor="programOfStudy" className="block text-sm font-medium text-gray-700 mb-1">
+                Programme of Study *
+              </label>
+              <input
+                id="programOfStudy"
+                type="text"
+                {...register('programOfStudy')}
+                className={`w-full px-3 py-2 border rounded-md ${errors.programOfStudy ? 'border-red-500' : 'border-gray-300'}`}
+              />
+              {errors.programOfStudy && (
+                <p className="mt-1 text-sm text-red-600">{errors.programOfStudy.message}</p>
+              )}
+            </div>
+          )}
+
         </div>
 
         <div className="bg-blue-50 p-4 rounded-md mb-6">
@@ -377,24 +383,7 @@ const RegistrationForm = ({ onSubmit }) => {
 
         <div className="bg-blue-50 p-4 rounded-md mb-6">
           <h3 className="text-lg font-semibold text-blue-800 mb-2">Conference Preferences</h3>
-          <div>
-            <label htmlFor="committee" className="block text-sm font-medium text-gray-700 mb-1">
-              Committee Preference *
-            </label>
-            <select
-              id="committee"
-              {...register('committee')}
-              className={`w-full px-3 py-2 border rounded-md ${errors.committee ? 'border-red-500' : 'border-gray-300'}`}
-            >
-              <option value="">Select a committee</option>
-              {committees.map((committee, index) => (
-                <option key={index} value={committee}>{committee}</option>
-              ))}
-            </select>
-            {errors.committee && (
-              <p className="mt-1 text-sm text-red-600">{errors.committee.message}</p>
-            )}
-          </div>
+
 
           <div className="mt-4">
             <label htmlFor="previousExperience" className="block text-sm font-medium text-gray-700 mb-1">
@@ -432,17 +421,18 @@ const RegistrationForm = ({ onSubmit }) => {
           </div>
 
           <div className="mt-4">
-            <label htmlFor="specialNeeds" className="block text-sm font-medium text-gray-700 mb-1">
-              Do you have any Physical / Dietary Need? *
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Do you have any Physical / Dietary Needs? *
             </label>
             <div className="flex space-x-4">
               <div className="flex items-center">
                 <input
                   id="specialNeedsYes"
                   type="radio"
+                  name="specialNeeds"
                   value="Yes"
-                  {...register('specialNeeds')}
-                  onChange={() => setSpecialNeeds('Yes')}
+                  onChange={() => setValue('specialNeeds', 'Yes')}
+                  checked={watch('specialNeeds') === 'Yes'}
                   className="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                 />
                 <label htmlFor="specialNeedsYes" className="ml-2 block text-sm text-gray-700">
@@ -453,9 +443,13 @@ const RegistrationForm = ({ onSubmit }) => {
                 <input
                   id="specialNeedsNo"
                   type="radio"
+                  name="specialNeeds"
                   value="No"
-                  {...register('specialNeeds')}
-                  onChange={() => setSpecialNeeds('No')}
+                  onChange={() => {
+                    setValue('specialNeeds', 'No');
+                    setValue('specialNeedsDetails', '');
+                  }}
+                  checked={watch('specialNeeds') === 'No'}
                   className="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"
                 />
                 <label htmlFor="specialNeedsNo" className="ml-2 block text-sm text-gray-700">
@@ -468,10 +462,10 @@ const RegistrationForm = ({ onSubmit }) => {
             )}
           </div>
 
-          {watchSpecialNeeds === 'Yes' && (
+          {watch('specialNeeds') === 'Yes' && (
             <div className="mt-4">
               <label htmlFor="specialNeedsDetails" className="block text-sm font-medium text-gray-700 mb-1">
-                Please specify your needs *
+                Please specify your physical/dietary needs *
               </label>
               <textarea
                 id="specialNeedsDetails"
@@ -566,12 +560,13 @@ const RegistrationForm = ({ onSubmit }) => {
               <label htmlFor="howHeardOther" className="block text-sm font-medium text-gray-700 mb-1">
                 Please specify how you heard about us *
               </label>
-              <input
+              <textarea
                 id="howHeardOther"
-                type="text"
                 {...register('howHeardOther')}
                 className={`w-full px-3 py-2 border rounded-md ${errors.howHeardOther ? 'border-red-500' : 'border-gray-300'}`}
-              />
+                rows="2"
+                placeholder="Please tell us how you heard about MUNC-GH 2025"
+              ></textarea>
               {errors.howHeardOther && (
                 <p className="mt-1 text-sm text-red-600">{errors.howHeardOther.message}</p>
               )}

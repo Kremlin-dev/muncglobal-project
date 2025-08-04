@@ -31,67 +31,67 @@ const ConferencePage = () => {
     {
       id: 'unsc',
       name: 'United Nations Security Council (UNSC)',
-      description: 'Addressing threats to international peace and security, with focus on regional conflicts in Africa.'
-    },
-    {
-      id: 'unga',
-      name: 'United Nations General Assembly (UNGA)',
-      description: 'Discussing sustainable development goals and climate action initiatives.'
+      description: 'Addressing threats to international peace and security, with focus on frameworks for AI and cybersecurity.'
     },
     {
       id: 'unhrc',
       name: 'United Nations Human Rights Council (UNHRC)',
-      description: 'Examining human rights in digital spaces and protection of vulnerable populations.'
-    },
-    {
-      id: 'ecosoc',
-      name: 'Economic and Social Council (ECOSOC)',
-      description: 'Addressing youth unemployment and economic opportunities in developing nations.'
+      description: 'Defending digital privacy, indigenous rights and combating misinformation threatening democratic processes.'
     },
     {
       id: 'who',
       name: 'World Health Organization (WHO)',
-      description: 'Focusing on global health equity and pandemic preparedness strategies.'
+      description: 'Strategizing to curb antimicrobial resistance and expand global health initiatives.'
     },
     {
-      id: 'au',
-      name: 'African Union (AU)',
-      description: 'Discussing continental free trade implementation and regional integration.'
+      id: 'disec',
+      name: 'Disarmament and International Security Committee (DISEC)',
+      description: 'Shaping frameworks for ethical autonomous weapons oversight and international security.'
+    },
+    {
+      id: 'iaea',
+      name: 'International Atomic Energy Agency (IAEA)',
+      description: 'Addressing nuclear non-proliferation and peaceful use of nuclear technology.'
+    },
+    {
+      id: 'sochum',
+      name: 'Social, Humanitarian and Cultural Committee (SOCHUM)',
+      description: 'Championing human rights and inclusion, defending digital privacy and indigenous rights.'
     },
     {
       id: 'unep',
       name: 'UN Environment Programme (UNEP)',
-      description: 'Addressing climate change mitigation and adaptation strategies.'
+      description: 'Examining policies on circular economies and biodiversity protection.'
     },
     {
-      id: 'unesco',
-      name: 'UNESCO',
-      description: 'Focusing on education access and cultural heritage preservation.'
+      id: 'uncstd',
+      name: 'UN Commission on Science and Technology for Development (UNCSTD)',
+      description: 'Advancing frameworks for science, technology, AI and cybersecurity.'
     },
     {
-      id: 'unwomen',
-      name: 'UN Women',
-      description: 'Examining gender equality and women\'s empowerment initiatives.'
+      id: 'ecosoc',
+      name: 'Economic and Social Council (ECOSOC)',
+      description: 'Ensuring clean water, sanitation for all, and addressing sustainable development.'
     },
     {
-      id: 'iom',
-      name: 'International Organization for Migration (IOM)',
-      description: 'Addressing migration governance and refugee protection.'
+      id: 'unhcr',
+      name: 'UN High Commissioner for Refugees (UNHCR)',
+      description: 'Protecting refugees and addressing displacement challenges globally.'
     },
     {
-      id: 'wto',
-      name: 'World Trade Organization (WTO)',
-      description: 'Discussing digital trade and economic recovery policies.'
+      id: 'ecofin',
+      name: 'Economic and Financial Committee (ECOFIN)',
+      description: 'Examining economic recovery in developing nations and sustainable financial policies.'
     },
     {
-      id: 'g20',
-      name: 'G20',
-      description: 'Focusing on global financial stability and inclusive economic growth.'
+      id: 'unfpa',
+      name: 'UN Population Fund (UNFPA)',
+      description: 'Expanding reproductive health access and addressing population challenges.'
     },
     {
-      id: 'crisis',
-      name: 'Crisis Committee',
-      description: 'Responding to simulated international emergencies requiring rapid diplomatic solutions.'
+      id: 'wfp',
+      name: 'World Food Programme (WFP)',
+      description: 'Addressing malnutrition and food security challenges globally.'
     }
   ];
 
@@ -106,9 +106,9 @@ const ConferencePage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">MUNCGLOBAL Conference 2025</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">MUNC-GH 2025</h1>
             <p className="text-xl md:text-2xl font-light mb-6">
-              "Youth Diplomacy: Shaping Tomorrow's Solutions"
+              "Securing the Future through Innovation and Inclusion"
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               <div className="flex items-center">
@@ -116,13 +116,13 @@ const ConferencePage = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span>University of Ghana, Legon</span>
+                <span>Kwame Nkrumah University of Technology</span>
               </div>
               <div className="flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <span>July 15-18, 2025</span>
+                <span>December 2-5, 2025</span>
               </div>
             </div>
             <Link 
@@ -148,18 +148,20 @@ const ConferencePage = () => {
             <motion.div variants={itemVariants}>
               <h2 className="text-3xl font-bold text-blue-800 mb-6">About the Conference</h2>
               <p className="text-gray-700 mb-4">
-                MUNCGLOBAL Conference 2025 is our flagship Model United Nations conference bringing together youth delegates 
-                from across Africa and beyond. This immersive four-day diplomatic simulation provides a platform for 
-                developing critical skills in negotiation, public speaking, and international relations.
+                As we convene in 2025 from December 2nd to 5th, MUNC-GH invites a new generation of delegates to embrace "Securing the Future through Innovation and Inclusion" building on the spirit of international cooperation. This year's conference unites tertiary and high school students across Ghana to confront today's most pressing issues through simulated United Nations committees.
               </p>
               <p className="text-gray-700 mb-4">
-                Under the theme "Youth Diplomacy: Shaping Tomorrow's Solutions," delegates will tackle pressing global 
-                challenges through the lens of international cooperation and multilateral diplomacy. The conference aims 
-                to empower young leaders to become effective agents of positive change in their communities and beyond.
+                Over five days of rigorous debate and collaboration, delegates will:
               </p>
+              <ul className="text-gray-700 mb-4 list-disc pl-5 space-y-2">
+                <li><span className="font-semibold">Forge Sustainable Solutions:</span> In UNEP and ECOFIN, examine policies on circular economies, biodiversity protection, and economic recovery in developing nations.</li>
+                <li><span className="font-semibold">Champion Human Rights & Inclusion:</span> In UNHRC and SOCHUM, defend digital privacy, indigenous rights and combat misinformation threatening democratic processes.</li>
+                <li><span className="font-semibold">Strengthen Global Health & Food Security:</span> In WHO, WFP, and UNFPA, strategize to curb antimicrobial resistance, expand reproductive health access and address malnutrition.</li>
+                <li><span className="font-semibold">Advance Science, Technology & Security:</span> In CSTD, DISEC, IAEA, and the UNSC, shape frameworks for AI and cybersecurity, ethical autonomous weapons oversight and nuclear non-proliferation.</li>
+                <li><span className="font-semibold">Promote Education, Culture & Refugee Protection:</span> In UNESCO, UNHCR, and ECOSOC, facilitate cultural restitution, protect refugees, and ensure clean water and sanitation for all.</li>
+              </ul>
               <p className="text-gray-700">
-                Participants will gain practical experience in diplomatic processes, deepen their understanding of complex 
-                global issues, and build lasting connections with like-minded peers from diverse backgrounds.
+                Through formal debate, moderated and unmoderated caucuses, and resolution drafting, you will hone research, public speaking, and negotiation skills—ultimately crafting actionable resolutions that reflect Ghana's leadership in youth diplomacy. Unite. Debate. Transform. Join us in charting a resilient tomorrow for all.
               </p>
             </motion.div>
             <motion.div variants={itemVariants} className="bg-gray-100 p-6 rounded-lg shadow-md">
@@ -233,8 +235,16 @@ const ConferencePage = () => {
                   variants={itemVariants}
                   whileHover={{ y: -5, transition: { duration: 0.2 } }}
                 >
-                  <h3 className="text-lg font-semibold text-blue-700 mb-2">{committee.name}</h3>
-                  <p className="text-gray-600 text-sm">{committee.description}</p>
+                  <Link to={`/committee-guides/${committee.id}`} className="block">
+                    <h3 className="text-lg font-semibold text-blue-700 mb-2 hover:text-blue-900">{committee.name}</h3>
+                    <p className="text-gray-600 text-sm">{committee.description}</p>
+                    <div className="mt-3 text-blue-600 text-sm flex items-center">
+                      <span>View Committee Guide</span>
+                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </div>
+                  </Link>
                 </motion.div>
               ))}
             </motion.div>
@@ -248,7 +258,7 @@ const ConferencePage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-2xl font-bold text-blue-800 mb-4">Ready to Join MUNCGLOBAL Conference 2025?</h2>
+            <h2 className="text-2xl font-bold text-blue-800 mb-4">Ready to Join MUNC-GH 2025?</h2>
             <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
               Registration fee is GH₵ 900 per delegate, which includes conference materials, meals during the event, 
               certificate of participation, and access to all conference activities. Register now to secure your spot!

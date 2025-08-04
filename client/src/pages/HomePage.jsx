@@ -310,7 +310,7 @@ const HomePage = () => {
               variants={slideUp}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">MUNC-GH 2025 Conference</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6">MUNC-GH 2025</h2>
               <h3 className="text-xl md:text-2xl font-semibold mb-4 text-accent">
                 "Securing the Future through Innovation and Inclusion"
               </h3>
@@ -337,7 +337,7 @@ const HomePage = () => {
               <Link to="/conference" className="btn bg-white text-primary hover:bg-gray-100">
                 Learn More
               </Link>
-              <Link to="/register" className="btn ml-4 border-white text-white hover:bg-white hover:text-primary">
+              <Link to="/registration" className="btn ml-4 border-white text-white hover:bg-white hover:text-primary">
                 Register Now
               </Link>
             </motion.div>
@@ -374,7 +374,7 @@ const HomePage = () => {
             <p className="section-subtitle mb-8">
               Be part of a global movement of young leaders committed to making a positive impact in their communities.
             </p>
-            <Link to="/register" className="btn btn-primary text-lg px-8 py-3">
+            <Link to="/registration" className="btn btn-primary text-lg px-8 py-3">
               Register for MUNC-GH 2025
             </Link>
           </motion.div>

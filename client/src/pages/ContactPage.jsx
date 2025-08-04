@@ -165,7 +165,7 @@ const ContactPage = () => {
                   </svg>
                   <div>
                     <p className="font-medium text-gray-800">Main Office</p>
-                    <p className="text-gray-600">University of Ghana, Legon, Accra, Ghana</p>
+                    <p className="text-gray-600">Kwame Nkrumah University of Science and Technology, Kumasi</p>
                   </div>
                 </div>
               </div>

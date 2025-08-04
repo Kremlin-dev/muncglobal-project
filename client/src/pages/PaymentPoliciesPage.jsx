@@ -56,7 +56,7 @@ const PaymentPoliciesPage = () => {
               </div>
               <div className="mt-4 md:mt-0">
                 <p className="text-gray-700 mb-2">Registration Deadline:</p>
-                <p className="text-xl font-semibold text-red-600">June 30, 2025</p>
+                <p className="text-xl font-semibold text-red-600">November 25, 2025</p>
               </div>
             </div>
             <div className="bg-white p-4 rounded-md">
@@ -154,7 +154,7 @@ const PaymentPoliciesPage = () => {
               <div className="bg-white p-5 border-l-4 border-red-600 shadow-sm">
                 <h4 className="font-semibold text-gray-800 mb-2">Refund Policy</h4>
                 <p className="text-gray-700 text-sm">
-                  Registration fees are non-refundable after June 15, 2025. Cancellations before this date will 
+                  Registration fees are non-refundable after November 10, 2025. Cancellations before this date will 
                   be subject to a 30% administrative fee. All refund requests must be submitted in writing to 
                   <a href="mailto:info@muncglobal.org" className="text-blue-600 hover:underline"> info@muncglobal.org</a>.
                 </p>
@@ -162,7 +162,7 @@ const PaymentPoliciesPage = () => {
               <div className="bg-white p-5 border-l-4 border-green-600 shadow-sm">
                 <h4 className="font-semibold text-gray-800 mb-2">Transfer Policy</h4>
                 <p className="text-gray-700 text-sm">
-                  Registration may be transferred to another individual at no additional cost until July 1, 2025. 
+                  Registration may be transferred to another individual at no additional cost until November 25, 2025. 
                   Transfer requests must be submitted in writing with the new delegate's information.
                 </p>
               </div>
