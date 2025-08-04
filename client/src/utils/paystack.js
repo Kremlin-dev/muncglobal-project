@@ -3,6 +3,8 @@
  * This file contains utility functions for integrating with the Paystack payment gateway
  */
 
+import { REGISTRATION_FEE } from '../config/constants';
+
 /**
  * Initialize a Paystack transaction
  * @param {Object} data - Payment data
@@ -58,7 +60,7 @@ export const verifyPaystackTransaction = async (reference) => {
         data: {
           status: 'success',
           reference,
-          amount: 90000, // 900 GHS in pesewas
+          amount: REGISTRATION_FEE * 100, // Convert GHS to pesewas
           currency: 'GHS',
           transaction_date: new Date().toISOString(),
           gateway_response: 'Successful',

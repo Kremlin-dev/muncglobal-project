@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useToast } from '../../context/ToastContext';
 import { motion } from 'framer-motion';
 import PaystackPayment from '../Payment/PaystackPayment';
+import { REGISTRATION_FEE } from '../../config/constants';
 
 // Format amount for display
 const formatAmount = (amount, currency = 'GHS') => {
@@ -91,7 +92,7 @@ const PaymentStep = ({ formData, onPaymentComplete }) => {
         <div className="border-t border-gray-200 pt-4 mb-4">
           <div className="flex justify-between items-center mb-2">
             <span className="text-gray-700">Registration Fee</span>
-            <span className="font-semibold">{formatAmount(900)}</span>
+            <span className="font-semibold">{formatAmount(REGISTRATION_FEE)}</span>
           </div>
           <div className="flex justify-between items-center mb-2 text-sm text-gray-500">
             <span>Transaction Fee</span>
@@ -99,8 +100,14 @@ const PaymentStep = ({ formData, onPaymentComplete }) => {
           </div>
           <div className="flex justify-between items-center font-bold text-lg mt-4 pt-2 border-t border-gray-200">
             <span>Total</span>
-            <span>{formatAmount(900)}</span>
+            <span>{formatAmount(REGISTRATION_FEE)}</span>
           </div>
+        </div>
+        
+        <div className="bg-blue-50 p-4 rounded-md mb-4">
+          <p className="text-sm text-blue-800">
+            <span className="font-medium">Important:</span> When you click the "Pay Now" button below, you'll be redirected to our secure payment gateway. After completing your payment, you'll automatically return to the confirmation page.
+          </p>
         </div>
 
         {error && (

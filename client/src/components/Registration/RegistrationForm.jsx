@@ -29,9 +29,9 @@ const schema = yup.object().shape({
   postalAddress: yup.string(), 
   institution: yup.string().required('Institution name is required'),
   programOfStudy: yup.string().when('educationalLevel', {
-    is: (val) => val === 'TERTIARY',
-    then: yup.string().required('Program of study is required for tertiary students'),
-    otherwise: yup.string()
+    is: 'TERTIARY',
+    then: () => yup.string().required('Program of study is required for tertiary students'),
+    otherwise: () => yup.string()
   }),
   educationalLevel: yup.string().required('Educational level is required'),
   nationality: yup.string().required('Nationality is required'),
@@ -42,13 +42,15 @@ const schema = yup.object().shape({
   specialNeeds: yup.string().required('Please indicate if you have any physical/dietary needs'),
   specialNeedsDetails: yup.string().when('specialNeeds', {
     is: 'Yes',
-    then: yup.string().required('Please specify your physical/dietary needs')
+    then: () => yup.string().required('Please specify your physical/dietary needs'),
+    otherwise: () => yup.string()
   }),
   previousExperience: yup.string().required('Please indicate if you have previous MUN experience'),
   howHeard: yup.string().required('Please tell us how you heard about us'),
   howHeardOther: yup.string().when('howHeard', {
     is: 'Other',
-    then: yup.string().required('Please specify how you heard about us')
+    then: () => yup.string().required('Please specify how you heard about us'),
+    otherwise: () => yup.string()
   }),
   agreeTerms: yup.boolean().oneOf([true], 'You must agree to the terms and conditions')
 });
@@ -86,27 +88,40 @@ const RegistrationForm = ({ onSubmit }) => {
         return;
       }
       
-      // Add registration code to form data
+      // Format data for backend
       const registrationData = {
-        ...data,
+        firstName: data.firstName,
+        middleName: data.middleName || '',
+        surname: data.surname,
+        dateOfBirth: data.dateOfBirth,
+        gender: data.gender,
+        email: data.email,
+        phoneNumber: data.phone,
+        postalAddress: data.postalAddress || '',
+        institution: data.institution,
+        programOfStudy: data.programOfStudy || '',
+        educationalLevel: data.educationalLevel,
+        nationality: data.nationality,
+        city: data.city,
+        committeePreference: 'To be assigned', // Committee will be assigned by organizers
+        emergencyContact: data.emergencyContact,
+        emergencyPhone: data.emergencyPhone,
+        emergencyRelationship: data.emergencyRelationship,
+        specialNeeds: data.specialNeeds,
+        specialNeedsDetails: data.specialNeeds === 'Yes' ? data.specialNeedsDetails : '',
+        previousExperience: data.previousExperience,
+        howHeard: data.howHeard,
+        howHeardOther: data.howHeard === 'Other' ? data.howHeardOther : '',
         registrationCode
-        // Committee will be assigned by organizers
       };
       
-      // Submit registration to backend API
-      const response = await axios.post(`${API_BASE_URL}/registration`, registrationData);
+      // Store registration data in session storage for later submission after payment
+      sessionStorage.setItem('pendingRegistration', JSON.stringify(registrationData));
       
-      if (response.data.status === 'success') {
-        // Pass the enriched data to parent component
-        onSubmit({
-          ...registrationData,
-          registrationId: response.data.data.registrationId
-        });
-        
-        toast.success('Registration submitted successfully! Check your email for confirmation.');
-      } else {
-        throw new Error('Registration failed');
-      }
+      // Pass the enriched data to parent component for payment processing
+      onSubmit(registrationData);
+      
+      toast.success('Registration data validated! Proceeding to payment...');
     } catch (error) {
       console.error('Registration error:', error);
       const errorMessage = error.response?.data?.message || 'There was an error submitting your registration. Please try again.';
@@ -538,7 +553,6 @@ const RegistrationForm = ({ onSubmit }) => {
             <select
               id="howHeard"
               {...register('howHeard')}
-              onChange={(e) => setHowHeardSource(e.target.value)}
               className={`w-full px-3 py-2 border rounded-md ${errors.howHeard ? 'border-red-500' : 'border-gray-300'}`}
             >
               <option value="">Please select</option>
@@ -595,11 +609,11 @@ const RegistrationForm = ({ onSubmit }) => {
           </div>
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex justify-center">
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-8 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
               <span className="flex items-center">

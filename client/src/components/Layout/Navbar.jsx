@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,34 +39,50 @@ const Navbar = () => {
         isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
       }`}
     >
+      {/* Decorative top border when scrolled */}
+      {isScrolled && (
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700"></div>
+      )}
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <Link to="/" className="flex items-center">
+        <Link to="/" className="flex items-center group">
           <motion.div
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.5 }}
+            className="flex items-center"
           >
-            <h1 className="text-2xl md:text-3xl font-bold text-primary">
+            <div className="mr-2 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+              <span className="text-white font-bold text-sm">M</span>
+            </div>
+            <h1 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800">
               MUNCGLOBAL
             </h1>
           </motion.div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex space-x-6">
+        <nav className="hidden md:flex space-x-1">
           {navLinks.map((link) => (
             <NavLink
               key={link.name}
               to={link.path}
               className={({ isActive }) =>
-                `font-medium transition-colors duration-200 hover:text-primary ${
-                  isActive ? 'text-primary' : isScrolled ? 'text-dark' : 'text-dark'
+                `relative px-4 py-2 font-medium transition-all duration-200 rounded-md hover:bg-blue-50 ${
+                  isActive 
+                    ? 'text-blue-700 font-semibold after:content-[""] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-1/2 after:h-0.5 after:bg-blue-600' 
+                    : isScrolled ? 'text-gray-700' : 'text-gray-800'
                 }`
               }
             >
               {link.name}
             </NavLink>
           ))}
+          <Link 
+            to="/registration" 
+            className="ml-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-md hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
+          >
+            Register Now
+          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -102,34 +118,58 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.3 }}
-          className="md:hidden bg-white shadow-lg"
-        >
-          <div className="container mx-auto px-4 py-4">
-            <nav className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <NavLink
-                  key={link.name}
-                  to={link.path}
-                  className={({ isActive }) =>
-                    `font-medium transition-colors duration-200 hover:text-primary ${
-                      isActive ? 'text-primary' : 'text-dark'
-                    }`
-                  }
-                  onClick={() => setIsMobileMenuOpen(false)}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-white shadow-lg overflow-hidden"
+          >
+            <div className="container mx-auto px-4 py-6">
+              <nav className="flex flex-col space-y-3">
+                {navLinks.map((link, index) => (
+                  <motion.div
+                    key={link.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                  >
+                    <NavLink
+                      to={link.path}
+                      className={({ isActive }) =>
+                        `block px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
+                          isActive 
+                            ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-600 pl-3' 
+                            : 'text-gray-700 hover:bg-gray-50'
+                        }`
+                      }
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {link.name}
+                    </NavLink>
+                  </motion.div>
+                ))}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: navLinks.length * 0.05 }}
+                  className="pt-2"
                 >
-                  {link.name}
-                </NavLink>
-              ))}
-            </nav>
-          </div>
-        </motion.div>
-      )}
+                  <Link 
+                    to="/registration" 
+                    className="block w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-lg text-center hover:shadow-md transition-all duration-300"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Register for MUNC-GH 2025
+                  </Link>
+                </motion.div>
+              </nav>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
