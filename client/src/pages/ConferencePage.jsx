@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import CountdownContainer from '../components/Common/CountdownContainer';
+import CountdownContainer from '../components/common/CountdownContainer';
 
 const ConferencePage = () => {
   // Animation variants
