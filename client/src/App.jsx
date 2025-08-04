@@ -9,6 +9,8 @@ import RegistrationPage from './pages/RegistrationPage';
 import PaymentPoliciesPage from './pages/PaymentPoliciesPage';
 import EventsPage from './pages/EventsPage';
 import ContactPage from './pages/ContactPage';
+import CommitteeGuidePage from './pages/CommitteeGuidePage';
+import AdminPage from './pages/AdminPage';
 import PaymentTestPage from './pages/PaymentTestPage';
 import NotFoundPage from './pages/NotFoundPage';
 
@@ -25,6 +27,8 @@ function App() {
         <Route path="payment-policies" element={<PaymentPoliciesPage />} />
         <Route path="events" element={<EventsPage />} />
         <Route path="contact" element={<ContactPage />} />
+        <Route path="committee-guides/:committeeId" element={<CommitteeGuidePage />} />
+        <Route path="admin" element={<AdminPage />} />
         <Route path="payment-test" element={<PaymentTestPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

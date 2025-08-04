@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import CountdownContainer from '../components/Common/CountdownContainer';
 
 const HomePage = () => {
   const fadeIn = {
@@ -73,6 +74,17 @@ const HomePage = () => {
               <Link to="/registration" className="btn btn-outline border-white text-white hover:bg-white hover:text-primary">
                 Register for MUNC-GH 2025
               </Link>
+            </motion.div>
+            
+            {/* Countdown Timer */}
+            <motion.div
+              className="mt-12 p-6 bg-blue-900 bg-opacity-50 backdrop-blur-sm rounded-xl border border-blue-400 border-opacity-30 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.0 }}
+            >
+              <h3 className="text-xl font-semibold mb-3 text-center text-blue-100">MUNC-GH 2025 Begins In:</h3>
+              <CountdownContainer variant="full" className="justify-center" />
             </motion.div>
           </motion.div>
         </div>
@@ -310,10 +322,16 @@ const HomePage = () => {
               variants={slideUp}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">MUNC-GH 2025</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">MUNC-GH 2025</h2>
               <h3 className="text-xl md:text-2xl font-semibold mb-4 text-accent">
                 "Securing the Future through Innovation and Inclusion"
               </h3>
+              
+              {/* Countdown Timer */}
+              <div className="mb-6 p-4 bg-blue-900 bg-opacity-50 rounded-lg">
+                <h4 className="text-lg font-semibold mb-3">Conference Begins In:</h4>
+                <CountdownContainer variant="full" className="" />
+              </div>
               <div className="flex flex-wrap gap-4 mb-6">
                 <div className="flex items-center">
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

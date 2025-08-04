@@ -3,9 +3,7 @@ import { useToast } from '../../context/ToastContext';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
-// API base URL
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+import { API_BASE_URL, REGISTRATION_FEE } from '../../config/constants';
 
 // Format amount for display
 const formatAmount = (amount, currency = 'GHS') => {
@@ -17,104 +15,29 @@ const formatAmount = (amount, currency = 'GHS') => {
   return formatter.format(amount);
 };
 
-const SuccessStep = ({ formData, onPaymentComplete }) => {
+const SuccessStep = ({ formData, paymentData, delegateId }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isPaymentInitialized, setIsPaymentInitialized] = useState(false);
-  const [paymentData, setPaymentData] = useState(null);
-  const [paystackPublicKey, setPaystackPublicKey] = useState('');
+  const [paymentStatus, setPaymentStatus] = useState(paymentData?.status || 'pending');
   const registrationCodeRef = useRef(null);
   const [copiedCode, setCopiedCode] = useState(false);
   const toast = useToast();
   
   useEffect(() => {
-    // Show welcome toast when component mounts
-    toast.success(`Welcome, ${formData.firstName}! Your registration is complete.`);
-    
-    // Fetch Paystack public key
-    const fetchPaystackKey = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/payment/config/public-key`);
-        if (response.data.status === 'success') {
-          setPaystackPublicKey(response.data.publicKey);
-        }
-      } catch (error) {
-        console.error('Error fetching Paystack public key:', error);
-        toast.error('Unable to load payment system. Please try again later.');
-      }
-    };
-    
-    fetchPaystackKey();
-  }, [toast, formData.firstName]);
-
-  // Initialize payment with Paystack
-  const initializePayment = async () => {
-    try {
-      setIsLoading(true);
-      
-      // Initialize payment with backend
-      const response = await axios.post(`${API_BASE_URL}/payment/initialize`, {
-        email: formData.email,
-        amount: 350, // Conference fee in GHS
-        registrationCode: formData.registrationCode
-      });
-      
-      if (response.data.status === 'success') {
-        setIsPaymentInitialized(true);
-        
-        // Open Paystack checkout in new window
-        const paystackUrl = response.data.data.authorization_url;
-        const paymentWindow = window.open(paystackUrl, '_blank');
-        
-        if (!paymentWindow) {
-          toast.error('Please allow pop-ups to proceed with payment');
-        } else {
-          // Start polling for payment verification
-          startPaymentVerification(response.data.data.reference);
-        }
-      } else {
-        throw new Error(response.data.message || 'Failed to initialize payment');
-      }
-    } catch (error) {
-      console.error('Payment initialization error:', error);
-      const errorMessage = error.response?.data?.message || 'There was an error initializing your payment. Please try again.';
-      toast.error(errorMessage);
-    } finally {
-      setIsLoading(false);
+    // Show welcome toast when component mounts (only once)
+    if (formData?.firstName) {
+      toast.success(`Welcome, ${formData.firstName}! Your registration is confirmed.`);
     }
-  };
-  
-  // Poll for payment verification
-  const startPaymentVerification = async (reference) => {
-    let attempts = 0;
-    const maxAttempts = 20; // Try for about 2 minutes (6s * 20)
     
-    const verificationInterval = setInterval(async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/payment/verify/${reference}`);
-        
-        if (response.data.status === 'success' && response.data.data.status === 'success') {
-          clearInterval(verificationInterval);
-          setPaymentData(response.data.data);
-          toast.success('Payment successful!');
-          
-          // Notify parent component
-          if (onPaymentComplete) {
-            onPaymentComplete(response.data.data);
-          }
-        }
-        
-        attempts++;
-        if (attempts >= maxAttempts) {
-          clearInterval(verificationInterval);
-          toast.info('Payment verification timeout. If you completed the payment, it will be verified automatically.');
-        }
-      } catch (error) {
-        console.error('Payment verification error:', error);
-        // Don't stop polling on error, just continue
-      }
-    }, 6000); // Check every 6 seconds
-  };
   
+    setPaymentStatus('success');
+    setIsLoading(false);
+  }, []); // Empty dependency array to run only once
+
+  // Retry payment if needed
+  const retryPayment = () => {
+    window.location.href = `/registration?step=2&code=${formData.registrationCode}`;
+  };
+
   // Handle copy registration code to clipboard
   const handleCopyRegistrationCode = () => {
     if (registrationCodeRef.current && formData.registrationCode) {
@@ -209,35 +132,46 @@ const SuccessStep = ({ formData, onPaymentComplete }) => {
                   </svg>
                 ) : (
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                   </svg>
                 )}
               </button>
+              {copiedCode && <span className="text-xs text-green-600 ml-2">(Copied!)</span>}
             </div>
-            <p className="text-xs text-gray-500 mt-1">Use this code as your payment reference</p>
-          </div>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-          <div>
-            <p className="text-sm text-gray-500">Full Name</p>
-            <p className="font-medium">{formData.firstName} {formData.surname}</p>
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Email</p>
-            <p className="font-medium">{formData.email}</p>
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Institution</p>
-            <p className="font-medium">{formData.institution}</p>
-          </div>
-          <div>
-            <p className="text-sm text-gray-500">Committee</p>
-            <p className="font-medium">{formData.committee}</p>
           </div>
         </div>
       </div>
-      
+
+      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h4 className="text-lg font-semibold text-gray-800 mb-4">Registration Details</h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <p className="text-gray-600 text-sm">Full Name</p>
+            <p className="font-medium">{formData.firstName} {formData.middleName ? `${formData.middleName} ` : ''}{formData.surname}</p>
+          </div>
+          <div>
+            <p className="text-gray-600 text-sm">Email</p>
+            <p className="font-medium">{formData.email}</p>
+          </div>
+          <div>
+            <p className="text-gray-600 text-sm">Phone</p>
+            <p className="font-medium">{formData.phoneNumber}</p>
+          </div>
+          <div>
+            <p className="text-gray-600 text-sm">Institution</p>
+            <p className="font-medium">{formData.institution}</p>
+          </div>
+          <div>
+            <p className="text-gray-600 text-sm">Educational Level</p>
+            <p className="font-medium">{formData.educationalLevel}</p>
+          </div>
+          <div>
+            <p className="text-gray-600 text-sm">Registration Code</p>
+            <p className="font-medium">{formData.registrationCode}</p>
+          </div>
+        </div>
+      </div>
+
       {paymentData ? (
         <div className="bg-green-50 p-6 rounded-lg mb-8">
           <h4 className="text-lg font-semibold text-green-800 mb-4">Payment Confirmation</h4>
@@ -261,37 +195,65 @@ const SuccessStep = ({ formData, onPaymentComplete }) => {
           </div>
         </div>
       ) : (
-        <div className="bg-yellow-50 p-6 rounded-lg mb-8">
-          <h4 className="text-lg font-semibold text-yellow-800 mb-4">Payment Required</h4>
-          <p className="mb-4">Please complete your payment to confirm your registration for MUNCGLOBAL Conference 2025.</p>
-          <div className="bg-white p-4 rounded-md mb-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <p className="text-sm text-gray-500">Registration Fee</p>
-                <p className="text-xl font-bold">GHS 350.00</p>
-              </div>
-              <button
-                onClick={initializePayment}
-                disabled={isLoading || !paystackPublicKey}
-                className="px-6 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isLoading ? (
-                  <span className="flex items-center">
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Processing...
-                  </span>
-                ) : (
-                  'Pay Now with Paystack'
-                )}
-              </button>
+        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+          <h4 className="text-lg font-semibold text-gray-800 mb-4">Payment Status</h4>
+          <div className="mb-4">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-gray-700">Registration Fee</span>
+              <span className="font-semibold">{formatAmount(REGISTRATION_FEE)}</span>
+            </div>
+            <div className="flex justify-between items-center mb-2 text-sm text-gray-500">
+              <span>Transaction Fee</span>
+              <span>Included</span>
+            </div>
+            <div className="flex justify-between items-center font-bold text-lg mt-4 pt-2 border-t border-gray-200">
+              <span>Total</span>
+              <span>{formatAmount(REGISTRATION_FEE)}</span>
             </div>
           </div>
-          <p className="text-sm text-gray-600">
-            Your payment will be processed securely via Paystack. You can pay using credit/debit card or mobile money.
-          </p>
+          
+          <div className="mt-6">
+            {paymentStatus === 'success' ? (
+              <div className="bg-green-50 border border-green-200 rounded-md p-4 flex items-center">
+                <svg className="h-6 w-6 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                  <p className="font-medium text-green-800">Payment Successful</p>
+                  <p className="text-sm text-green-600">Your payment has been confirmed and your registration is complete.</p>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div className="bg-yellow-50 border border-yellow-200 rounded-md p-4 flex items-center mb-4">
+                  <svg className="h-6 w-6 text-yellow-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                  <div>
+                    <p className="font-medium text-yellow-800">Payment Pending</p>
+                    <p className="text-sm text-yellow-600">Your payment is being processed or has not been completed.</p>
+                  </div>
+                </div>
+                
+                <button
+                  onClick={retryPayment}
+                  className="w-full bg-green-600 text-white py-3 px-6 rounded-md font-medium hover:bg-green-700 transition duration-200 flex justify-center items-center"
+                >
+                  {isLoading ? (
+                    <span className="flex items-center">
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Processing...
+                    </span>
+                  ) : (
+                    'Complete Payment'
+                  )}
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       )}
       

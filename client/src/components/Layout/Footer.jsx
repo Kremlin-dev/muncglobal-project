@@ -114,6 +114,15 @@ const Footer = () => {
         {/* Copyright */}
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
           <p>Copyright © {currentYear} MUNCGLOBAL. All rights reserved.</p>
+          <div className="mt-2">
+            <Link 
+              to="/admin" 
+              className="text-xs text-gray-500 hover:text-gray-400 transition-colors"
+              title="Admin Access"
+            >
+              Admin
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
