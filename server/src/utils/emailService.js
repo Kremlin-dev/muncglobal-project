@@ -22,23 +22,32 @@ const transporter = nodemailer.createTransport({
  * @param {string} options.subject - Email subject
  * @param {string} options.text - Plain text content
  * @param {string} options.html - HTML content
+ * @param {string} options.replyTo - Reply-to email address (optional)
  * @returns {Promise} - Promise that resolves with info about the sent email
  */
 export const sendEmail = async (options) => {
   try {
-    const { to, subject, text, html } = options;
+    const { to, subject, text, html, replyTo } = options;
     
     // Default sender
     const from = process.env.EMAIL_FROM || 'MUNCGLOBAL <info@muncglobal.org>';
     
-    // Send mail with defined transport object
-    const info = await transporter.sendMail({
+    // Create mail options
+    const mailOptions = {
       from,
       to,
       subject,
       text,
       html
-    });
+    };
+    
+    // Add reply-to if provided
+    if (replyTo) {
+      mailOptions.replyTo = replyTo;
+    }
+    
+    // Send mail with defined transport object
+    const info = await transporter.sendMail(mailOptions);
     
     console.log(`Email sent successfully to ${to}, messageId: ${info.messageId}`);
     return info;

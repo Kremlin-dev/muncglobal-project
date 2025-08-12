@@ -194,7 +194,7 @@ router.get('/', async (req, res) => {
     // For now, we'll just include a simple API key check
     const apiKey = req.headers['x-api-key'];
     
-    const expectedApiKey = 'muncglobal_admin_key_change_me';
+    const expectedApiKey = 'muncglobal';
     
     console.log('Server received API key:', JSON.stringify(apiKey));
     console.log('Expected API key:', JSON.stringify(expectedApiKey));
@@ -254,34 +254,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-/**
- * @route   GET /api/registration/email/:email
- * @desc    Check if an email is already registered
- * @access  Public
- */
-router.get('/email/:email', async (req, res) => {
-  try {
-    const { email } = req.params;
-    
-    // Check if email exists
-    const existingEmail = await getQuery(
-      'SELECT id FROM registrations WHERE email = ?',
-      [email]
-    );
-    
-    return res.status(200).json({
-      status: 'success',
-      exists: !!existingEmail
-    });
-  } catch (error) {
-    console.error('Email check error:', error);
-    res.status(500).json({
-      status: 'error',
-      message: 'An error occurred while checking email',
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
-    });
-  }
-});
+// Duplicate route removed - using the earlier implementation at line ~162
 
 /**
  * @route   GET /api/registration/code/:registrationCode

@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 // Routes
 import registrationRoutes from './routes/registration.js';
 import paymentRoutes from './routes/PaymentRoutes.js';
+import contactRoutes from './routes/contactRoutes.js';
 
 // Initialize environment variables
 dotenv.config();
@@ -31,6 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 // API Routes
 app.use('/api/registration', registrationRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Basic route for testing
 app.get('/api/health', (req, res) => {
@@ -41,17 +43,23 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Serve static assets in production
-if (process.env.NODE_ENV === 'production') {
-  // Set static folder
-  const clientBuildPath = path.resolve(__dirname, '../../client/dist');
-  app.use(express.static(clientBuildPath));
-  
-  // Any route that's not an API route will be redirected to the React app
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(clientBuildPath, 'index.html'));
-  });
-}
+// Serve static assets and handle client-side routing
+const clientBuildPath = process.env.NODE_ENV === 'production' 
+  ? path.resolve(__dirname, '../../client/dist')  // Production build path
+  : path.resolve(__dirname, '../../client/dist'); // Development build path
+
+// Serve static files
+app.use(express.static(clientBuildPath));
+
+// Any route that's not an API route will be redirected to the React app
+// This ensures client-side routing works on page refresh
+app.get('*', (req, res, next) => {
+  // Skip this middleware for API routes
+  if (req.url.startsWith('/api/')) {
+    return next();
+  }
+  res.sendFile(path.resolve(clientBuildPath, 'index.html'));
+});
 
 // Start server
 app.listen(PORT, () => {

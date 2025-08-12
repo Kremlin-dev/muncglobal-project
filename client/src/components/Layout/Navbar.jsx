@@ -41,7 +41,7 @@ const Navbar = () => {
     >
       {/* Decorative top border when scrolled */}
       {isScrolled && (
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700"></div>
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-teal-400 via-teal-500 to-teal-500"></div>
       )}
       <div className="container mx-auto px-4 flex justify-between items-center">
         <Link to="/" className="flex items-center group">
@@ -51,10 +51,10 @@ const Navbar = () => {
             transition={{ duration: 0.5 }}
             className="flex items-center"
           >
-            <div className="mr-2 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+            <div className="mr-2 w-8 h-8 rounded-full bg-gradient-to-br from-teal-400 to-teal-500 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
               <span className="text-white font-bold text-sm">M</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-800">
+            <h1 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-teal-500">
               MUNCGLOBAL
             </h1>
           </motion.div>
@@ -67,9 +67,9 @@ const Navbar = () => {
               key={link.name}
               to={link.path}
               className={({ isActive }) =>
-                `relative px-4 py-2 font-medium transition-all duration-200 rounded-md hover:bg-blue-50 ${
+                `relative px-4 py-2 font-medium transition-all duration-200 rounded-md hover:bg-teal-100 ${
                   isActive 
-                    ? 'text-blue-700 font-semibold after:content-[""] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-1/2 after:h-0.5 after:bg-blue-600' 
+                    ? 'text-teal-500 font-semibold after:content-[""] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-1/2 after:h-0.5 after:bg-teal-500' 
                     : isScrolled ? 'text-gray-700' : 'text-gray-800'
                 }`
               }
@@ -79,7 +79,7 @@ const Navbar = () => {
           ))}
           <Link 
             to="/registration" 
-            className="ml-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-md hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
+            className="ml-2 px-4 py-2 bg-gradient-to-r from-yellow-300 to-yellow-300 text-teal-500 font-medium rounded-md hover:shadow-md transition-all duration-300 hover:-translate-y-0.5"
           >
             Register Now
           </Link>
@@ -141,7 +141,7 @@ const Navbar = () => {
                       className={({ isActive }) =>
                         `block px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
                           isActive 
-                            ? 'bg-blue-50 text-blue-700 border-l-4 border-blue-600 pl-3' 
+                            ? 'bg-teal-100 text-teal-500 border-l-4 border-teal-500 pl-3' 
                             : 'text-gray-700 hover:bg-gray-50'
                         }`
                       }
@@ -159,7 +159,7 @@ const Navbar = () => {
                 >
                   <Link 
                     to="/registration" 
-                    className="block w-full py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-medium rounded-lg text-center hover:shadow-md transition-all duration-300"
+                    className="block w-full py-3 bg-gradient-to-r from-yellow-300 to-yellow-300 text-teal-500 font-medium rounded-lg text-center hover:shadow-md transition-all duration-300"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     Register for MUNC-GH 2025

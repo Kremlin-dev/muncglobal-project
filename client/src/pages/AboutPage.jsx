@@ -36,7 +36,7 @@ const AboutPage = () => {
       >
         {/* About Our Organization */}
         <motion.div className="mb-16" variants={itemVariants}>
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-6">About Our Organization</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-teal-800 mb-6">About Our Organization</h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <p className="text-gray-700 leading-relaxed mb-4">
@@ -47,23 +47,23 @@ const AboutPage = () => {
               <h3 className="text-xl font-semibold text-green-700 mb-3">Our Core Values</h3>
               <ul className="space-y-2">
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-teal-600 mr-2">•</span>
                   <span><strong>Excellence</strong> - Striving for the highest standards in all our endeavors</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-teal-600 mr-2">•</span>
                   <span><strong>Integrity</strong> - Acting with honesty and ethical principles</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-teal-600 mr-2">•</span>
                   <span><strong>Innovation</strong> - Embracing creativity and forward-thinking approaches</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-teal-600 mr-2">•</span>
                   <span><strong>Inclusivity</strong> - Ensuring diversity and equal opportunity for all</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-teal-600 mr-2">•</span>
                   <span><strong>Global Citizenship</strong> - Fostering awareness and responsibility for global issues</span>
                 </li>
               </ul>
@@ -74,8 +74,8 @@ const AboutPage = () => {
         {/* Mission and Vision */}
         <motion.div className="mb-16" variants={itemVariants}>
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-blue-50 p-6 rounded-lg shadow-md">
-              <h2 className="text-2xl md:text-3xl font-bold text-blue-800 mb-4">Our Mission</h2>
+            <div className="bg-teal-50 p-6 rounded-lg shadow-md">
+              <h2 className="text-2xl md:text-3xl font-bold text-teal-800 mb-4">Our Mission</h2>
               <p className="text-gray-700 leading-relaxed">
                 To provide a dynamic platform for the youth of the world to learn about the United Nations and diplomacy. Through our conferences and training, MUNCGLOBAL cultivates a deep understanding of international affairs in society. We equip the young generation with the needed skills and information to tackle interrelated worldwide issues.
               </p>
@@ -91,14 +91,14 @@ const AboutPage = () => {
 
         {/* Impact */}
         <motion.div className="mb-16" variants={itemVariants}>
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-6">Our Impact</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-teal-800 mb-6">Our Impact</h2>
           <div className="grid grid-cols-2 gap-6">
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <h3 className="text-3xl font-bold text-blue-600 mb-2">500+</h3>
+              <h3 className="text-3xl font-bold text-teal-600 mb-2">500+</h3>
               <p className="text-gray-700">Youth Empowered</p>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
-              <h3 className="text-3xl font-bold text-blue-600 mb-2">100+</h3>
+              <h3 className="text-3xl font-bold text-teal-600 mb-2">100+</h3>
               <p className="text-gray-700">Leaders Trained</p>
             </div>
           </div>

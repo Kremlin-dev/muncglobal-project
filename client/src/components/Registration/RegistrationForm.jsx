@@ -180,8 +180,8 @@ const RegistrationForm = ({ onSubmit }) => {
       transition={{ duration: 0.5 }}
     >
       <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-6">
-        <div className="bg-blue-50 p-4 rounded-md mb-6">
-          <h3 className="text-lg font-semibold text-blue-800 mb-2">Personal Information</h3>
+        <div className="bg-teal-50 p-4 rounded-md mb-6">
+          <h3 className="text-lg font-semibold text-teal-600 mb-2">Personal Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
@@ -275,7 +275,7 @@ const RegistrationForm = ({ onSubmit }) => {
             </div>
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                Phone Number *
+                Phone/WhatsApp *
               </label>
               <input
                 id="phone"
@@ -303,8 +303,8 @@ const RegistrationForm = ({ onSubmit }) => {
           </div>
         </div>
 
-        <div className="bg-blue-50 p-4 rounded-md mb-6">
-          <h3 className="text-lg font-semibold text-blue-800 mb-2">Academic/Professional Information</h3>
+        <div className="bg-teal-50 p-4 rounded-md mb-6">
+          <h3 className="text-lg font-semibold text-teal-600 mb-2">Academic/Professional Information</h3>
           <div>
             <label htmlFor="institution" className="block text-sm font-medium text-gray-700 mb-1">
               Name of Institution *
@@ -358,8 +358,8 @@ const RegistrationForm = ({ onSubmit }) => {
 
         </div>
 
-        <div className="bg-blue-50 p-4 rounded-md mb-6">
-          <h3 className="text-lg font-semibold text-blue-800 mb-2">Location Information</h3>
+        <div className="bg-teal-50 p-4 rounded-md mb-6">
+          <h3 className="text-lg font-semibold text-teal-600 mb-2">Location Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label htmlFor="nationality" className="block text-sm font-medium text-gray-700 mb-1">
@@ -396,8 +396,8 @@ const RegistrationForm = ({ onSubmit }) => {
           </div>
         </div>
 
-        <div className="bg-blue-50 p-4 rounded-md mb-6">
-          <h3 className="text-lg font-semibold text-blue-800 mb-2">Conference Preferences</h3>
+        <div className="bg-teal-50 p-4 rounded-md mb-6">
+          <h3 className="text-lg font-semibold text-teal-600 mb-2">Conference Preferences</h3>
 
 
           <div className="mt-4">
@@ -495,8 +495,8 @@ const RegistrationForm = ({ onSubmit }) => {
           )}
         </div>
 
-        <div className="bg-blue-50 p-4 rounded-md mb-6">
-          <h3 className="text-lg font-semibold text-blue-800 mb-2">Emergency Contact</h3>
+        <div className="bg-teal-50 p-4 rounded-md mb-6">
+          <h3 className="text-lg font-semibold text-teal-600 mb-2">Emergency Contact</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label htmlFor="emergencyContact" className="block text-sm font-medium text-gray-700 mb-1">
@@ -544,8 +544,8 @@ const RegistrationForm = ({ onSubmit }) => {
           </div>
         </div>
 
-        <div className="bg-blue-50 p-4 rounded-md mb-6">
-          <h3 className="text-lg font-semibold text-blue-800 mb-2">Additional Information</h3>
+        <div className="bg-teal-50 p-4 rounded-md mb-6">
+          <h3 className="text-lg font-semibold text-teal-600 mb-2">Additional Information</h3>
           <div>
             <label htmlFor="howHeard" className="block text-sm font-medium text-gray-700 mb-1">
               How did you hear about us? *
@@ -595,12 +595,12 @@ const RegistrationForm = ({ onSubmit }) => {
                 id="agreeTerms"
                 type="checkbox"
                 {...register('agreeTerms')}
-                className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                className="h-4 w-4 text-teal-500 border-gray-300 rounded focus:ring-teal-500"
               />
             </div>
             <div className="ml-3 text-sm">
               <label htmlFor="agreeTerms" className="font-medium text-gray-700">
-                Declaration: By submitting this form, I agree to the <a href="#" className="text-blue-600 hover:underline">terms and conditions</a> of MUNCGLOBAL *
+                Declaration: By submitting this form, I agree to the <a href="#" className="text-teal-500 hover:underline">terms and conditions</a> of MUNCGLOBAL *
               </label>
               {errors.agreeTerms && (
                 <p className="mt-1 text-sm text-red-600">{errors.agreeTerms.message}</p>
@@ -613,7 +613,7 @@ const RegistrationForm = ({ onSubmit }) => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-8 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-8 py-3 bg-teal-500 text-white font-medium rounded-md hover:bg-teal-600 transition-colors focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
               <span className="flex items-center">
