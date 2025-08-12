@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { motion } from 'framer-motion';
 import { useToast } from '../../context/ToastContext';
 import axios from 'axios';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 // Helper function to generate unique registration code
 const generateUniqueCode = () => {
@@ -14,8 +16,8 @@ const generateUniqueCode = () => {
   return `${prefix}-${timestamp}-${random}`;
 };
 
-// API base URL
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://muncglobal-project-server.onrender.com/api';
+// API base URL - hardcoded to local server for testing
+const API_BASE_URL = 'https://muncglobal-project-server.onrender.com/api';
 
 // Form validation schema
 const schema = yup.object().shape({
@@ -60,7 +62,7 @@ const RegistrationForm = ({ onSubmit }) => {
   const [howHeardSource, setHowHeardSource] = useState('');
   const toast = useToast();
   
-  const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm({
+  const { register, handleSubmit, formState: { errors }, watch, setValue, control } = useForm({
     resolver: yupResolver(schema),
     mode: 'onBlur',
     defaultValues: {
@@ -229,11 +231,25 @@ const RegistrationForm = ({ onSubmit }) => {
               <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-700 mb-1">
                 Date of Birth *
               </label>
-              <input
-                id="dateOfBirth"
-                type="date"
-                {...register('dateOfBirth')}
-                className={`w-full px-3 py-2 border rounded-md ${errors.dateOfBirth ? 'border-red-500' : 'border-gray-300'}`}
+              <Controller
+                control={control}
+                name="dateOfBirth"
+                render={({ field }) => (
+                  <DatePicker
+                    id="dateOfBirth"
+                    selected={field.value}
+                    onChange={(date) => field.onChange(date)}
+                    dateFormat="yyyy-MM-dd"
+                    showYearDropdown
+                    scrollableYearDropdown
+                    yearDropdownItemNumber={75}
+                    showMonthDropdown
+                    minDate={new Date('1950-01-01')}
+                    maxDate={new Date()}
+                    placeholderText="Select date of birth"
+                    className={`w-full px-3 py-2 border rounded-md ${errors.dateOfBirth ? 'border-red-500' : 'border-gray-300'}`}
+                  />
+                )}
               />
               {errors.dateOfBirth && (
                 <p className="mt-1 text-sm text-red-600">{errors.dateOfBirth.message}</p>

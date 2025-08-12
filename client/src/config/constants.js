@@ -14,9 +14,9 @@ export const REFUND_POLICY_DATE = 'November 10, 2025';
 export const TRANSFER_POLICY_DATE = 'November 25, 2025';
 
 // Contact information
-export const CONTACT_EMAIL = 'support@muncglobal.org';
-export const CONTACT_PHONE = '0302456789';
-export const OFFICE_LOCATION = 'University of Ghana, Legon, Accra';
+// export const CONTACT_EMAIL = 'support@muncglobal.org';
+// export const CONTACT_PHONE = '0302456789';
+// export const OFFICE_LOCATION = 'University of Ghana, Legon, Accra';
 
 // Social media links
 export const SOCIAL_MEDIA = {

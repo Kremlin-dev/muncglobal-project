@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useToast } from '../../context/ToastContext';
 import { motion } from 'framer-motion';
-import { API_BASE_URL, REGISTRATION_FEE } from '../../config/constants';
+import { REGISTRATION_FEE } from '../../config/constants';
+
+// Hardcode API URL to local server for testing
+const API_BASE_URL = 'https://muncglobal-project-server.onrender.com/api';
 
 const PaystackPayment = ({ registrationData, onPaymentSuccess, onPaymentError }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -108,7 +111,7 @@ const PaystackPayment = ({ registrationData, onPaymentSuccess, onPaymentError })
       const paymentReference = `${registrationData.registrationCode}-${Date.now()}`;
       
       const handler = window.PaystackPop.setup({
-        key: 'pk_live_df53dc08f9351eeb066c843359fb156bcd2fb1b2',
+        key: 'pk_live_fd7508fa131c4bdfec168508772c61ce331bf148',
         email: registrationData.email,
         amount: REGISTRATION_FEE * 100, // Convert GHS to pesewas
         currency: 'GHS',

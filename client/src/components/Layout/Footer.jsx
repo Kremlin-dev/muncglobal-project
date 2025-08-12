@@ -81,7 +81,7 @@ const Footer = () => {
                 <div>
                   <a href="tel:+233249545987" className="text-white hover:text-yellow-300 transition-colors">0249545987</a> / 
                   <a href="tel:+233545446245" className="text-white hover:text-yellow-300 transition-colors">0545446245</a>
-                  <div className="text-sm text-gray-400">(</div>
+                  <div className="text-sm text-gray-400"></div>
                 </div>
               </li>
               <li className="flex items-start">
