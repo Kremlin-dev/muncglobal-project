@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { sendEmail } from './utils/emailService.js';
 
 // Routes
 import registrationRoutes from './routes/registration.js';
@@ -41,6 +42,28 @@ app.get('/api/health', (req, res) => {
     message: 'MUNCGLOBAL API is running',
     timestamp: new Date().toISOString()
   });
+});
+
+// Email test route: /api/email/test?to=recipient@example.com
+app.get('/api/email/test', async (req, res) => {
+  try {
+    const to = req.query.to || process.env.EMAIL_USER;
+    if (!to) {
+      return res.status(400).json({ status: 'error', message: 'Missing ?to=email@example.com' });
+    }
+
+    const info = await sendEmail({
+      to,
+      subject: 'MUNCGLOBAL SMTP Test',
+      text: 'This is a test email from the MUNCGLOBAL server.',
+      html: '<p>This is a <strong>test email</strong> from the MUNCGLOBAL server.</p>'
+    });
+
+    res.status(200).json({ status: 'success', messageId: info.messageId });
+  } catch (err) {
+    console.error('Email test failed:', err);
+    res.status(500).json({ status: 'error', message: err.message });
+  }
 });
 
 // Serve static assets and handle client-side routing

@@ -28,15 +28,27 @@ export const createEmailTransporter = () => {
   }
 
   try {
-    // Use actual SMTP server for both development and production
+    // Honor .env values and add sensible timeouts/pooling
+    const host = process.env.EMAIL_HOST || 'smtp.gmail.com';
+    const port = parseInt(process.env.EMAIL_PORT || '587', 10);
+    const secure = process.env.EMAIL_SECURE === 'true'; // false for STARTTLS on 587, true for SSL on 465
+
     return nodemailer.createTransport({
-      host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-      port: parseInt(process.env.EMAIL_PORT || '465', 10),
-      secure: process.env.EMAIL_SECURE === 'true' || true, // Use SSL
+      host,
+      port,
+      secure,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
-      }
+      },
+      pool: true,
+      maxConnections: 2,
+      maxMessages: 50,
+      connectionTimeout: 20000,
+      greetingTimeout: 10000,
+      socketTimeout: 30000,
+      logger: process.env.NODE_ENV === 'development',
+      debug: process.env.NODE_ENV === 'development'
     });
   } catch (error) {
     console.error('Failed to create email transporter:', error.message);
@@ -61,7 +73,7 @@ export const sendRegistrationEmail = async ({ email, name, registrationCode }) =
   }
   
   const mailOptions = {
-    from: '"MUNCGLOBAL" <info@muncglobal.org>',
+    from: process.env.EMAIL_FROM || '"MUNCGLOBAL" <info@muncglobal.org>',
     to: email,
     subject: 'MUNCGLOBAL Conference 2025 Registration Confirmation',
     text: `
@@ -223,7 +235,7 @@ export const sendPaymentConfirmationEmail = async (registration) => {
     `;
     
     const mailOptions = {
-      from: '"MUNCGLOBAL" <info@muncglobal.org>',
+      from: process.env.EMAIL_FROM || '"MUNCGLOBAL" <info@muncglobal.org>',
       to: email,
       subject,
       text,

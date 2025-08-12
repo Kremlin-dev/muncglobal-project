@@ -385,29 +385,7 @@ router.post('/complete', async (req, res) => {
 
     console.log('Registration completed successfully for:', registrationCode);
 
-    // Send both registration completion and payment confirmation emails
-    try {
-      // Send registration completion email
-      await sendRegistrationEmail({
-        email,
-        name: `${firstName} ${surname}`,
-        registrationCode
-      });
-      console.log('Registration completion email sent to:', email);
-      
-      // Send payment confirmation email
-      await sendPaymentConfirmationEmail({
-        first_name: firstName,
-        surname,
-        email,
-        registration_code: registrationCode
-      });
-      console.log('Payment confirmation email sent to:', email);
-    } catch (emailError) {
-      console.error('Failed to send emails:', emailError);
-      // Don't fail the registration if email fails
-    }
-
+    // Respond immediately to avoid frontend waiting on SMTP
     res.status(201).json({
       status: 'success',
       message: 'Registration completed successfully',
@@ -415,6 +393,29 @@ router.post('/complete', async (req, res) => {
         registrationCode,
         registrationId: registration.lastID || registration.insertId,
         paymentStatus: 'paid'
+      }
+    });
+
+    // Send emails asynchronously (do not block response)
+    setImmediate(async () => {
+      try {
+        await sendRegistrationEmail({
+          email,
+          name: `${firstName} ${surname}`,
+          registrationCode
+        });
+        console.log('Registration completion email sent to:', email);
+
+        await sendPaymentConfirmationEmail({
+          first_name: firstName,
+          surname,
+          email,
+          registration_code: registrationCode
+        });
+        console.log('Payment confirmation email sent to:', email);
+      } catch (emailError) {
+        console.error('Failed to send emails (async):', emailError);
+        // Intentionally not throwing: response already sent
       }
     });
   } catch (error) {
