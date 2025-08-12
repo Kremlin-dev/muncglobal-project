@@ -102,14 +102,14 @@ const SuccessStep = ({ formData, paymentData, delegateId }) => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-2xl font-bold text-gray-800 mb-2">Registration Successful!</h3>
+        <h3 className="text-2xl font-bold text-teal-600 mb-2">Registration Successful!</h3>
         <p className="text-gray-600">
           Thank you for registering for MUNCGLOBAL Conference 2025. {paymentData ? 'Your payment has been received.' : 'Please proceed to payment to complete your registration.'}
         </p>
       </div>
       
-      <div className="bg-blue-50 p-6 rounded-lg mb-8">
-        <h4 className="text-lg font-semibold text-blue-800 mb-4">Your Registration Information</h4>
+      <div className="bg-teal-50 p-6 rounded-lg mb-8">
+        <h4 className="text-lg font-semibold text-teal-600 mb-4">Your Registration Information</h4>
         
         <div className="bg-white p-4 rounded-md mb-6">
           <div className="flex flex-col items-center">
@@ -117,13 +117,13 @@ const SuccessStep = ({ formData, paymentData, delegateId }) => {
             <div className="flex items-center space-x-2">
               <span 
                 ref={registrationCodeRef}
-                className="text-xl font-mono font-bold text-blue-800 tracking-wider"
+                className="text-xl font-mono font-bold text-teal-600 tracking-wider"
               >
                 {formData.registrationCode || 'MUNC-000000-0000'}
               </span>
               <button
                 onClick={handleCopyRegistrationCode}
-                className="p-1 text-blue-600 hover:text-blue-800 focus:outline-none"
+                className="p-1 text-teal-500 hover:text-teal-700 focus:outline-none"
                 title="Copy registration code"
               >
                 {copiedCode ? (
@@ -237,7 +237,7 @@ const SuccessStep = ({ formData, paymentData, delegateId }) => {
                 
                 <button
                   onClick={retryPayment}
-                  className="w-full bg-green-600 text-white py-3 px-6 rounded-md font-medium hover:bg-green-700 transition duration-200 flex justify-center items-center"
+                  className="w-full bg-teal-500 text-white py-3 px-6 rounded-md font-medium hover:bg-teal-600 transition duration-200 flex justify-center items-center"
                 >
                   {isLoading ? (
                     <span className="flex items-center">
@@ -257,11 +257,11 @@ const SuccessStep = ({ formData, paymentData, delegateId }) => {
         </div>
       )}
       
-      <div className="bg-blue-50 p-6 rounded-lg mb-8">
-        <h4 className="text-lg font-semibold text-blue-800 mb-4">Next Steps</h4>
+      <div className="bg-teal-50 p-6 rounded-lg mb-8">
+        <h4 className="text-lg font-semibold text-teal-600 mb-4">Next Steps</h4>
         <ul className="text-left space-y-3">
           <li className="flex items-start">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-teal-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
             <div>
@@ -272,7 +272,7 @@ const SuccessStep = ({ formData, paymentData, delegateId }) => {
             </div>
           </li>
           <li className="flex items-start">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-teal-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             <div>
@@ -283,7 +283,7 @@ const SuccessStep = ({ formData, paymentData, delegateId }) => {
             </div>
           </li>
           <li className="flex items-start">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-teal-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             <div>
@@ -299,13 +299,13 @@ const SuccessStep = ({ formData, paymentData, delegateId }) => {
       <div className="flex flex-col sm:flex-row justify-center gap-4">
         <Link 
           to="/" 
-          className="px-6 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors"
+          className="px-6 py-3 bg-teal-500 text-white font-medium rounded-md hover:bg-teal-600 transition-colors"
         >
           Return to Home
         </Link>
         <Link 
           to="/conference" 
-          className="px-6 py-3 bg-white text-blue-600 border border-blue-600 font-medium rounded-md hover:bg-blue-50 transition-colors"
+          className="px-6 py-3 bg-white text-teal-500 border border-teal-500 font-medium rounded-md hover:bg-teal-50 transition-colors"
         >
           View Conference Details
         </Link>

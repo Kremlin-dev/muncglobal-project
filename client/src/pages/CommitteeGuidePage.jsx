@@ -207,13 +207,13 @@ const CommitteeGuidePage = () => {
 
   if (!committee) {
     return (
-      <div className="min-h-screen bg-gray-50 py-16">
+      <div className="min-h-screen bg-teal-500 py-16">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-3xl font-bold text-red-600 mb-4">Committee Not Found</h1>
+          <h1 className="text-3xl font-bold text-teal-600 mb-4">Committee Not Found</h1>
           <p className="text-gray-600 mb-8">The requested committee guide could not be found.</p>
           <Link 
             to="/conference" 
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+            className="bg-teal-700 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition-colors"
           >
             Back to Conference
           </Link>
@@ -223,7 +223,7 @@ const CommitteeGuidePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-16">
+    <div className="min-h-screen bg-teal-500 py-16">
       <motion.div 
         className="container mx-auto px-4"
         initial="hidden"
@@ -233,9 +233,9 @@ const CommitteeGuidePage = () => {
         {/* Breadcrumb */}
         <motion.div variants={itemVariants} className="mb-8">
           <nav className="flex items-center space-x-2 text-sm text-gray-600">
-            <Link to="/" className="hover:text-blue-600">Home</Link>
+            <Link to="/" className="hover:text-teal-600">Home</Link>
             <span>/</span>
-            <Link to="/conference" className="hover:text-blue-600">Conference</Link>
+            <Link to="/conference" className="hover:text-teal-600">Conference</Link>
             <span>/</span>
             <span className="text-gray-900">Committee Guide</span>
           </nav>
@@ -243,10 +243,10 @@ const CommitteeGuidePage = () => {
 
         {/* Header */}
         <motion.div variants={itemVariants} className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-blue-800 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-teal-800 mb-4">
             {committee.name}
           </h1>
-          <p className="text-xl text-gray-700 max-w-4xl mx-auto">
+          <p className="text-xl text-teal-700 max-w-4xl mx-auto">
             {committee.fullDescription}
           </p>
         </motion.div>
@@ -258,23 +258,23 @@ const CommitteeGuidePage = () => {
             <div className="md:col-span-2 space-y-8">
               {/* Committee Overview */}
               <motion.div variants={itemVariants} className="bg-white rounded-lg shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-blue-800 mb-4">Committee Overview</h2>
-                <p className="text-gray-700 leading-relaxed mb-6">
+                <h2 className="text-2xl font-bold text-teal-800 mb-4">Committee Overview</h2>
+                <p className="text-teal-700 leading-relaxed mb-6">
                   {committee.description}
                 </p>
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-teal-700 leading-relaxed">
                   {committee.fullDescription}
                 </p>
               </motion.div>
 
               {/* Topics and Agenda */}
               <motion.div variants={itemVariants} className="bg-white rounded-lg shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-blue-800 mb-6">Key Topics & Agenda</h2>
+                <h2 className="text-2xl font-bold text-teal-800 mb-6">Key Topics & Agenda</h2>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {committee.topics.map((topic, index) => (
                     <div key={index} className="flex items-start space-x-3">
-                      <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-gray-700">{topic}</span>
+                      <div className="w-2 h-2 bg-teal-600 rounded-full mt-2 flex-shrink-0"></div>
+                      <span className="text-teal-700">{topic}</span>
                     </div>
                   ))}
                 </div>
@@ -282,21 +282,21 @@ const CommitteeGuidePage = () => {
 
               {/* Procedures */}
               <motion.div variants={itemVariants} className="bg-white rounded-lg shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-blue-800 mb-4">Committee Procedures</h2>
-                <p className="text-gray-700 leading-relaxed">
+                <h2 className="text-2xl font-bold text-teal-800 mb-4">Committee Procedures</h2>
+                <p className="text-teal-700 leading-relaxed">
                   {committee.procedures}
                 </p>
-                <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-                  <p className="text-blue-800 font-medium">
+                <div className="mt-6 p-4 bg-teal-50 rounded-lg">
+                  <p className="text-teal-800 font-medium">
                     📋 Detailed procedural guidelines and rules of procedure will be provided during delegate preparation sessions.
                   </p>
                 </div>
               </motion.div>
 
               {/* Placeholder for Actual Guide Content */}
-              <motion.div variants={itemVariants} className="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg shadow-lg p-8 border-2 border-dashed border-blue-200">
-                <h2 className="text-2xl font-bold text-blue-800 mb-4">📚 Complete Committee Guide</h2>
-                <p className="text-gray-700 mb-4">
+              <motion.div variants={itemVariants} className="bg-gradient-to-r from-teal-50 to-yellow-50 rounded-lg shadow-lg p-8 border-2 border-dashed border-teal-500">
+                <h2 className="text-2xl font-bold text-teal-800 mb-4">📚 Complete Committee Guide</h2>
+                <p className="text-teal-700 mb-4">
                   The comprehensive committee guide including background information, position papers, and detailed procedures will be available here soon.
                 </p>
                 <div className="bg-white p-4 rounded-lg">
@@ -317,7 +317,7 @@ const CommitteeGuidePage = () => {
             <div className="space-y-6">
               {/* Quick Info */}
               <motion.div variants={itemVariants} className="bg-white rounded-lg shadow-lg p-6">
-                <h3 className="text-lg font-bold text-blue-800 mb-4">Quick Information</h3>
+                <h3 className="text-lg font-bold text-teal-800 mb-4">Quick Information</h3>
                 <div className="space-y-3">
                   <div>
                     <span className="font-medium text-gray-800">Committee Type:</span>
@@ -336,7 +336,7 @@ const CommitteeGuidePage = () => {
 
               {/* Research Resources */}
               <motion.div variants={itemVariants} className="bg-white rounded-lg shadow-lg p-6">
-                <h3 className="text-lg font-bold text-blue-800 mb-4">Research Resources</h3>
+                <h3 className="text-lg font-bold text-teal-800 mb-4">Research Resources</h3>
                 <div className="space-y-3">
                   {committee.researchLinks.map((link, index) => (
                     <a 
@@ -344,7 +344,7 @@ const CommitteeGuidePage = () => {
                       href={link} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="block text-blue-600 hover:text-blue-800 text-sm hover:underline"
+                      className="block text-teal-600 hover:text-teal-800 text-sm hover:underline"
                     >
                       🔗 {link.replace('https://', '').split('/')[0]}
                     </a>
@@ -354,13 +354,13 @@ const CommitteeGuidePage = () => {
 
               {/* Contact */}
               <motion.div variants={itemVariants} className="bg-white rounded-lg shadow-lg p-6">
-                <h3 className="text-lg font-bold text-blue-800 mb-4">Need Help?</h3>
+                <h3 className="text-lg font-bold text-teal-800 mb-4">Need Help?</h3>
                 <p className="text-gray-600 text-sm mb-4">
                   Have questions about this committee? Contact our academic team.
                 </p>
                 <Link 
                   to="/contact" 
-                  className="block w-full bg-blue-600 text-white text-center py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                  className="block w-full bg-teal-700 text-white text-center py-2 rounded-lg hover:bg-teal-700 transition-colors text-sm"
                 >
                   Contact Us
                 </Link>
@@ -370,7 +370,7 @@ const CommitteeGuidePage = () => {
               <motion.div variants={itemVariants}>
                 <Link 
                   to="/conference" 
-                  className="block w-full bg-gray-100 text-gray-800 text-center py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+                  className="block w-full bg-teal-100 text-gray-800 text-center py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium"
                 >
                   ← Back to Conference
                 </Link>

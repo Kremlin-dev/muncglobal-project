@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useToast } from '../../context/ToastContext';
 import { motion } from 'framer-motion';
-import { API_BASE_URL } from '../../config/constants';
+import { API_BASE_URL, REGISTRATION_FEE } from '../../config/constants';
 
 const PaystackPayment = ({ registrationData, onPaymentSuccess, onPaymentError }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -110,7 +110,7 @@ const PaystackPayment = ({ registrationData, onPaymentSuccess, onPaymentError })
       const handler = window.PaystackPop.setup({
         key: 'pk_live_df53dc08f9351eeb066c843359fb156bcd2fb1b2',
         email: registrationData.email,
-        amount: 100, // 1 GHS in pesewas (for testing)
+        amount: REGISTRATION_FEE * 100, // Convert GHS to pesewas
         currency: 'GHS',
         ref: paymentReference,
         metadata: {
@@ -155,7 +155,7 @@ const PaystackPayment = ({ registrationData, onPaymentSuccess, onPaymentError })
       <button
         onClick={startPayment}
         disabled={isLoading}
-        className="w-full bg-green-600 text-white py-3 px-6 rounded-md font-medium hover:bg-green-700 transition duration-200 flex justify-center items-center"
+        className="w-full bg-teal-500 text-white py-3 px-6 rounded-md font-medium hover:bg-teal-600 transition duration-200 flex justify-center items-center"
         aria-label="Pay with Paystack"
       >
         {isLoading ? (

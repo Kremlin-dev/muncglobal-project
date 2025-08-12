@@ -81,31 +81,31 @@ const CountdownTimer = ({ targetDate, className = '', onComplete = null }) => {
     <div className={`countdown-timer ${className}`}>
       <div className="flex justify-center space-x-4">
         <div className="flex flex-col items-center">
-          <div className="text-3xl md:text-4xl font-bold bg-blue-700 text-white rounded-lg w-16 h-16 flex items-center justify-center">
+          <div className="text-3xl md:text-4xl font-bold bg-white border-2 border-teal-700 text-black rounded-lg w-16 h-16 flex items-center justify-center shadow-sm">
             {formatNumber(timeRemaining.days)}
           </div>
-          <span className="text-xs mt-1 font-medium">DAYS</span>
+          <span className="text-xs mt-1 font-bold text-white bg-teal-600 px-2 py-0.5 rounded">DAYS</span>
         </div>
         
         <div className="flex flex-col items-center">
-          <div className="text-3xl md:text-4xl font-bold bg-blue-700 text-white rounded-lg w-16 h-16 flex items-center justify-center">
+          <div className="text-3xl md:text-4xl font-bold bg-white border-2 border-teal-700 text-black rounded-lg w-16 h-16 flex items-center justify-center shadow-sm">
             {formatNumber(timeRemaining.hours)}
           </div>
-          <span className="text-xs mt-1 font-medium">HOURS</span>
+          <span className="text-xs mt-1 font-bold text-white bg-teal-600 px-2 py-0.5 rounded">HOURS</span>
         </div>
         
         <div className="flex flex-col items-center">
-          <div className="text-3xl md:text-4xl font-bold bg-blue-700 text-white rounded-lg w-16 h-16 flex items-center justify-center">
+          <div className="text-3xl md:text-4xl font-bold bg-white border-2 border-teal-700 text-black rounded-lg w-16 h-16 flex items-center justify-center shadow-sm">
             {formatNumber(timeRemaining.minutes)}
           </div>
-          <span className="text-xs mt-1 font-medium">MINUTES</span>
+          <span className="text-xs mt-1 font-bold text-white bg-teal-600 px-2 py-0.5 rounded">MINUTES</span>
         </div>
         
         <div className="flex flex-col items-center">
-          <div className="text-3xl md:text-4xl font-bold bg-blue-700 text-white rounded-lg w-16 h-16 flex items-center justify-center">
+          <div className="text-3xl md:text-4xl font-bold bg-white border-2 border-teal-700 text-black rounded-lg w-16 h-16 flex items-center justify-center shadow-sm">
             {formatNumber(timeRemaining.seconds)}
           </div>
-          <span className="text-xs mt-1 font-medium">SECONDS</span>
+          <span className="text-xs mt-1 font-bold text-white bg-teal-600 px-2 py-0.5 rounded">SECONDS</span>
         </div>
       </div>
     </div>

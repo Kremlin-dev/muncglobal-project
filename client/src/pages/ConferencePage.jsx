@@ -99,7 +99,9 @@ const ConferencePage = () => {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-20">
+      <div className="bg-gradient-to-r from-teal-800 to-teal-600 text-white py-20 relative overflow-hidden">
+        {/* Background overlay for better text contrast */}
+        <div className="absolute inset-0 bg-black opacity-20"></div>
         <div className="container mx-auto px-4">
           <motion.div 
             className="max-w-3xl mx-auto text-center"
@@ -113,8 +115,8 @@ const ConferencePage = () => {
             </p>
             
             {/* Countdown Timer */}
-            <div className="max-w-xl mx-auto mb-8 bg-blue-800 bg-opacity-50 p-5 rounded-lg">
-              <h3 className="text-lg font-semibold mb-3">Conference Begins In:</h3>
+            <div className="max-w-xl mx-auto mb-8 bg-white bg-opacity-90 p-5 rounded-lg shadow-lg border-2 border-yellow-300 relative z-10">
+              <h3 className="text-lg font-semibold mb-3 text-teal-700">Conference Begins In:</h3>
               <CountdownContainer variant="full" className="" />
             </div>
             <div className="flex flex-wrap justify-center gap-4 mb-8">
@@ -134,7 +136,7 @@ const ConferencePage = () => {
             </div>
             <Link 
               to="/registration" 
-              className="inline-block px-8 py-3 bg-green-600 text-white font-medium rounded-md hover:bg-green-700 transition-colors"
+              className="inline-block px-8 py-3 bg-teal-700 text-white font-medium rounded-md hover:bg-teal-800 transition-colors"
             >
               Register Now
             </Link>
@@ -153,7 +155,7 @@ const ConferencePage = () => {
             variants={containerVariants}
           >
             <motion.div variants={itemVariants}>
-              <h2 className="text-3xl font-bold text-blue-800 mb-6">About the Conference</h2>
+              <h2 className="text-3xl font-bold text-teal-800 mb-6">About the Conference</h2>
               <p className="text-gray-700 mb-4">
                 As we convene in 2025 from December 2nd to 5th, MUNC-GH invites a new generation of delegates to embrace "Securing the Future through Innovation and Inclusion" building on the spirit of international cooperation. This year's conference unites tertiary and high school students across Ghana to confront today's most pressing issues through simulated United Nations committees.
               </p>
@@ -172,7 +174,7 @@ const ConferencePage = () => {
               </p>
             </motion.div>
             <motion.div variants={itemVariants} className="bg-gray-100 p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold text-blue-800 mb-4">Conference Highlights</h3>
+              <h3 className="text-xl font-bold text-teal-800 mb-4">Conference Highlights</h3>
               <ul className="space-y-3">
                 <li className="flex items-start">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -223,7 +225,7 @@ const ConferencePage = () => {
             className="mb-16"
           >
             <motion.div variants={itemVariants} className="text-center mb-10">
-              <h2 className="text-3xl font-bold text-blue-800 mb-4">Conference Committees</h2>
+              <h2 className="text-3xl font-bold text-teal-800 mb-4">Conference Committees</h2>
               <p className="text-gray-700 max-w-3xl mx-auto">
                 MUNCGLOBAL Conference 2025 features 13 diverse committees covering a wide range of global issues. 
                 Delegates will have the opportunity to represent countries and engage in substantive 
@@ -243,9 +245,9 @@ const ConferencePage = () => {
                   whileHover={{ y: -5, transition: { duration: 0.2 } }}
                 >
                   <Link to={`/committee-guides/${committee.id}`} className="block">
-                    <h3 className="text-lg font-semibold text-blue-700 mb-2 hover:text-blue-900">{committee.name}</h3>
+                    <h3 className="text-lg font-semibold text-teal-700 mb-2 hover:text-teal-900">{committee.name}</h3>
                     <p className="text-gray-600 text-sm">{committee.description}</p>
-                    <div className="mt-3 text-blue-600 text-sm flex items-center">
+                    <div className="mt-3 text-teal-600 text-sm flex items-center">
                       <span>View Committee Guide</span>
                       <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -259,13 +261,13 @@ const ConferencePage = () => {
 
           {/* Registration CTA */}
           <motion.div
-            className="bg-blue-50 p-8 rounded-xl text-center"
+            className="bg-teal-50 p-8 rounded-xl text-center"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-2xl font-bold text-blue-800 mb-4">Ready to Join MUNC-GH 2025?</h2>
+            <h2 className="text-2xl font-bold text-teal-800 mb-4">Ready to Join MUNC-GH 2025?</h2>
             <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
               Registration fee is GH₵ 1 per delegate, which includes conference materials, meals during the event, 
               certificate of participation, and access to all conference activities. Register now to secure your spot!
@@ -273,13 +275,13 @@ const ConferencePage = () => {
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link 
                 to="/registration" 
-                className="px-8 py-3 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 transition-colors"
+                className="px-8 py-3 bg-teal-700 text-white font-medium rounded-md hover:bg-teal-800 transition-colors"
               >
                 Register Now
               </Link>
               <Link 
                 to="/payment-policies" 
-                className="px-8 py-3 bg-white text-blue-600 border border-blue-600 font-medium rounded-md hover:bg-blue-50 transition-colors"
+                className="px-8 py-3 bg-white text-teal-700 border border-teal-700 font-medium rounded-md hover:bg-teal-50 transition-colors"
               >
                 View Payment Policies
               </Link>

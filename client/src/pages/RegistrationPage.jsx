@@ -27,7 +27,7 @@ const RegistrationPage = () => {
           transition={{ duration: 0.6 }}
         >
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-teal-500 mb-4">
               Register for MUNC-GH 2025
             </h2>
             <p className="text-gray-700 max-w-2xl mx-auto">
@@ -41,42 +41,42 @@ const RegistrationPage = () => {
             <div className="flex items-center justify-center">
               <div className="flex items-center">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                  step >= 1 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                  step >= 1 ? 'bg-teal-500 text-white' : 'bg-gray-200 text-gray-600'
                 }`}>
                   1
                 </div>
                 <div className={`text-sm font-medium ${
-                  step >= 1 ? 'text-blue-600' : 'text-gray-500'
+                  step >= 1 ? 'text-teal-500' : 'text-gray-500'
                 } ml-2`}>
                   Personal Details
                 </div>
               </div>
               <div className={`flex-grow h-0.5 mx-2 ${
-                step >= 2 ? 'bg-blue-600' : 'bg-gray-200'
+                step >= 2 ? 'bg-teal-500' : 'bg-gray-200'
               }`}></div>
               <div className="flex items-center">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                  step >= 2 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                  step >= 2 ? 'bg-teal-500 text-white' : 'bg-gray-200 text-gray-600'
                 }`}>
                   2
                 </div>
                 <div className={`text-sm font-medium ${
-                  step >= 2 ? 'text-blue-600' : 'text-gray-500'
+                  step >= 2 ? 'text-teal-500' : 'text-gray-500'
                 } ml-2`}>
                   Payment
                 </div>
               </div>
               <div className={`flex-grow h-0.5 mx-2 ${
-                step >= 3 ? 'bg-blue-600' : 'bg-gray-200'
+                step >= 3 ? 'bg-teal-500' : 'bg-gray-200'
               }`}></div>
               <div className="flex items-center">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                  step >= 3 ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'
+                  step >= 3 ? 'bg-teal-500 text-white' : 'bg-gray-200 text-gray-600'
                 }`}>
                   3
                 </div>
                 <div className={`text-sm font-medium ${
-                  step >= 3 ? 'text-blue-600' : 'text-gray-500'
+                  step >= 3 ? 'text-teal-500' : 'text-gray-500'
                 } ml-2`}>
                   Confirmation
                 </div>

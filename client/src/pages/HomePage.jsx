@@ -25,7 +25,7 @@ const HomePage = () => {
               backgroundImage: "url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80')",
             }}
           >
-            <div className="absolute inset-0 bg-dark bg-opacity-70"></div>
+            <div className="absolute inset-0 bg-teal-500 bg-opacity-70"></div>
           </div>
         </div>
 
@@ -47,7 +47,7 @@ const HomePage = () => {
               MUNCGLOBAL
             </motion.h1>
             <motion.h2 
-              className="text-2xl md:text-3xl font-semibold mb-6 text-accent"
+              className="text-2xl md:text-3xl font-semibold mb-6 text-yellow-300"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -68,22 +68,22 @@ const HomePage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <Link to="/programs" className="btn btn-primary">
+              <Link to="/programs" className="btn bg-teal-500 hover:bg-teal-600 text-white">
                 Explore Programs
               </Link>
-              <Link to="/registration" className="btn btn-outline border-white text-white hover:bg-white hover:text-primary">
+              <Link to="/registration" className="btn btn-outline border-white text-white hover:bg-yellow-300 hover:text-teal-500">
                 Register for MUNC-GH 2025
               </Link>
             </motion.div>
             
             {/* Countdown Timer */}
             <motion.div
-              className="mt-12 p-6 bg-blue-900 bg-opacity-50 backdrop-blur-sm rounded-xl border border-blue-400 border-opacity-30 max-w-2xl mx-auto"
+              className="mt-12 p-6 bg-teal-700 bg-opacity-50 backdrop-blur-sm rounded-xl border border-teal-400 border-opacity-30 max-w-2xl mx-auto"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.0 }}
             >
-              <h3 className="text-xl font-semibold mb-3 text-center text-blue-100">MUNC-GH 2025 Begins In:</h3>
+              <h3 className="text-xl font-semibold mb-3 text-center text-yellow-100">MUNC-GH 2025 Begins In:</h3>
               <CountdownContainer variant="full" className="justify-center" />
             </motion.div>
           </motion.div>
@@ -133,7 +133,7 @@ const HomePage = () => {
               variants={slideUp}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <div className="text-primary text-4xl mb-4">
+              <div className="text-teal-500 text-4xl mb-4">
                 <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                 </svg>
@@ -152,7 +152,7 @@ const HomePage = () => {
               variants={slideUp}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <div className="text-primary text-4xl mb-4">
+              <div className="text-teal-500 text-4xl mb-4">
                 <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -172,7 +172,7 @@ const HomePage = () => {
               variants={slideUp}
               transition={{ duration: 0.6, delay: 0.6 }}
             >
-              <div className="text-primary text-4xl mb-4">
+              <div className="text-teal-500 text-4xl mb-4">
                 <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -183,11 +183,11 @@ const HomePage = () => {
               </p>
               <div className="flex justify-between text-center">
                 <div>
-                  <p className="text-3xl font-bold text-primary">500+</p>
+                  <p className="text-3xl font-bold text-teal-500">500+</p>
                   <p className="text-sm text-gray-600">Youth Empowered</p>
                 </div>
                 <div>
-                  <p className="text-3xl font-bold text-primary">100+</p>
+                  <p className="text-3xl font-bold text-teal-500">100+</p>
                   <p className="text-sm text-gray-600">Leaders Trained</p>
                 </div>
               </div>
@@ -195,7 +195,7 @@ const HomePage = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/about" className="btn btn-outline">
+            <Link to="/about" className="btn btn-outline border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white">
               Learn More About Us
             </Link>
           </div>
@@ -242,7 +242,7 @@ const HomePage = () => {
                 <p className="text-gray-600 mb-4">
                   Intensive training programs designed to equip young people with essential leadership skills.
                 </p>
-                <Link to="/programs" className="text-primary font-medium hover:underline">
+                <Link to="/programs" className="text-teal-500 font-medium hover:text-yellow-500">
                   Learn More →
                 </Link>
               </div>
@@ -269,7 +269,7 @@ const HomePage = () => {
                 <p className="text-gray-600 mb-4">
                   Programs that promote cross-cultural understanding and global citizenship.
                 </p>
-                <Link to="/programs" className="text-primary font-medium hover:underline">
+                <Link to="/programs" className="text-teal-500 font-medium hover:text-yellow-500">
                   Learn More →
                 </Link>
               </div>
@@ -296,7 +296,7 @@ const HomePage = () => {
                 <p className="text-gray-600 mb-4">
                   Initiatives that address local challenges and create sustainable impact in communities.
                 </p>
-                <Link to="/programs" className="text-primary font-medium hover:underline">
+                <Link to="/programs" className="text-teal-500 font-medium hover:text-yellow-500">
                   Learn More →
                 </Link>
               </div>
@@ -304,7 +304,7 @@ const HomePage = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/programs" className="btn btn-primary">
+            <Link to="/programs" className="btn bg-teal-500 hover:bg-teal-600 text-white">
               View All Programs
             </Link>
           </div>
@@ -312,7 +312,7 @@ const HomePage = () => {
       </section>
 
       {/* Conference Highlight */}
-      <section className="section bg-primary text-white">
+      <section className="section bg-teal-500 text-white">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -323,12 +323,12 @@ const HomePage = () => {
               transition={{ duration: 0.6 }}
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4">MUNC-GH 2025</h2>
-              <h3 className="text-xl md:text-2xl font-semibold mb-4 text-accent">
+              <h3 className="text-xl md:text-2xl font-semibold mb-4 text-yellow-300">
                 "Securing the Future through Innovation and Inclusion"
               </h3>
               
               {/* Countdown Timer */}
-              <div className="mb-6 p-4 bg-blue-900 bg-opacity-50 rounded-lg">
+              <div className="mb-6 p-4 bg-teal-700 bg-opacity-50 rounded-lg">
                 <h4 className="text-lg font-semibold mb-3">Conference Begins In:</h4>
                 <CountdownContainer variant="full" className="" />
               </div>
@@ -352,10 +352,10 @@ const HomePage = () => {
                 where young leaders from across the globe gather to address pressing global challenges 
                 through diplomatic dialogue and innovative solutions.
               </p>
-              <Link to="/conference" className="btn bg-white text-primary hover:bg-gray-100">
+              <Link to="/conference" className="btn bg-white text-teal-500 hover:bg-yellow-300">
                 Learn More
               </Link>
-              <Link to="/registration" className="btn ml-4 border-white text-white hover:bg-white hover:text-primary">
+              <Link to="/registration" className="btn ml-4 border-white text-white hover:bg-yellow-300 hover:text-teal-500">
                 Register Now
               </Link>
             </motion.div>
@@ -392,7 +392,7 @@ const HomePage = () => {
             <p className="section-subtitle mb-8">
               Be part of a global movement of young leaders committed to making a positive impact in their communities.
             </p>
-            <Link to="/registration" className="btn btn-primary text-lg px-8 py-3">
+            <Link to="/registration" className="btn bg-teal-500 hover:bg-teal-600 text-white text-lg px-8 py-3">
               Register for MUNC-GH 2025
             </Link>
           </motion.div>

@@ -100,7 +100,7 @@ const ProgramsPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-4">Our Programs & Foundations</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-teal-600 mb-4">Our Programs & Foundations</h2>
           <p className="text-gray-700 max-w-3xl mx-auto">
             Discover the various initiatives through which MUNCGLOBAL empowers youth and creates positive change in communities around the world.
           </p>
@@ -113,8 +113,8 @@ const ProgramsPage = () => {
               type="button"
               className={`px-6 py-3 text-sm font-medium rounded-l-lg ${
                 activeTab === 'programs'
-                  ? 'bg-blue-700 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
+                  ? 'bg-teal-500 text-white'
+                  : 'bg-white text-gray-700 hover:bg-teal-700'
               }`}
               onClick={() => setActiveTab('programs')}
             >
@@ -125,7 +125,7 @@ const ProgramsPage = () => {
               className={`px-6 py-3 text-sm font-medium rounded-r-lg ${
                 activeTab === 'foundations'
                   ? 'bg-green-700 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100'
+                  : 'bg-white text-gray-700 hover:bg-teal-700'
               }`}
               onClick={() => setActiveTab('foundations')}
             >
@@ -154,16 +154,16 @@ const ProgramsPage = () => {
                     <span className="text-4xl">{program.title.charAt(0)}</span>
                   </div>
                   {program.status === 'coming-soon' && (
-                    <div className="absolute top-4 right-4 bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                    <div className="absolute top-4 right-4 border-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                       Coming Soon
                     </div>
                   )}
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-blue-800 mb-2">{program.title}</h3>
+                  <h3 className="text-xl font-bold text-teal-600 mb-2">{program.title}</h3>
                   <p className="text-gray-700 text-sm">{program.description}</p>
                   {program.status === 'active' && (
-                    <button className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors text-sm">
+                    <button className="mt-4 px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-800 transition-colors text-sm">
                       Learn More
                     </button>
                   )}
@@ -193,7 +193,7 @@ const ProgramsPage = () => {
                     <span className="text-4xl">{foundation.title.charAt(0)}</span>
                   </div>
                   {foundation.status === 'coming-soon' && (
-                    <div className="absolute top-4 right-4 bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                    <div className="absolute top-4 right-4 border-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                       Coming Soon
                     </div>
                   )}
@@ -201,7 +201,7 @@ const ProgramsPage = () => {
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-green-700 mb-2">{foundation.title}</h3>
                   <p className="text-gray-700 text-sm">{foundation.description}</p>
-                  <div className="mt-4 flex items-center text-sm text-gray-500">
+                  <div className="mt-4 flex items-center text-sm text-teal-500">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
