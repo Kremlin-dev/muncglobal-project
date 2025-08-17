@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import CountdownContainer from '../components/common/CountdownContainer';
+import CountdownContainer from '../components/Common/CountdownContainer';
 
 const ConferencePage = () => {
   // Animation variants
@@ -131,7 +131,7 @@ const ConferencePage = () => {
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <span>December 2-5, 2025</span>
+                <span>October 20-24, 2025</span>
               </div>
             </div>
             <Link 
@@ -157,7 +157,7 @@ const ConferencePage = () => {
             <motion.div variants={itemVariants}>
               <h2 className="text-3xl font-bold text-teal-800 mb-6">About the Conference</h2>
               <p className="text-gray-700 mb-4">
-                As we convene in 2025 from December 2nd to 5th, MUNC-GH invites a new generation of delegates to embrace "Securing the Future through Innovation and Inclusion" building on the spirit of international cooperation. This year's conference unites tertiary and high school students across Ghana to confront today's most pressing issues through simulated United Nations committees.
+                As we convene in 2025 from October 20th to 24th, MUNC-GH invites a new generation of delegates to embrace "Securing the Future through Innovation and Inclusion" building on the spirit of international cooperation. This year's conference unites tertiary and high school students across Ghana to confront today's most pressing issues through simulated United Nations committees.
               </p>
               <p className="text-gray-700 mb-4">
                 Over five days of rigorous debate and collaboration, delegates will:
