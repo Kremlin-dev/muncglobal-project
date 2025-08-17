@@ -87,6 +87,8 @@ const AdminPage = () => {
     } catch (err) {
       setError('Failed to fetch registrations. Please check your API key.');
       console.error('Fetch error:', err);
+      // Propagate error so handleAuth can prevent dashboard access on invalid key
+      throw err;
     } finally {
       setLoading(false);
     }
