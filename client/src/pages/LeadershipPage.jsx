@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const LeadershipPage = () => {
   // Slider state
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [failedImages, setFailedImages] = useState(new Set());
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [direction, setDirection] = useState(1); // 1 for right, -1 for left
   const autoPlayRef = useRef(null);
@@ -36,13 +37,11 @@ const LeadershipPage = () => {
     {
       name: "Owusu Ababio Godisking Ameyaw",
       role: "Executive Chairman",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
       description: "Dedicated to empowering young leaders and championing innovative social initiatives."
     },
     {
       name: "Owusu Sekyere Kwadwo Marfo",
       role: "Operations Manager",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
       description: "Excellent in coordinating conference logistics and streamlining organizational processes."
     },
     {
@@ -54,7 +53,6 @@ const LeadershipPage = () => {
     {
       name: "Cindy Appiah",
       role: "Communications Lead",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face&auto=format&q=80",
       description: "Creates compelling narratives that elevate delegates' perspectives and youth‑driven diplomacy."
     }
   ];
@@ -129,6 +127,14 @@ const LeadershipPage = () => {
     setTimeout(() => setIsAutoPlaying(true), 8000); // Resume after 8 seconds
   };
 
+  // Helper: Get initials from a full name (first and last initial)
+  const getInitials = (fullName = '') => {
+    const parts = fullName.trim().split(/\s+/);
+    if (parts.length === 0) return '';
+    if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+    return `${parts[0].charAt(0)}${parts[parts.length - 1].charAt(0)}`.toUpperCase();
+  };
+
   return (
     <div className="bg-white py-16">
       <motion.div 
@@ -181,20 +187,24 @@ const LeadershipPage = () => {
                 className="absolute inset-0 flex items-center justify-center"
               >
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-md w-full mx-4">
-                  <div className="h-80 bg-gray-200 relative overflow-hidden">
-                    <img 
-                      src={leadershipTeam[currentSlide].image} 
-                      alt={leadershipTeam[currentSlide].name}
-                      className="w-full h-full object-cover object-center"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
-                      }}
-                      crossOrigin="anonymous"
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center text-gray-400" style={{display: 'none'}}>
-                      <span className="text-6xl">{leadershipTeam[currentSlide].name.charAt(0)}</span>
-                    </div>
+                  <div className="h-80 bg-gray-100 relative overflow-hidden flex items-center justify-center">
+                    {leadershipTeam[currentSlide].image && !failedImages.has(currentSlide) ? (
+                      <img
+                        src={leadershipTeam[currentSlide].image}
+                        alt={leadershipTeam[currentSlide].name}
+                        className="w-full h-full object-cover object-center"
+                        onError={() => {
+                          setFailedImages(prev => new Set(prev).add(currentSlide));
+                        }}
+                        crossOrigin="anonymous"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-teal-50 to-teal-100">
+                        <span className="text-6xl font-bold text-teal-700 tracking-widest">
+                          {getInitials(leadershipTeam[currentSlide].name)}
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div className="p-6 text-center">
                     <h3 className="text-2xl font-bold text-teal-800 mb-2">{leadershipTeam[currentSlide].name}</h3>

@@ -269,7 +269,7 @@ const ConferencePage = () => {
           >
             <h2 className="text-2xl font-bold text-teal-800 mb-4">Ready to Join MUNC-GH 2025?</h2>
             <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-              Registration fee is GH₵ 1 per delegate, which includes conference materials, meals during the event, 
+              Registration fee is GH₵ 970 per delegate, which includes conference materials, meals during the event, 
               certificate of participation, and access to all conference activities. Register now to secure your spot!
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">

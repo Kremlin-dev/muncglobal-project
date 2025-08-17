@@ -136,7 +136,7 @@ const ContactPage = () => {
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-teal-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <a href="mailto:info@muncglobal.org" className="text-teal-500 hover:text-yellow-500 transition-colors">info@muncglobal.org</a>
+                  <a href="mailto:info@muncglobal.com" className="text-teal-500 hover:text-yellow-500 transition-colors">info@muncglobal.com</a>
                 </div>
               </div>
               
@@ -149,7 +149,7 @@ const ContactPage = () => {
                   </svg>
                   <div>
                     <a href="tel:+233302456789" className="text-gray-700 hover:text-teal-500 block">+233 30 245 6789</a>
-                    <span className="text-sm text-gray-500">(WhatsApp</span>
+                    {/* <span className="text-sm text-gray-500">(WhatsApp</span> */}
                   </div>
                 </div>
               </div>

@@ -52,7 +52,7 @@ const PaymentPoliciesPage = () => {
             <div className="flex flex-col md:flex-row justify-between items-center mb-6">
               <div>
                 <p className="text-gray-700 mb-2">Standard Registration Fee:</p>
-                <p className="text-3xl font-bold text-green-700">GH₵ 1</p>
+                <p className="text-3xl font-bold text-green-700">GH₵ 970</p>
               </div>
               <div className="mt-4 md:mt-0">
                 <p className="text-gray-700 mb-2">Registration Deadline:</p>
@@ -91,7 +91,7 @@ const PaymentPoliciesPage = () => {
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">MoMo Number</p>
-                      <p className="font-medium">0302456789</p>
+                      <p className="font-medium">+233 24 954 5987</p>
                     </div>
                   </div>
                   <p className="text-sm text-gray-600">
@@ -116,10 +116,9 @@ const PaymentPoliciesPage = () => {
                     You can make payment using your credit or debit card through our secure Paystack payment gateway 
                     during the registration process.
                   </p>
-                  <div className="flex space-x-2">
-                    <img src="/images/payment/visa.png" alt="Visa" className="h-8" />
-                    <img src="/images/payment/mastercard.png" alt="Mastercard" className="h-8" />
-                    <img src="/images/payment/verve.png" alt="Verve" className="h-8" />
+                  <div className="flex items-center gap-3">
+                    <span className="px-3 py-1 rounded-md border text-xs font-semibold bg-blue-50 border-blue-200 text-blue-700">VISA</span>
+                    <span className="px-3 py-1 rounded-md border text-xs font-semibold bg-red-50 border-red-200 text-red-700">MASTERCARD</span>
                   </div>
                 </div>
               </div>
@@ -146,8 +145,8 @@ const PaymentPoliciesPage = () => {
                 <h4 className="font-semibold text-gray-800 mb-2">Delayed Confirmation</h4>
                 <p className="text-gray-700 text-sm">
                   If you do not receive your confirmation email within the specified timeframe, please contact us at 
-                  <a href="mailto:info@muncglobal.org" className="text-teal-600 hover:underline"> info@muncglobal.org</a> or 
-                  <a href="tel:+233302456789" className="text-teal-600 hover:underline">0302456789</a> / 
+                  <a href="mailto:info@muncglobal.com" className="text-teal-600 hover:underline"> info@muncglobal.com</a> or 
+                  <a href="tel:+233302456789" className="text-teal-600 hover:underline">+233 24 954 5987</a> / 
                   <a href="tel:+233501234567" className="text-teal-600 hover:underline"> 0501234567</a>.
                 </p>
               </div>
@@ -156,7 +155,7 @@ const PaymentPoliciesPage = () => {
                 <p className="text-gray-700 text-sm">
                   Registration fees are non-refundable after November 10, 2025. Cancellations before this date will 
                   be subject to a 30% administrative fee. All refund requests must be submitted in writing to 
-                  <a href="mailto:info@muncglobal.org" className="text-teal-600 hover:underline"> info@muncglobal.org</a>.
+                  <a href="mailto:info@muncglobal.com" className="text-teal-600 hover:underline"> info@muncglobal.com</a>.
                 </p>
               </div>
               <div className="bg-white p-5 border-l-4 border-green-600 shadow-sm">
