@@ -52,7 +52,7 @@ async function sendPaymentConfirmationEmail(registration) {
 
       Please keep this email for your records. You will need your registration code for check-in at the event.
 
-      If you have any questions, please contact us at info@muncglobal.org or call 0302456789.
+      If you have any questions, please contact us at info@muncglobal.com or call +233 24 954 5987.
 
       Best regards,
       MUNCGLOBAL Team
@@ -89,12 +89,12 @@ async function sendPaymentConfirmationEmail(registration) {
           </ul>
         </div>
 
-        <p>If you have any questions, please contact us at <a href="mailto:info@muncglobal.org">info@muncglobal.org</a> or call <strong>0302456789</strong>.</p>
+        <p>If you have any questions, please contact us at <a href="mailto:info@muncglobal.com">info@muncglobal.com</a> or call <strong>+233 24 954 5987</strong>.</p>
 
         <p>Best regards,<br>MUNCGLOBAL Team</p>
 
         <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0; text-align: center; font-size: 12px; color: #6b7280;">
-          <p>MUNCGLOBAL Conference 2025 | University of Ghana, Legon, Accra</p>
+          <p>MUNCGLOBAL Conference 2025 | Kwame Nkrumah University of Science and Technology</p>
         </div>
       </div>
     `;
