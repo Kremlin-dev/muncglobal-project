@@ -114,7 +114,7 @@ export const sendRegistrationEmail = async ({ email, name, registrationCode }) =
         <p>Please keep this code for future reference. You will need it to:</p>
         
         <ul>
-          <li>Make your payment</li>
+          <li>Mark your calendar for October 20-24, 2025</li>
           <li>Check-in at the event</li>
           <li>Receive your certificate</li>
         </ul>
