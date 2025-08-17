@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { API_BASE_URL } from '../config/constants.js';
 
 const AdminPage = () => {
   const [apiKey, setApiKey] = useState('');
@@ -51,7 +52,7 @@ const AdminPage = () => {
     console.log('Sending to server:', JSON.stringify(key.replace(/\s/g, '')));
     
     try {
-      const response = await fetch('https://muncglobal-project-server.onrender.com/api/registration', {
+      const response = await fetch(`${API_BASE_URL}/registration`, {
         headers: {
           'x-api-key': key.replace(/\s/g, '') // Remove all spaces
         }
@@ -132,9 +133,9 @@ const AdminPage = () => {
   // Export functions
   const exportCSV = async () => {
     try {
-      const response = await fetch('https://muncglobal-project-server.onrender.com/api/registration/export/csv', {
+      const response = await fetch(`${API_BASE_URL}/registration/export/csv`, {
         headers: {
-          'x-api-key': apiKey
+          'x-api-key': (apiKey || '').replace(/\s/g, '')
         }
       });
 
@@ -159,9 +160,9 @@ const AdminPage = () => {
 
   const exportJSON = async () => {
     try {
-      const response = await fetch('https://muncglobal-project-server.onrender.com/api/registration/export/json', {
+      const response = await fetch(`${API_BASE_URL}/registration/export/json`, {
         headers: {
-          'x-api-key': apiKey
+          'x-api-key': (apiKey || '').replace(/\s/g, '')
         }
       });
 
@@ -423,6 +424,9 @@ const AdminPage = () => {
                       Email
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Phone
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Institution
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -450,6 +454,9 @@ const AdminPage = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                         {registration.email}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        {registration.phone_number}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                         {registration.institution}

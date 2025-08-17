@@ -65,7 +65,7 @@ const EventsPage = () => {
                 Join our intensive two-day workshop focused on negotiation tactics, public speaking, and resolution drafting. Perfect for both beginners and experienced delegates looking to prepare for the MUNCGLOBAL Conference 2025.
                 <br /><br />
                 <strong>Date:</strong> May 20-21, 2025<br />
-                <strong>Location:</strong> University of Ghana, Legon, Accra<br />
+                <strong>Location:</strong> Kwame Nkrumah University of Science and Technology<br />
                 <strong>Fee:</strong> GH₵350
               </p>
               <div className="flex flex-col sm:flex-row gap-4">

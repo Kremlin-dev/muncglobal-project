@@ -78,12 +78,12 @@ const HomePage = () => {
             
             {/* Countdown Timer */}
             <motion.div
-              className="mt-12 p-6 bg-teal-700 bg-opacity-50 backdrop-blur-sm rounded-xl border border-teal-400 border-opacity-30 max-w-2xl mx-auto"
+              className="mt-12 max-w-xl mx-auto mb-8 bg-white bg-opacity-90 p-5 rounded-lg shadow-lg border-2 border-yellow-300"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.0 }}
             >
-              <h3 className="text-xl font-semibold mb-3 text-center text-yellow-100">MUNC-GH 2025 Begins In:</h3>
+              <h3 className="text-lg font-semibold mb-3 text-teal-700 text-center">Conference Begins In:</h3>
               <CountdownContainer variant="full" className="justify-center" />
             </motion.div>
           </motion.div>
@@ -124,9 +124,9 @@ const HomePage = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
             <motion.div 
-              className="bg-light p-6 rounded-lg shadow-md"
+              className="bg-light p-6 rounded-lg shadow-md min-h-[260px] h-full flex flex-col"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -145,7 +145,7 @@ const HomePage = () => {
             </motion.div>
 
             <motion.div 
-              className="bg-light p-6 rounded-lg shadow-md"
+              className="bg-light p-6 rounded-lg shadow-md min-h-[260px] h-full flex flex-col"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -165,7 +165,7 @@ const HomePage = () => {
             </motion.div>
 
             <motion.div 
-              className="bg-light p-6 rounded-lg shadow-md"
+              className="bg-light p-6 rounded-lg shadow-md min-h-[260px] h-full flex flex-col"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -328,8 +328,8 @@ const HomePage = () => {
               </h3>
               
               {/* Countdown Timer */}
-              <div className="mb-6 p-4 bg-teal-700 bg-opacity-50 rounded-lg">
-                <h4 className="text-lg font-semibold mb-3">Conference Begins In:</h4>
+              <div className="mb-6 max-w-xl bg-white bg-opacity-90 p-5 rounded-lg shadow-lg border-2 border-yellow-300">
+                <h4 className="text-lg font-semibold mb-3 text-teal-700">Conference Begins In:</h4>
                 <CountdownContainer variant="full" className="" />
               </div>
               <div className="flex flex-wrap gap-4 mb-6">
