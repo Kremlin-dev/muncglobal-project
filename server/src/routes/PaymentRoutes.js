@@ -83,7 +83,7 @@ async function sendPaymentConfirmationEmail(registration) {
         <div style="background-color: #f3f4f6; padding: 15px; border-radius: 5px; margin: 20px 0;">
           <h3 style="margin-top: 0; color: #1E40AF;">Next Steps</h3>
           <ul>
-            <li>Mark your calendar for November 25, 2025</li>
+            <li>Mark your calendar for October 20-24, 2025</li>
             <li>Check your email for updates about the conference</li>
             <li>Prepare for an amazing conference experience!</li>
           </ul>

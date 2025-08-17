@@ -9,9 +9,9 @@ export const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5
 export const REGISTRATION_FEE = 970;
 
 // Date constants
-export const REGISTRATION_DEADLINE = 'November 25, 2025';
-export const REFUND_POLICY_DATE = 'November 10, 2025';
-export const TRANSFER_POLICY_DATE = 'November 25, 2025';
+export const REGISTRATION_DEADLINE = 'October 15, 2025';
+export const REFUND_POLICY_DATE = 'October 5, 2025';
+export const TRANSFER_POLICY_DATE = 'October 15, 2025';
 
 // Contact information
 // export const CONTACT_EMAIL = 'support@muncglobal.org';
