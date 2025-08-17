@@ -194,7 +194,7 @@ router.get('/', async (req, res) => {
     // For now, we'll just include a simple API key check
     const apiKey = req.headers['x-api-key'];
     
-    const expectedApiKey = 'muncglobal';
+    const expectedApiKey = process.env.ADMIN_API_KEY || 'muncglobal';
     
     console.log('Server received API key:', JSON.stringify(apiKey));
     console.log('Expected API key:', JSON.stringify(expectedApiKey));
@@ -437,8 +437,9 @@ router.get('/export/csv', async (req, res) => {
   try {
     // API key authentication
     const apiKey = req.headers['x-api-key'];
+    const expectedApiKey = process.env.ADMIN_API_KEY || 'muncglobal';
     
-    if (!apiKey || apiKey !== 'muncglobal_admin_key_change_me') {
+    if (!apiKey || apiKey.replace(/\s/g, '') !== expectedApiKey) {
       return res.status(401).json({
         status: 'error',
         message: 'Unauthorized - Invalid API key'
@@ -579,8 +580,9 @@ router.get('/export/json', async (req, res) => {
   try {
     // API key authentication
     const apiKey = req.headers['x-api-key'];
+    const expectedApiKey = process.env.ADMIN_API_KEY || 'muncglobal';
     
-    if (!apiKey || apiKey !== 'muncglobal_admin_key_change_me') {
+    if (!apiKey || apiKey.replace(/\s/g, '') !== expectedApiKey) {
       return res.status(401).json({
         status: 'error',
         message: 'Unauthorized - Invalid API key'

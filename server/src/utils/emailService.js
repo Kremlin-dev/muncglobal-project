@@ -30,7 +30,7 @@ export const sendEmail = async (options) => {
     const { to, subject, text, html, replyTo } = options;
     
     // Default sender
-    const from = process.env.EMAIL_FROM || 'MUNCGLOBAL <info@muncglobal.org>';
+    const from = process.env.EMAIL_FROM || 'MUNCGLOBAL <info@muncglobal.com>';
     
     // Create mail options
     const mailOptions = {
