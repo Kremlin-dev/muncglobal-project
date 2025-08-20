@@ -174,7 +174,7 @@ const ConferencePage = () => {
             <motion.div variants={itemVariants}>
               <h2 className="text-3xl font-bold text-teal-800 mb-6">About the Conference</h2>
               <p className="text-gray-700 mb-4">
-                As we convene in 2025 from October 21th to 24th, MUNC-GH invites a new generation of delegates to embrace "Securing the Future through Innovation and Inclusion" building on the spirit of international cooperation. This year's conference unites tertiary and high school students across Ghana to confront today's most pressing issues through simulated United Nations committees.
+                As we convene in 2025 from October 21st to 24th, MUNC-GH invites a new generation of delegates to embrace "Securing the Future through Innovation and Inclusion" building on the spirit of international cooperation. This year's conference unites tertiary and high school students across Ghana to confront today's most pressing issues through simulated United Nations committees.
               </p>
               <p className="text-gray-700 mb-4">
                 Over five days of rigorous debate and collaboration, delegates will:
