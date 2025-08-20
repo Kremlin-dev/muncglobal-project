@@ -87,7 +87,7 @@ export const sendRegistrationEmail = async ({ email, name, registrationCode }) =
       
       IMPORTANT: Please complete your payment using this registration code as your payment reference.
       
-      If you have any questions, please contact us at info@muncglobal.com or call +233 24 954 5987.
+      If you have any questions, please contact us at info@muncglobal.com or call 0504314485.
       
       Best regards,
       MUNCGLOBAL Team
@@ -114,12 +114,12 @@ export const sendRegistrationEmail = async ({ email, name, registrationCode }) =
         <p>Please keep this code for future reference. You will need it to:</p>
         
         <ul>
-          <li>Mark your calendar for October 20-24, 2025</li>
+          <li>Mark your calendar for October 21-24, 2025</li>
           <li>Check-in at the event</li>
           <li>Receive your certificate</li>
         </ul>
         
-        <p>If you have any questions, please contact us at <a href="mailto:info@muncglobal.com">info@muncglobal.com</a> or call <strong>+233 24 954 5987</strong>.</p>
+        <p>If you have any questions, please contact us at <a href="mailto:info@muncglobal.com">info@muncglobal.com</a> or call <strong>0504314485</strong>.</p>
         
         <p>Best regards,<br>MUNCGLOBAL Team</p>
         
@@ -196,7 +196,7 @@ export const sendPaymentConfirmationEmail = async (registration) => {
 
       Please keep this email for your records. You will need your registration code for check-in at the event.
 
-      If you have any questions, please contact us at info@muncglobal.com or call +233 24 954 5987.
+      If you have any questions, please contact us at info@muncglobal.com or call 0504314485.
 
       Best regards,
       MUNCGLOBAL Team
@@ -224,7 +224,7 @@ export const sendPaymentConfirmationEmail = async (registration) => {
 
         <p>Please keep this email for your records. You will need your registration code for check-in at the event.</p>
 
-        <p>If you have any questions, please contact us at <a href="mailto:info@muncglobal.com">info@muncglobal.com</a> or call <strong>+233 24 954 5987</strong>.</p>
+        <p>If you have any questions, please contact us at <a href="mailto:info@muncglobal.com">info@muncglobal.com</a> or call <strong>0504314485</strong>.</p>
 
         <p>Best regards,<br>MUNCGLOBAL Team</p>
 

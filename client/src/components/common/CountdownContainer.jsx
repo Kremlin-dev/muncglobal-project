@@ -16,7 +16,7 @@ const CountdownContainer = ({
   className = '',
   onComplete = null
 }) => {
-  // Conference date: October 20, 2025
+  // Conference date: October 21, 2025
   const conferenceDate = new Date('2025-10-20T09:00:00');
   
   // State for time remaining
