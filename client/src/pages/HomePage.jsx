@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import CountdownContainer from '../components/Common/CountdownContainer';
+import CountdownContainer from '../components/common/CountdownContainer';
 
 const HomePage = () => {
   const fadeIn = {
@@ -31,62 +31,78 @@ const HomePage = () => {
 
         {/* Content */}
         <div className="container mx-auto px-4 relative z-10 text-white">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeIn}
-            transition={{ duration: 1 }}
-            className="max-w-3xl"
-          >
-            <motion.h1 
-              className="text-4xl md:text-6xl font-bold mb-4"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={fadeIn}
+              transition={{ duration: 1 }}
+              className="md:max-w-xl"
             >
-              MUNCGLOBAL
-            </motion.h1>
-            <motion.h2 
-              className="text-2xl md:text-3xl font-semibold mb-6 text-yellow-300"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              Empower Your Tomorrow
-            </motion.h2>
-            <motion.p 
-              className="text-lg md:text-xl mb-8 max-w-2xl"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              Join us in creating positive change across communities through youth-led initiatives, leadership development, and sustainable impact programs.
-            </motion.p>
-            <motion.div 
-              className="flex flex-wrap gap-4"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-            >
-              <Link to="/programs" className="btn bg-teal-500 hover:bg-teal-600 text-white">
-                Explore Programs
-              </Link>
-              <Link to="/registration" className="btn btn-outline border-white text-white hover:bg-yellow-300 hover:text-teal-500">
-                Register for MUNC-GH 2025
-              </Link>
+              <motion.h1 
+                className="text-4xl md:text-6xl font-bold mb-4"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                MUNCGLOBAL
+              </motion.h1>
+              <motion.h2 
+                className="text-2xl md:text-3xl font-semibold mb-6 text-yellow-300"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                Empower Your Tomorrow
+              </motion.h2>
+              <motion.p 
+                className="text-lg md:text-xl mb-8 max-w-2xl"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                Join us in creating positive change across communities through youth-led initiatives, leadership development, and sustainable impact programs.
+              </motion.p>
+              <motion.div 
+                className="flex flex-wrap gap-4"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8 }}
+              >
+                <Link to="/programs" className="btn bg-teal-500 hover:bg-teal-600 text-white">
+                  Explore Programs
+                </Link>
+                <Link to="/registration" className="btn btn-outline border-white text-white hover:bg-yellow-300 hover:text-teal-500">
+                  Register for MUNC-GH 2025
+                </Link>
+              </motion.div>
+              
+              {/* Countdown Timer */}
+              <motion.div
+                className="mt-12 max-w-xl mx-auto mb-8 bg-white bg-opacity-90 p-5 rounded-lg shadow-lg border-2 border-yellow-300"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.0 }}
+              >
+                <h3 className="text-lg font-semibold mb-3 text-teal-700 text-center">Conference Begins In:</h3>
+                <CountdownContainer variant="full" className="justify-center" />
+              </motion.div>
             </motion.div>
             
-            {/* Countdown Timer */}
+            {/* Conference Flyer */}
             <motion.div
-              className="mt-12 max-w-xl mx-auto mb-8 bg-white bg-opacity-90 p-5 rounded-lg shadow-lg border-2 border-yellow-300"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 1.0 }}
+              className="mt-8 md:mt-0"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
             >
-              <h3 className="text-lg font-semibold mb-3 text-teal-700 text-center">Conference Begins In:</h3>
-              <CountdownContainer variant="full" className="justify-center" />
+              <img 
+                src="/images/Artboard 1.jpg" 
+                alt="MUNCGLOBAL Conference Flyer" 
+                className="rounded-lg shadow-xl max-w-full md:max-w-md h-auto transform hover:scale-105 transition-transform duration-300"
+              />
             </motion.div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Scroll Down Indicator */}
@@ -344,7 +360,7 @@ const HomePage = () => {
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  <span>December 2-5, 2025</span>
+                  <span>October 21-24, 2025</span>
                 </div>
               </div>
               <p className="mb-8">

@@ -52,7 +52,7 @@ async function sendPaymentConfirmationEmail(registration) {
 
       Please keep this email for your records. You will need your registration code for check-in at the event.
 
-      If you have any questions, please contact us at info@muncglobal.com or call +233 24 954 5987.
+      If you have any questions, please contact us at info@muncglobal.com or call 0504314485.
 
       Best regards,
       MUNCGLOBAL Team
@@ -83,13 +83,13 @@ async function sendPaymentConfirmationEmail(registration) {
         <div style="background-color: #f3f4f6; padding: 15px; border-radius: 5px; margin: 20px 0;">
           <h3 style="margin-top: 0; color: #1E40AF;">Next Steps</h3>
           <ul>
-            <li>Mark your calendar for October 20-24, 2025</li>
+            <li>Mark your calendar for October 21-24, 2025</li>
             <li>Check your email for updates about the conference</li>
             <li>Prepare for an amazing conference experience!</li>
           </ul>
         </div>
 
-        <p>If you have any questions, please contact us at <a href="mailto:info@muncglobal.com">info@muncglobal.com</a> or call <strong>+233 24 954 5987</strong>.</p>
+        <p>If you have any questions, please contact us at <a href="mailto:info@muncglobal.com">info@muncglobal.com</a> or call <strong>0504314485</strong>.</p>
 
         <p>Best regards,<br>MUNCGLOBAL Team</p>
 

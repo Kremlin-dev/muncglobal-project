@@ -51,9 +51,11 @@ const Navbar = () => {
             transition={{ duration: 0.5 }}
             className="flex items-center"
           >
-            <div className="mr-2 w-8 h-8 rounded-full bg-gradient-to-br from-teal-400 to-teal-500 flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-              <span className="text-white font-bold text-sm">M</span>
-            </div>
+            <img 
+              src="/images/logo.png" 
+              alt="MUNCGLOBAL Logo" 
+              className="h-10 mr-2 transform group-hover:scale-105 transition-transform duration-300"
+            />
             <h1 className="text-2xl md:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-teal-500">
               MUNCGLOBAL
             </h1>

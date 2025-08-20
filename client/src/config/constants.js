@@ -15,7 +15,7 @@ export const TRANSFER_POLICY_DATE = 'October 15, 2025';
 
 // Contact information
 // export const CONTACT_EMAIL = 'support@muncglobal.org';
-// export const CONTACT_PHONE = '+233 24 954 5987';
+// export const CONTACT_PHONE = '0504314485';
 // export const OFFICE_LOCATION = 'Kwame Nkrumah University of Science and Technology';
 
 // Social media links

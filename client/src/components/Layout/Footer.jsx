@@ -22,7 +22,14 @@ const Footer = () => {
             variants={fadeInUp}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-2xl font-bold mb-4">MUNCGLOBAL</h2>
+            <div className="flex items-center mb-4">
+              <img 
+                src="/images/logo.png" 
+                alt="MUNCGLOBAL Logo" 
+                className="h-12 mr-3"
+              />
+              <h2 className="text-2xl font-bold">MUNCGLOBAL</h2>
+            </div>
             <p className="text-gray-300 mb-4">
               Empowering youth through leadership development, cultural exchange, and sustainable impact programs.
             </p>
@@ -79,7 +86,7 @@ const Footer = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
                 <div>
-                  <a href="tel:+233249545987" className="text-white hover:text-yellow-300 transition-colors">+233 24 954 5987</a>
+                  <a href="tel:+233249545987" className="text-white hover:text-yellow-300 transition-colors">0504314485</a>
                   {/* <a href="tel:+233545446245" className="text-white hover:text-yellow-300 transition-colors">0545446245</a> */}
                   <div className="text-sm text-gray-400"></div>
                 </div>

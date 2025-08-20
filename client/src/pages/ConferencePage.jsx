@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import CountdownContainer from '../components/Common/CountdownContainer';
+import CountdownContainer from '../components/common/CountdownContainer';
 
 const ConferencePage = () => {
   // Animation variants
@@ -103,44 +103,60 @@ const ConferencePage = () => {
         {/* Background overlay for better text contrast */}
         <div className="absolute inset-0 bg-black opacity-20"></div>
         <div className="container mx-auto px-4">
-          <motion.div 
-            className="max-w-3xl mx-auto text-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">MUNC-GH 2025</h1>
-            <p className="text-xl md:text-2xl font-light mb-6">
-              "Securing the Future through Innovation and Inclusion"
-            </p>
-            
-            {/* Countdown Timer */}
-            <div className="max-w-xl mx-auto mb-8 bg-white bg-opacity-90 p-5 rounded-lg shadow-lg border-2 border-yellow-300 relative z-10">
-              <h3 className="text-lg font-semibold mb-3 text-teal-700">Conference Begins In:</h3>
-              <CountdownContainer variant="full" className="" />
-            </div>
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <div className="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span>Kwame Nkrumah University of Science andTechnology</span>
-              </div>
-              <div className="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                <span>October 20-24, 2025</span>
-              </div>
-            </div>
-            <Link 
-              to="/registration" 
-              className="inline-block px-8 py-3 bg-teal-700 text-white font-medium rounded-md hover:bg-teal-800 transition-colors"
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+            <motion.div 
+              className="md:max-w-xl text-center md:text-left"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
             >
-              Register Now
-            </Link>
-          </motion.div>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">MUNC-GH 2025</h1>
+              <p className="text-xl md:text-2xl font-light mb-6">
+                "Securing the Future through Innovation and Inclusion"
+              </p>
+              
+              {/* Countdown Timer */}
+              <div className="max-w-xl mx-auto md:mx-0 mb-8 bg-white bg-opacity-90 p-5 rounded-lg shadow-lg border-2 border-yellow-300 relative z-10">
+                <h3 className="text-lg font-semibold mb-3 text-teal-700">Conference Begins In:</h3>
+                <CountdownContainer variant="full" className="" />
+              </div>
+              <div className="flex flex-wrap justify-center md:justify-start gap-4 mb-8">
+                <div className="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span>Kwame Nkrumah University of Science andTechnology</span>
+                </div>
+                <div className="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span>October 21-24, 2025</span>
+                </div>
+              </div>
+              <Link 
+                to="/registration" 
+                className="inline-block px-8 py-3 bg-teal-700 text-white font-medium rounded-md hover:bg-teal-800 transition-colors"
+              >
+                Register Now
+              </Link>
+            </motion.div>
+            
+            {/* Conference Flyer */}
+            <motion.div
+              className="mt-8 md:mt-0"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+            >
+              <img 
+                src="/images/Artboard 2.jpg" 
+                alt="MUNCGLOBAL Conference Flyer" 
+                className="rounded-lg shadow-xl max-w-full md:max-w-md h-auto transform hover:scale-105 transition-transform duration-300"
+              />
+            </motion.div>
+          </div>
         </div>
       </div>
 
@@ -157,7 +173,7 @@ const ConferencePage = () => {
             <motion.div variants={itemVariants}>
               <h2 className="text-3xl font-bold text-teal-800 mb-6">About the Conference</h2>
               <p className="text-gray-700 mb-4">
-                As we convene in 2025 from October 20th to 24th, MUNC-GH invites a new generation of delegates to embrace "Securing the Future through Innovation and Inclusion" building on the spirit of international cooperation. This year's conference unites tertiary and high school students across Ghana to confront today's most pressing issues through simulated United Nations committees.
+                As we convene in 2025 from October 21th to 24th, MUNC-GH invites a new generation of delegates to embrace "Securing the Future through Innovation and Inclusion" building on the spirit of international cooperation. This year's conference unites tertiary and high school students across Ghana to confront today's most pressing issues through simulated United Nations committees.
               </p>
               <p className="text-gray-700 mb-4">
                 Over five days of rigorous debate and collaboration, delegates will:

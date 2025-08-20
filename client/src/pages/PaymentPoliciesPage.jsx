@@ -91,7 +91,7 @@ const PaymentPoliciesPage = () => {
                     </div>
                     <div>
                       <p className="text-sm text-gray-500">MoMo Number</p>
-                      <p className="font-medium">+233 24 954 5987</p>
+                      <p className="font-medium">0504314485</p>
                     </div>
                   </div>
                   <p className="text-sm text-gray-600">
@@ -146,7 +146,7 @@ const PaymentPoliciesPage = () => {
                 <p className="text-gray-700 text-sm">
                   If you do not receive your confirmation email within the specified timeframe, please contact us at 
                   <a href="mailto:info@muncglobal.com" className="text-teal-600 hover:underline"> info@muncglobal.com</a> or 
-                  <a href="tel:+233302456789" className="text-teal-600 hover:underline">+233 24 954 5987</a> / 
+                  <a href="tel:+233302456789" className="text-teal-600 hover:underline">0504314485</a> / 
                   <a href="tel:+233501234567" className="text-teal-600 hover:underline"> 0501234567</a>.
                 </p>
               </div>
