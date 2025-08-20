@@ -16,7 +16,7 @@ const HomePage = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center">
+      <section className="relative py-16 md:py-24 lg:py-32 flex items-center">
         {/* Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
           <div 
@@ -31,7 +31,7 @@ const HomePage = () => {
 
         {/* Content */}
         <div className="container mx-auto px-4 relative z-10 text-white">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 overflow-visible">
             <motion.div
               initial="hidden"
               animate="visible"
@@ -91,7 +91,7 @@ const HomePage = () => {
             
             {/* Conference Flyer */}
             <motion.div
-              className="mt-8 md:mt-0"
+              className="mt-4 mb-16 md:mt-0 md:mb-0 flex justify-center"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
@@ -99,7 +99,8 @@ const HomePage = () => {
               <img 
                 src="/images/Artboard 1.jpg" 
                 alt="MUNCGLOBAL Conference Flyer" 
-                className="rounded-lg shadow-xl max-w-full md:max-w-md h-auto transform hover:scale-105 transition-transform duration-300"
+                className="rounded-lg shadow-xl w-full max-w-[260px] sm:max-w-[300px] md:max-w-[380px] lg:max-w-[450px] h-auto transform hover:scale-105 transition-transform duration-300"
+                style={{ maxHeight: "75vh" }}
               />
             </motion.div>
           </div>
@@ -124,7 +125,7 @@ const HomePage = () => {
       </section>
 
       {/* About Section Preview */}
-      <section className="section bg-white">
+      <section className="section bg-white pt-24 mt-16">
         <div className="container">
           <motion.div 
             className="text-center mb-12"
