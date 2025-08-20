@@ -99,11 +99,11 @@ const ConferencePage = () => {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-teal-800 to-teal-600 text-white py-20 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-teal-800 to-teal-600 text-white py-20 md:py-24 relative overflow-hidden">
         {/* Background overlay for better text contrast */}
         <div className="absolute inset-0 bg-black opacity-20"></div>
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 overflow-visible">
             <motion.div 
               className="md:max-w-xl text-center md:text-left"
               initial={{ opacity: 0, y: 20 }}
@@ -137,7 +137,7 @@ const ConferencePage = () => {
               </div>
               <Link 
                 to="/registration" 
-                className="inline-block px-8 py-3 bg-teal-700 text-white font-medium rounded-md hover:bg-teal-800 transition-colors"
+                className="inline-block px-8 py-3 bg-teal-700 text-white font-medium rounded-md hover:bg-teal-800 transition-colors relative z-20"
               >
                 Register Now
               </Link>
@@ -145,7 +145,7 @@ const ConferencePage = () => {
             
             {/* Conference Flyer */}
             <motion.div
-              className="mt-8 md:mt-0"
+              className="mt-4 mb-16 md:mt-0 md:mb-0 flex justify-center"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
@@ -153,7 +153,8 @@ const ConferencePage = () => {
               <img 
                 src="/images/Artboard 2.jpg" 
                 alt="MUNCGLOBAL Conference Flyer" 
-                className="rounded-lg shadow-xl max-w-full md:max-w-md h-auto transform hover:scale-105 transition-transform duration-300"
+                className="rounded-lg shadow-xl w-full max-w-[260px] sm:max-w-[300px] md:max-w-[380px] lg:max-w-[450px] h-auto transform hover:scale-105 transition-transform duration-300"
+                style={{ maxHeight: "75vh" }}
               />
             </motion.div>
           </div>
