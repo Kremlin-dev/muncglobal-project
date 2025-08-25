@@ -5,8 +5,8 @@
 // API base URL - uses environment variable if available, otherwise defaults to localhost
 export const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').trim();
 
-// Registration fee in GHS
-export const REGISTRATION_FEE = 970;
+// Registration fee in GHS (set to 1 for testing)
+export const REGISTRATION_FEE = 1;
 
 // Date constants
 export const REGISTRATION_DEADLINE = 'October 15, 2025';
