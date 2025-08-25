@@ -1,16 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-/**
- * CompactCountdown component - A smaller version of the countdown timer
- * suitable for headers and navigation bars
- * 
- * @param {Object} props Component props
- * @param {Object} props.timeRemaining Object containing days, hours, minutes, seconds
- * @param {string} props.className Additional CSS classes
- */
+
 const CompactCountdown = ({ timeRemaining, className = '' }) => {
-  // Format numbers to always have two digits
   const formatNumber = (num) => {
     return num.toString().padStart(2, '0');
   };
