@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import PaystackPayment from '../Payment/PaystackPayment';
 import { REGISTRATION_FEE } from '../../config/constants';
 
-// Format amount for display
 const formatAmount = (amount, currency = 'GHS') => {
   const formatter = new Intl.NumberFormat('en-GH', {
     style: 'currency',

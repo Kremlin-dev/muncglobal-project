@@ -23,7 +23,6 @@ const SuccessStep = ({ formData, paymentData, delegateId }) => {
   const toast = useToast();
   
   useEffect(() => {
-    // Show welcome toast when component mounts (only once)
     if (formData?.firstName) {
       toast.success(`Welcome, ${formData.firstName}! Your registration is confirmed.`);
     }
@@ -31,9 +30,8 @@ const SuccessStep = ({ formData, paymentData, delegateId }) => {
   
     setPaymentStatus('success');
     setIsLoading(false);
-  }, []); // Empty dependency array to run only once
+  }, []); 
 
-  // Retry payment if needed
   const retryPayment = () => {
     window.location.href = `/registration?step=2&code=${formData.registrationCode}`;
   };
@@ -65,7 +63,6 @@ const SuccessStep = ({ formData, paymentData, delegateId }) => {
     }
   };
   
-  // Fallback copy method for older browsers
   const fallbackCopyToClipboard = (elementRef, setStateFn) => {
     const range = document.createRange();
     range.selectNode(elementRef);

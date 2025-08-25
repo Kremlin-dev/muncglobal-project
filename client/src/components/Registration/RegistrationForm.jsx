@@ -79,7 +79,6 @@ const RegistrationForm = ({ onSubmit }) => {
     try {
       setIsSubmitting(true);
       
-      // Generate unique registration code
       const registrationCode = generateUniqueCode();
       
       // Check if email already exists

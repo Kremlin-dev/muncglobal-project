@@ -2,24 +2,14 @@ import React, { useState, useEffect } from 'react';
 import CountdownTimer from './CountdownTimer';
 import CompactCountdown from './CompactCountdown';
 
-/**
- * CountdownContainer component that manages countdown state and renders
- * either the full CountdownTimer or CompactCountdown based on variant prop
- * 
- * @param {Object} props Component props
- * @param {string} props.variant 'full' or 'compact'
- * @param {string} props.className Additional CSS classes
- * @param {Function} props.onComplete Callback when countdown reaches zero
- */
+
 const CountdownContainer = ({ 
   variant = 'full', 
   className = '',
   onComplete = null
 }) => {
-  // Conference date: October 21, 2025
   const conferenceDate = new Date('2025-10-21T09:00:00');
   
-  // State for time remaining
   const [timeRemaining, setTimeRemaining] = useState({
     days: 0,
     hours: 0,
@@ -29,12 +19,10 @@ const CountdownContainer = ({
   });
 
   useEffect(() => {
-    // Function to calculate time remaining
     const calculateTimeRemaining = () => {
       const now = new Date().getTime();
       const difference = conferenceDate.getTime() - now;
       
-      // Check if countdown is complete
       if (difference <= 0) {
         setTimeRemaining({
           days: 0,
@@ -44,14 +32,12 @@ const CountdownContainer = ({
           isComplete: true
         });
         
-        // Call onComplete callback if provided
         if (onComplete && !timeRemaining.isComplete) {
           onComplete();
         }
         return;
       }
       
-      // Calculate time units
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));
       const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
