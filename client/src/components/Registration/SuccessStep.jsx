@@ -27,16 +27,16 @@ const SuccessStep = ({ formData, paymentData, delegateId }) => {
       toast.success(`Welcome, ${formData.firstName}! Your registration is confirmed.`);
     }
     
-  
-    setPaymentStatus('success');
+    if (paymentData) {
+      setPaymentStatus('success');
+    }
     setIsLoading(false);
-  }, []); 
+  }, [formData, paymentData]); 
 
   const retryPayment = () => {
     window.location.href = `/registration?step=2&code=${formData.registrationCode}`;
   };
 
-  // Handle copy registration code to clipboard
   const handleCopyRegistrationCode = () => {
     if (registrationCodeRef.current && formData.registrationCode) {
       try {
@@ -101,7 +101,7 @@ const SuccessStep = ({ formData, paymentData, delegateId }) => {
         </div>
         <h3 className="text-2xl font-bold text-teal-600 mb-2">Registration Successful!</h3>
         <p className="text-gray-600">
-          Thank you for registering for MUNCGLOBAL Conference 2025. {paymentData ? 'Your payment has been received.' : 'Please proceed to payment to complete your registration.'}
+          Thank you for registering for MUNCGLOBAL Conference 2025. {paymentData || paymentStatus === 'success' ? 'Your payment has been received.' : 'Please proceed to payment to complete your registration.'}
         </p>
       </div>
       

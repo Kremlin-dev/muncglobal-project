@@ -6,7 +6,7 @@
 export const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').trim();
 
 // Registration fee in GHS (set to 1 for testing)
-export const REGISTRATION_FEE = 1;
+export const REGISTRATION_FEE = 970;
 
 // Date constants
 export const REGISTRATION_DEADLINE = 'October 15, 2025';
