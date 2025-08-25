@@ -84,9 +84,7 @@ export const sendRegistrationEmail = async ({ email, name, registrationCode }) =
       Your registration has been confirmed and your registration code is: ${registrationCode}
       
       Please keep this code for future reference. You will need it for payment and for check-in at the event.
-      
-      IMPORTANT: Please complete your payment using this registration code as your payment reference.
-      
+            
       If you have any questions, please contact us at info@muncglobal.com or call 0504314485.
       
       Best regards,
@@ -190,7 +188,6 @@ export const sendPaymentConfirmationEmail = async (registration) => {
       Your registration code is: ${registration_code}
 
       Payment details:
-      - Amount: GHS 1 (Test amount)
       - Date: ${formattedDate}
       - Status: Confirmed
 
