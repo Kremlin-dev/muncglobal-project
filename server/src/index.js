@@ -11,6 +11,7 @@ import { sendEmail } from './utils/emailService.js';
 import registrationRoutes from './routes/registration.js';
 import paymentRoutes from './routes/PaymentRoutes.js';
 import contactRoutes from './routes/contactRoutes.js';
+import dataExportRoutes from './routes/dataExportRoutes.js';
 
 // Initialize environment variables
 dotenv.config();
@@ -34,6 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/registration', registrationRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/export', dataExportRoutes);
 
 // Basic route for testing
 app.get('/api/health', (req, res) => {
