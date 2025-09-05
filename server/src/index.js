@@ -76,13 +76,18 @@ const clientBuildPath = process.env.NODE_ENV === 'production'
 // Serve static files
 app.use(express.static(clientBuildPath));
 
-// Any route that's not an API route will be redirected to the React app
+// Handle 404 for API routes
+app.use('/api/*', (req, res) => {
+  res.status(404).json({
+    status: 'error',
+    message: 'API endpoint not found',
+    path: req.originalUrl
+  });
+});
+
+// Any non-API route will be redirected to the React app
 // This ensures client-side routing works on page refresh
-app.get('*', (req, res, next) => {
-  // Skip this middleware for API routes
-  if (req.url.startsWith('/api/')) {
-    return next();
-  }
+app.get('*', (req, res) => {
   res.sendFile(path.resolve(clientBuildPath, 'index.html'));
 });
 
