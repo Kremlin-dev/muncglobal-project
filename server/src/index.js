@@ -75,9 +75,11 @@ app.get('/api/email/test', async (req, res) => {
 const clientBuildPath = process.env.NODE_ENV === 'production' 
   ? path.resolve(__dirname, '../../client/dist')  // Production build path
   : path.resolve(__dirname, '../../client/dist'); // Development build path
+const clientPublicPath = path.resolve(__dirname, '../../client/public');
 
-// Serve static files
+// Serve static files from both dist and public directories
 app.use(express.static(clientBuildPath));
+app.use(express.static(clientPublicPath)); // Added to serve files from public directory
 
 // Handle 404 for API routes
 app.use('/api/*', (req, res) => {
