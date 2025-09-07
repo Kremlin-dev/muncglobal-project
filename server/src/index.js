@@ -7,11 +7,14 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { sendEmail } from './utils/emailService.js';
 
+// Initialize database
+import { initializeDatabase } from './config/databaseMySQL.js';
+
 // Routes
-import registrationRoutes from './routes/registration.js';
-import paymentRoutes from './routes/PaymentRoutes.js';
+import registrationRoutes from './routes/MySQLRegistration.js';
+import paymentRoutes from './routes/MySQLPaymentRoutes.js';
 import contactRoutes from './routes/contactRoutes.js';
-import dataExportRoutes from './routes/dataExportRoutes.js';
+import dataExportRoutes from './routes/MySQLDataExportRoutes.js';
 
 // Initialize environment variables
 dotenv.config();
@@ -91,11 +94,19 @@ app.get('*', (req, res) => {
   res.sendFile(path.resolve(clientBuildPath, 'index.html'));
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`API Health check: http://localhost:${PORT}/api/health`);
-});
+// Initialize database and start server
+initializeDatabase()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+      console.log(`API Health check: http://localhost:${PORT}/api/health`);
+      console.log('Using Aiven MySQL database');
+    });
+  })
+  .catch(err => {
+    console.error('Failed to initialize database:', err);
+    process.exit(1);
+  });
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {

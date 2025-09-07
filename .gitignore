@@ -16,6 +16,14 @@ node_modules/
 /server/dist/
 /server/build/
 
+# Database files
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+/server/data/*.db
+/server/data/*.db-bak
+
 # Logs
 logs
 *.log
