@@ -18,11 +18,7 @@ The MUNCGLOBAL application has been migrated from SQLite to Aiven MySQL for impr
 The MySQL connection is configured with the following environment variables in your `.env` file:
 
 ```
-AIVEN_DB_HOST=krem-kremlin-0821.g.aivencloud.com
-AIVEN_DB_PORT=27945
-AIVEN_DB_NAME=muncglobal
-AIVEN_DB_USER=avnadmin
-AIVEN_DB_PASSWORD=AVNS_kZLVJsoI3kPE_36vM5r
+
 ```
 
 ## Database Models
