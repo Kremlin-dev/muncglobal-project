@@ -3,6 +3,8 @@ import { runQuery, getQuery, Registration, Payment, PaymentInitialization } from
 import axios from 'axios';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
+import { assignCommitteeAndCountry } from '../utils/assignmentUtils.js';
+import { sendPaymentConfirmationEmail } from '../utils/helpers.js';
 import { sendEmail } from '../utils/emailService.js';
 
 // Initialize environment variables
@@ -18,102 +20,6 @@ const REGISTRATION_FEE = process.env.REGISTRATION_FEE || 1; // Default to 1 GHS 
 // Log Paystack configuration for debugging
 console.log('Paystack Secret Key available:', !!PAYSTACK_SECRET_KEY);
 console.log('Registration Fee:', REGISTRATION_FEE);
-
-/**
- * Send payment confirmation email to the registrant
- * @param {Object} registration - Registration details
- */
-async function sendPaymentConfirmationEmail(registration) {
-  try {
-    const { first_name, surname, email, registration_code } = registration;
-    
-    // Format date for email
-    const formattedDate = new Date().toLocaleDateString('en-GB', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    });
-    
-    // Email subject
-    const subject = 'MUNCGLOBAL Conference 2025 - Payment Confirmation';
-    
-    // Email text content
-    const text = `
-      Dear ${first_name} ${surname},
-
-      Thank you for completing your payment for MUNCGLOBAL Conference 2025!
-
-      Your registration code is: ${registration_code}
-
-      Payment details:
-      - Amount: GHS ${REGISTRATION_FEE}
-      - Date: ${formattedDate}
-      - Status: Confirmed
-
-      Please keep this email for your records. You will need your registration code for check-in at the event.
-
-      If you have any questions, please contact us at info@muncglobal.com or call 0504314485.
-
-      Best regards,
-      MUNCGLOBAL Team
-    `;
-    
-    // Email HTML content
-    const html = `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 5px;">
-        <div style="text-align: center; margin-bottom: 20px;">
-          <h1 style="color: #1E40AF; margin: 0;">MUNCGLOBAL</h1>
-          <p style="color: #047857; font-style: italic;">Empower Your Tomorrow</p>
-        </div>
-
-        <p>Dear <strong>${first_name} ${surname}</strong>,</p>
-
-        <p>Thank you for completing your payment for <strong>MUNCGLOBAL Conference 2025</strong>!</p>
-
-        <div style="background-color: #f0f9ff; padding: 15px; border-radius: 5px; margin: 20px 0;">
-          <h3 style="margin-top: 0; color: #1E40AF;">Payment Confirmed</h3>
-          <p><strong>Registration Code:</strong> ${registration_code}</p>
-          <p><strong>Amount:</strong> GHS ${REGISTRATION_FEE}</p>
-          <p><strong>Date:</strong> ${formattedDate}</p>
-          <p><strong>Status:</strong> <span style="color: #047857; font-weight: bold;">Confirmed</span></p>
-        </div>
-
-        <p>Please keep this email for your records. You will need your registration code for check-in at the event.</p>
-
-        <div style="background-color: #f3f4f6; padding: 15px; border-radius: 5px; margin: 20px 0;">
-          <h3 style="margin-top: 0; color: #1E40AF;">Next Steps</h3>
-          <ul>
-            <li>Mark your calendar for October 21-24, 2025</li>
-            <li>Check your email for updates about the conference</li>
-            <li>Prepare for an amazing conference experience!</li>
-          </ul>
-        </div>
-
-        <p>If you have any questions, please contact us at <a href="mailto:info@muncglobal.com">info@muncglobal.com</a> or call <strong>0504314485</strong>.</p>
-
-        <p>Best regards,<br>MUNCGLOBAL Team</p>
-
-        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0; text-align: center; font-size: 12px; color: #6b7280;">
-          <p>MUNCGLOBAL Conference 2025 | Kwame Nkrumah University of Science and Technology</p>
-        </div>
-      </div>
-    `;
-    
-    // Send email
-    const info = await sendEmail({
-      to: email,
-      subject,
-      text,
-      html
-    });
-    
-    console.log(`Payment confirmation email sent to ${email} (ID: ${info.messageId})`);
-    return true;
-  } catch (error) {
-    console.error('Error sending payment confirmation email:', error);
-    return false;
-  }
-}
 
 /**
  * @route   POST /api/payment/initialize
@@ -363,14 +269,33 @@ router.post('/webhook', async (req, res) => {
               currency: data.currency
             });
             
-            // Update registration payment status
-            await registration.update({ payment_status: 'paid' });
+            // Assign committee and country
+            const { committee, country } = assignCommitteeAndCountry();
+            
+            // Update registration payment status and assignments
+            await registration.update({ 
+              payment_status: 'paid',
+              assigned_committee: committee,
+              assigned_country: country
+            });
             
             // Update payment initialization status
             await PaymentInitialization.update(
               { status: 'success' },
               { where: { reference: reference } }
             );
+            
+            // Get updated registration with assignments
+            const updatedRegistration = await Registration.findByPk(registration.id);
+            
+            // Send payment confirmation email with committee and country assignments
+            try {
+              await sendPaymentConfirmationEmail(updatedRegistration);
+              console.log(`Payment confirmation email sent to ${updatedRegistration.email} with assignments`);
+            } catch (emailError) {
+              console.error('Error sending payment confirmation email:', emailError);
+              // Continue processing even if email fails
+            }
           }
         }
       }
@@ -435,30 +360,24 @@ router.get('/status/:registrationCode', async (req, res) => {
 });
 
 /**
- * @route   GET /api/payment/config/public-key
- * @desc    Get Paystack public key for frontend
+ * @route   GET /api/payment/amount
+ * @desc    Get registration fee amount
  * @access  Public
  */
-router.get('/config/public-key', (req, res) => {
+router.get('/amount', (req, res) => {
   try {
-    // Use the hardcoded value from .env if environment variable isn't loaded
-    const publicKey = process.env.PAYSTACK_PUBLIC_KEY || 'pk_live_df53dc08f9351eeb066c843359fb156bcd2fb1b2';
-    
-    console.log('Using Paystack public key:', publicKey);
-    
     return res.status(200).json({
       status: 'success',
       data: {
-        publicKey,
-        amount: REGISTRATION_FEE * 100 // Convert to pesewas for frontend
+        amount: REGISTRATION_FEE,
+        amountInPesewas: REGISTRATION_FEE * 100
       }
     });
   } catch (error) {
-    console.error('Error getting payment config:', error);
+    console.error('Error getting payment amount:', error);
     res.status(500).json({
       status: 'error',
-      message: 'An error occurred while getting payment config',
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+      message: 'An error occurred while getting payment amount'
     });
   }
 });

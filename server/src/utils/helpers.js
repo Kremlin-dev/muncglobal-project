@@ -158,7 +158,7 @@ export const uniqueCodePool = generateUniqueCodePool();
  */
 export const sendPaymentConfirmationEmail = async (registration) => {
   try {
-    const { first_name, surname, email, registration_code } = registration;
+    const { first_name, surname, email, registration_code, assigned_committee, assigned_country } = registration;
     const transporter = createEmailTransporter();
     
     // If no transporter available, log and continue without sending email
@@ -189,6 +189,10 @@ export const sendPaymentConfirmationEmail = async (registration) => {
       - Date: ${formattedDate}
       - Status: Confirmed
 
+      Your Committee and Country Assignment:
+      - Committee: ${assigned_committee || 'To be assigned'}
+      - Country: ${assigned_country || 'To be assigned'}
+
       Please keep this email for your records. You will need your registration code for check-in at the event.
 
       If you have any questions, please contact us at info@muncglobal.com or call 0504314485.
@@ -215,6 +219,13 @@ export const sendPaymentConfirmationEmail = async (registration) => {
           <p><strong>Amount:</strong> GHS 1 (Test amount)</p>
           <p><strong>Date:</strong> ${formattedDate}</p>
           <p><strong>Status:</strong> <span style="color: #047857; font-weight: bold;">Confirmed</span></p>
+        </div>
+        
+        <div style="background-color: #f0f7ff; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #3b82f6;">
+          <h3 style="margin-top: 0; color: #1E40AF;">Your Committee and Country Assignment</h3>
+          <p><strong>Committee:</strong> <span style="color: #1d4ed8; font-weight: bold;">${assigned_committee || 'To be assigned'}</span></p>
+          <p><strong>Country:</strong> <span style="color: #1d4ed8; font-weight: bold;">${assigned_country || 'To be assigned'}</span></p>
+          <p style="margin-top: 10px; font-style: italic; font-size: 14px;">Please prepare to represent your assigned country in your committee.</p>
         </div>
 
         <p>Please keep this email for your records. You will need your registration code for check-in at the event.</p>

@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { getAllQuery, Registration, Payment, PaymentInitialization } from '../config/databaseMySQL.js';
 import sequelize from '../config/sequelizeConfig.js';
+import ExcelJS from 'exceljs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -117,11 +118,12 @@ router.get('/complete', authenticateExport, async (req, res) => {
   }
 });
 
-// Export data as CSV format
-router.get('/registrations/csv', authenticateExport, async (req, res) => {
+// Export data as Excel format
+router.get('/registrations/excel', authenticateExport, async (req, res) => {
   try {
     const registrations = await Registration.findAll({
-      order: [['created_at', 'DESC']]
+      order: [['created_at', 'DESC']],
+      include: [{ model: Payment }]
     });
     
     if (registrations.length === 0) {
@@ -129,33 +131,93 @@ router.get('/registrations/csv', authenticateExport, async (req, res) => {
     }
     
     // Convert to plain objects
-    const registrationsData = registrations.map(reg => reg.get({ plain: true }));
+    const registrationsData = registrations.map(reg => {
+      const plainReg = reg.get({ plain: true });
+      // Format dates for better readability
+      if (plainReg.created_at) {
+        plainReg.created_at = new Date(plainReg.created_at).toLocaleString();
+      }
+      if (plainReg.updated_at) {
+        plainReg.updated_at = new Date(plainReg.updated_at).toLocaleString();
+      }
+      return plainReg;
+    });
     
-    // Create CSV headers
-    const headers = Object.keys(registrationsData[0]).join(',');
+    // Create a new Excel workbook
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Registrations');
     
-    // Create CSV rows
-    const csvRows = registrationsData.map(row => 
-      Object.values(row).map(value => 
-        typeof value === 'string' && value.includes(',') 
-          ? `"${value.replace(/"/g, '""')}"` 
-          : value
-      ).join(',')
-    );
+    // Define columns with proper headers
+    const columns = [
+      { header: 'ID', key: 'id' },
+      { header: 'Registration Code', key: 'registration_code' },
+      { header: 'First Name', key: 'first_name' },
+      { header: 'Middle Name', key: 'middle_name' },
+      { header: 'Surname', key: 'surname' },
+      { header: 'Date of Birth', key: 'date_of_birth' },
+      { header: 'Gender', key: 'gender' },
+      { header: 'Phone Number', key: 'phone_number' },
+      { header: 'Email', key: 'email' },
+      { header: 'Institution', key: 'institution' },
+      { header: 'Program of Study', key: 'program_of_study' },
+      { header: 'Educational Level', key: 'educational_level' },
+      { header: 'Nationality', key: 'nationality' },
+      { header: 'City', key: 'city' },
+      { header: 'Committee Preference', key: 'committee_preference' },
+      { header: 'Assigned Committee', key: 'assigned_committee' },
+      { header: 'Assigned Country', key: 'assigned_country' },
+      { header: 'Payment Status', key: 'payment_status' },
+      { header: 'Payment Reference', key: 'payment_reference' },
+      { header: 'Created At', key: 'created_at' },
+      { header: 'Updated At', key: 'updated_at' }
+    ];
     
-    const csvContent = [headers, ...csvRows].join('\n');
+    worksheet.columns = columns;
     
-    res.setHeader('Content-Type', 'text/csv');
-    res.setHeader('Content-Disposition', 'attachment; filename="muncglobal_registrations.csv"');
-    res.status(200).send(csvContent);
+    // Add rows to the worksheet
+    worksheet.addRows(registrationsData);
+    
+    // Style the header row
+    worksheet.getRow(1).font = { bold: true, size: 12 };
+    worksheet.getRow(1).fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FFD3D3D3' } // Light gray background
+    };
+    
+    // Auto-fit columns
+    worksheet.columns.forEach(column => {
+      let maxLength = 0;
+      column.eachCell({ includeEmpty: true }, (cell, rowNumber) => {
+        const columnLength = cell.value ? cell.value.toString().length : 10;
+        if (columnLength > maxLength) {
+          maxLength = columnLength;
+        }
+      });
+      column.width = maxLength < 10 ? 10 : maxLength + 2;
+    });
+    
+    // Set response headers
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', 'attachment; filename="muncglobal_registrations.xlsx"');
+    
+    // Write to response
+    await workbook.xlsx.write(res);
+    res.end();
   } catch (error) {
-    console.error('Error exporting CSV:', error);
+    console.error('Error exporting Excel:', error);
     res.status(500).json({
       status: 'error',
-      message: 'Failed to export CSV',
+      message: 'Failed to export Excel',
       error: error.message
     });
   }
+});
+
+// Keep the CSV endpoint for backward compatibility
+router.get('/registrations/csv', authenticateExport, async (req, res) => {
+  // Redirect to Excel endpoint
+  res.redirect(307, `/api/export/registrations/excel${req.query.key ? `?key=${req.query.key}` : ''}`);
 });
 
 // Database statistics

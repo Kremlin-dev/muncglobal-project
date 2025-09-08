@@ -110,6 +110,14 @@ Registration.init({
     type: DataTypes.STRING,
     allowNull: true
   },
+  assigned_committee: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  assigned_country: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
   created_at: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW
