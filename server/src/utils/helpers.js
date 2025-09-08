@@ -148,10 +148,7 @@ export const generateUniqueCodePool = (count = 300) => {
 // Pre-generate a pool of 300 unique codes as specified in requirements
 export const uniqueCodePool = generateUniqueCodePool();
 
-/**
- * Send payment confirmation email
- * @param {object} registration - Registration object with user details
- */
+
 export const sendPaymentConfirmationEmail = async (registration) => {
   try {
     const { first_name, surname, email, registration_code, assigned_committee, assigned_country } = registration;
