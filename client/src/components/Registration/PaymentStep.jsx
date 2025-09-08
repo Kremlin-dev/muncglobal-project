@@ -137,7 +137,7 @@ const PaymentStep = ({ formData, onPaymentComplete }) => {
       </div>
 
       <div className="text-center text-sm text-gray-500">
-        <p>Having issues with payment? Contact us at <a href="mailto:info@muncglobal.com" className="text-teal-500 hover:underline">support@muncglobal.org</a></p>
+        <p>Having issues with payment? Contact us at <a href="mailto:info@muncglobal.com" className="text-teal-500 hover:underline">info@muncglobal.com</a></p>
       </div>
     </motion.div>
   );
