@@ -85,7 +85,7 @@ export const sendRegistrationEmail = async ({ email, name, registrationCode }) =
       
       Please keep this code for future reference. You will need it for payment and for check-in at the event.
             
-      If you have any questions, please contact us at info@muncglobal.com or call 0504314485.
+      Having issues with payment? Contact us at info@muncglobal.com
       
       Best regards,
       MUNCGLOBAL Team
@@ -115,7 +115,7 @@ export const sendRegistrationEmail = async ({ email, name, registrationCode }) =
           <li>Receive your certificate</li>
         </ul>
         
-        <p>If you have any questions, please contact us at <a href="mailto:info@muncglobal.com">info@muncglobal.com</a> or call <strong>0504314485</strong>.</p>
+        <p>Having issues with payment? Contact us at <a href="mailto:info@muncglobal.com">info@muncglobal.com</a></p>
         
         <p>Best regards,<br>MUNCGLOBAL Team</p>
         
@@ -145,7 +145,6 @@ export const generateUniqueCodePool = (count = 300) => {
   return codes;
 };
 
-// Pre-generate a pool of 300 unique codes as specified in requirements
 export const uniqueCodePool = generateUniqueCodePool();
 
 
@@ -223,7 +222,7 @@ export const sendPaymentConfirmationEmail = async (registration) => {
 
         <p>Please keep this email for your records. You will need your registration code for check-in at the event.</p>
 
-        <p>If you have any questions, please contact us at <a href="mailto:info@muncglobal.com">info@muncglobal.com</a> or call <strong>0504314485</strong>.</p>
+        <p>Having issues with payment? Contact us at <a href="mailto:info@muncglobal.com">info@muncglobal.com</a></p>
 
         <p>Best regards,<br>MUNCGLOBAL Team</p>
 
