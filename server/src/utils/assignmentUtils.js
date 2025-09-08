@@ -52,6 +52,8 @@ function assignCommitteeAndCountry() {
   // Randomly select a country
   const country = countries[Math.floor(Math.random() * countries.length)];
   
+  console.log(`Assigned committee: ${committee} and country: ${country}`);
+  
   return {
     committee,
     country

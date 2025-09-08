@@ -189,12 +189,33 @@ router.get('/verify/:reference', async (req, res) => {
       metadata: transactionData.metadata
     });
     
-    // For the new flow, we don't expect registration to exist yet
-    // The frontend will submit registration after payment verification
-    // So we just verify the payment was successful and return success
+    // Check if registration already exists
+    const existingRegistration = await Registration.findOne({
+      where: { registration_code: registrationCode }
+    });
     
-    // For the new flow, we just verify payment was successful
-    // The registration will be created by the frontend after this verification
+    // If registration exists, assign committee and country
+    if (existingRegistration) {
+      // Assign committee and country
+      const { committee, country } = assignCommitteeAndCountry();
+      
+      // Update registration with assignments
+      await existingRegistration.update({
+        payment_status: 'paid',
+        assigned_committee: committee,
+        assigned_country: country
+      });
+      
+      // Send payment confirmation email with assignments
+      try {
+        const updatedRegistration = await Registration.findByPk(existingRegistration.id);
+        await sendPaymentConfirmationEmail(updatedRegistration);
+        console.log(`Payment confirmation email sent to ${updatedRegistration.email} with assignments`);
+      } catch (emailError) {
+        console.error('Error sending payment confirmation email:', emailError);
+      }
+    }
+    
     console.log('Payment verification successful for transaction:', transactionData.id);
     
     res.status(200).json({

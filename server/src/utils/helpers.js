@@ -136,11 +136,7 @@ export const sendRegistrationEmail = async ({ email, name, registrationCode }) =
   }
 };
 
-/**
- * Generate a pool of unique registration codes
- * @param {number} count - Number of codes to generate
- * @returns {Array} Array of unique codes
- */
+
 export const generateUniqueCodePool = (count = 300) => {
   const codes = [];
   for (let i = 0; i < count; i++) {
@@ -190,8 +186,8 @@ export const sendPaymentConfirmationEmail = async (registration) => {
       - Status: Confirmed
 
       Your Committee and Country Assignment:
-      - Committee: ${assigned_committee || 'To be assigned'}
-      - Country: ${assigned_country || 'To be assigned'}
+      - Committee: ${assigned_committee}
+      - Country: ${assigned_country}
 
       Please keep this email for your records. You will need your registration code for check-in at the event.
 
@@ -223,8 +219,8 @@ export const sendPaymentConfirmationEmail = async (registration) => {
         
         <div style="background-color: #f0f7ff; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #3b82f6;">
           <h3 style="margin-top: 0; color: #1E40AF;">Your Committee and Country Assignment</h3>
-          <p><strong>Committee:</strong> <span style="color: #1d4ed8; font-weight: bold;">${assigned_committee || 'To be assigned'}</span></p>
-          <p><strong>Country:</strong> <span style="color: #1d4ed8; font-weight: bold;">${assigned_country || 'To be assigned'}</span></p>
+          <p><strong>Committee:</strong> <span style="color: #1d4ed8; font-weight: bold;">${assigned_committee}</span></p>
+          <p><strong>Country:</strong> <span style="color: #1d4ed8; font-weight: bold;">${assigned_country}</span></p>
           <p style="margin-top: 10px; font-style: italic; font-size: 14px;">Please prepare to represent your assigned country in your committee.</p>
         </div>
 
