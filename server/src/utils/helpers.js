@@ -106,9 +106,7 @@ export const sendRegistrationEmail = async ({ email, name, registrationCode }) =
         <div style="background-color: #f3f4f6; padding: 15px; border-radius: 5px; text-align: center; margin: 20px 0;">
           <h2 style="margin: 0; color: #1E40AF;">${registrationCode}</h2>
         </div>
-        
-        <p><strong>IMPORTANT:</strong> Please complete your payment using this registration code as your payment reference.</p>
-        
+                
         <p>Please keep this code for future reference. You will need it to:</p>
         
         <ul>
