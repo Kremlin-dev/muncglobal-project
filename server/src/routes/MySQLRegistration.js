@@ -220,7 +220,7 @@ router.get('/', async (req, res) => {
     const registrationsData = registrations.map(reg => reg.get({ plain: true }));
     
     // Calculate financial totals
-    const registrationFee = parseFloat(process.env.REGISTRATION_FEE) || 1;
+    const registrationFee = parseFloat(process.env.REGISTRATION_FEE) || 970;
     const totalExpected = registrationsData.length * registrationFee;
     const totalPaid = registrationsData
       .filter(reg => reg.payment_status === 'paid')
