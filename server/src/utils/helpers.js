@@ -150,7 +150,21 @@ export const uniqueCodePool = generateUniqueCodePool();
 
 export const sendPaymentConfirmationEmail = async (registration) => {
   try {
+    console.log('Payment confirmation email - Registration data:', JSON.stringify(registration));
     const { first_name, surname, email, registration_code, assigned_committee, assigned_country } = registration;
+    
+    console.log('Payment confirmation email - Extracted fields:', {
+      first_name,
+      surname,
+      email,
+      registration_code,
+      assigned_committee,
+      assigned_country
+    });
+    
+    // Ensure committee and country have fallback values if undefined
+    const committee = assigned_committee || 'General Assembly';
+    const country = assigned_country || 'Ghana';
     const transporter = createEmailTransporter();
     
     // If no transporter available, log and continue without sending email
@@ -182,8 +196,8 @@ export const sendPaymentConfirmationEmail = async (registration) => {
       - Status: Confirmed
 
       Your Committee and Country Assignment:
-      - Committee: ${assigned_committee}
-      - Country: ${assigned_country}
+      - Committee: ${committee}
+      - Country: ${country}
 
       Please keep this email for your records. You will need your registration code for check-in at the event.
 
@@ -215,8 +229,8 @@ export const sendPaymentConfirmationEmail = async (registration) => {
         
         <div style="background-color: #f0f7ff; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #3b82f6;">
           <h3 style="margin-top: 0; color: #1E40AF;">Your Committee and Country Assignment</h3>
-          <p><strong>Committee:</strong> <span style="color: #1d4ed8; font-weight: bold;">${assigned_committee}</span></p>
-          <p><strong>Country:</strong> <span style="color: #1d4ed8; font-weight: bold;">${assigned_country}</span></p>
+          <p><strong>Committee:</strong> <span style="color: #1d4ed8; font-weight: bold;">${committee}</span></p>
+          <p><strong>Country:</strong> <span style="color: #1d4ed8; font-weight: bold;">${country}</span></p>
           <p style="margin-top: 10px; font-style: italic; font-size: 14px;">Please prepare to represent your assigned country in your committee.</p>
         </div>
 

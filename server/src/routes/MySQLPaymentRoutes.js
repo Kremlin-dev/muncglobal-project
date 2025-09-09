@@ -196,8 +196,11 @@ router.get('/verify/:reference', async (req, res) => {
     
     // If registration exists, assign committee and country
     if (existingRegistration) {
+      console.log('Found existing registration:', existingRegistration.id, existingRegistration.registration_code);
+      
       // Assign committee and country
       const { committee, country } = assignCommitteeAndCountry();
+      console.log('Assigned committee and country:', { committee, country });
       
       // Update registration with assignments
       await existingRegistration.update({
@@ -205,6 +208,8 @@ router.get('/verify/:reference', async (req, res) => {
         assigned_committee: committee,
         assigned_country: country
       });
+      
+      console.log('Updated registration with assignments');
       
       // Send payment confirmation email with assignments
       try {
@@ -292,6 +297,7 @@ router.post('/webhook', async (req, res) => {
             
             // Assign committee and country
             const { committee, country } = assignCommitteeAndCountry();
+            console.log('Webhook - Assigned committee and country:', { committee, country });
             
             // Update registration payment status and assignments
             await registration.update({ 
@@ -299,6 +305,8 @@ router.post('/webhook', async (req, res) => {
               assigned_committee: committee,
               assigned_country: country
             });
+            
+            console.log('Webhook - Updated registration with assignments');
             
             // Update payment initialization status
             await PaymentInitialization.update(
@@ -308,6 +316,12 @@ router.post('/webhook', async (req, res) => {
             
             // Get updated registration with assignments
             const updatedRegistration = await Registration.findByPk(registration.id);
+            console.log('Webhook - Updated registration fetched:', {
+              id: updatedRegistration.id,
+              registration_code: updatedRegistration.registration_code,
+              assigned_committee: updatedRegistration.assigned_committee,
+              assigned_country: updatedRegistration.assigned_country
+            });
             
             // Send payment confirmation email with committee and country assignments
             try {
