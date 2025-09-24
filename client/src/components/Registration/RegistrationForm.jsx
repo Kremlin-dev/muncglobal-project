@@ -16,8 +16,8 @@ const generateUniqueCode = () => {
   return `${prefix}-${timestamp}-${random}`;
 };
 
-// API base URL - hardcoded to local server for testing
-const API_BASE_URL = 'https://muncglobal-project-server.onrender.com/api';
+// API base URL - use environment variable
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 // Form validation schema
 const schema = yup.object().shape({
@@ -41,6 +41,10 @@ const schema = yup.object().shape({
   emergencyContact: yup.string().required('Emergency contact name is required'),
   emergencyPhone: yup.string().required('Emergency contact phone is required'),
   emergencyRelationship: yup.string().required('Relationship with emergency contact is required'),
+  emergencyRelationshipOther: yup.string().when('emergencyRelationship', {
+    is: 'Other',
+    then: yup.string().required('Please specify the relationship')
+  }),
   specialNeeds: yup.string().required('Please indicate if you have any physical/dietary needs'),
   specialNeedsDetails: yup.string().when('specialNeeds', {
     is: 'Yes',
@@ -67,13 +71,16 @@ const RegistrationForm = ({ onSubmit }) => {
     mode: 'onBlur',
     defaultValues: {
       specialNeeds: '',
-      specialNeedsDetails: ''
+      specialNeedsDetails: '',
+      emergencyRelationship: '',
+      emergencyRelationshipOther: ''
     }
   });
   
   // Watch values for conditional fields
   const watchSpecialNeeds = watch('specialNeeds');
   const watchHowHeard = watch('howHeard');
+  const watchEmergencyRelationship = watch('emergencyRelationship');
   
   const handleFormSubmit = async (data) => {
     try {
@@ -107,7 +114,7 @@ const RegistrationForm = ({ onSubmit }) => {
         committeePreference: 'To be assigned', // Committee will be assigned by organizers
         emergencyContact: data.emergencyContact,
         emergencyPhone: data.emergencyPhone,
-        emergencyRelationship: data.emergencyRelationship,
+        emergencyRelationship: data.emergencyRelationship === 'Other' ? data.emergencyRelationshipOther : data.emergencyRelationship,
         specialNeeds: data.specialNeeds,
         specialNeedsDetails: data.specialNeeds === 'Yes' ? data.specialNeedsDetails : '',
         previousExperience: data.previousExperience,
@@ -547,16 +554,41 @@ const RegistrationForm = ({ onSubmit }) => {
             <label htmlFor="emergencyRelationship" className="block text-sm font-medium text-gray-700 mb-1">
               Relationship with Emergency Contact Person *
             </label>
-            <input
+            <select
               id="emergencyRelationship"
-              type="text"
               {...register('emergencyRelationship')}
               className={`w-full px-3 py-2 border rounded-md ${errors.emergencyRelationship ? 'border-red-500' : 'border-gray-300'}`}
-            />
+            >
+              <option value="">Select relationship</option>
+              <option value="Parent">Parent</option>
+              <option value="Guardian">Guardian</option>
+              <option value="Sibling">Sibling</option>
+              <option value="Spouse">Spouse</option>
+              <option value="Friend">Friend</option>
+              <option value="Relative">Relative</option>
+              <option value="Other">Other (please specify)</option>
+            </select>
             {errors.emergencyRelationship && (
               <p className="mt-1 text-sm text-red-600">{errors.emergencyRelationship.message}</p>
             )}
           </div>
+          
+          {watchEmergencyRelationship === 'Other' && (
+            <div className="mt-4">
+              <label htmlFor="emergencyRelationshipOther" className="block text-sm font-medium text-gray-700 mb-1">
+                Please specify relationship *
+              </label>
+              <input
+                id="emergencyRelationshipOther"
+                type="text"
+                {...register('emergencyRelationshipOther')}
+                className={`w-full px-3 py-2 border rounded-md ${errors.emergencyRelationshipOther ? 'border-red-500' : 'border-gray-300'}`}
+              />
+              {errors.emergencyRelationshipOther && (
+                <p className="mt-1 text-sm text-red-600">{errors.emergencyRelationshipOther.message}</p>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="bg-teal-50 p-4 rounded-md mb-6">

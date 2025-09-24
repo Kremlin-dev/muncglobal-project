@@ -4,8 +4,9 @@ import { useToast } from '../../context/ToastContext';
 import { motion } from 'framer-motion';
 import { REGISTRATION_FEE } from '../../config/constants';
 
-// Hardcode API URL to local server for testing
-const API_BASE_URL = 'https://muncglobal-project-server.onrender.com/api';
+// Use environment variables
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
 
 const PaystackPayment = ({ registrationData, onPaymentSuccess, onPaymentError }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -98,7 +99,7 @@ const PaystackPayment = ({ registrationData, onPaymentSuccess, onPaymentError })
   };
 
   // Start payment process
-  const startPayment = () => {
+  const startPayment = async () => {
     try {
       setIsLoading(true);
       console.log('Starting payment with registration data:', registrationData);
@@ -110,8 +111,15 @@ const PaystackPayment = ({ registrationData, onPaymentSuccess, onPaymentError })
       
       const paymentReference = `${registrationData.registrationCode}-${Date.now()}`;
       
+      // Use the Paystack public key from environment variable
+      if (!PAYSTACK_PUBLIC_KEY) {
+        throw new Error('Paystack public key not found in environment variables');
+      }
+      
+      console.log('Using Paystack public key from environment variable');
+      
       const handler = window.PaystackPop.setup({
-        key: 'pk_live_fd7508fa131c4bdfec168508772c61ce331bf148',
+        key: PAYSTACK_PUBLIC_KEY,
         email: registrationData.email,
         amount: REGISTRATION_FEE * 100, // Convert GHS to pesewas
         currency: 'GHS',
