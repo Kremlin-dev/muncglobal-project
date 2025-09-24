@@ -1,6 +1,7 @@
 import express from 'express';
 import { runQuery, getQuery, getAllQuery, Registration, Payment } from '../config/databaseMySQL.js';
 import { sendRegistrationEmail, sendPaymentConfirmationEmail } from '../utils/helpers.js';
+import { assignCommitteeAndCountry } from '../utils/assignmentUtils.js';
 
 const router = express.Router();
 
@@ -354,7 +355,13 @@ router.post('/complete', async (req, res) => {
       });
     }
 
-    // Insert registration into database with paid status
+    // Assign committee and country
+    const { committee, country } = assignCommitteeAndCountry();
+    console.log('REGISTRATION COMPLETION - Assigned committee and country:');
+    console.log('Committee:', committee);
+    console.log('Country:', country);
+    
+    // Insert registration into database with paid status and committee/country assignment
     const registration = await Registration.create({
       registration_code: registrationCode,
       first_name: firstName,
@@ -380,7 +387,9 @@ router.post('/complete', async (req, res) => {
       how_heard: howHeard,
       how_heard_other: howHeard === 'Other' ? howHeardOther : null,
       payment_status: 'paid',
-      payment_reference: paymentReference
+      payment_reference: paymentReference,
+      assigned_committee: committee,
+      assigned_country: country
     });
 
     console.log('Registration completed successfully for:', registrationCode);
@@ -396,25 +405,21 @@ router.post('/complete', async (req, res) => {
       }
     });
 
-    // Send emails asynchronously (do not block response)
+    // Send only payment confirmation email with committee and country (asynchronously)
     setImmediate(async () => {
       try {
-        await sendRegistrationEmail({
-          email,
-          name: `${firstName} ${surname}`,
-          registrationCode
-        });
-        console.log('Registration completion email sent to:', email);
-
+        // Skip the registration confirmation email and only send payment confirmation
         await sendPaymentConfirmationEmail({
           first_name: firstName,
           surname,
           email,
-          registration_code: registrationCode
+          registration_code: registrationCode,
+          assigned_committee: committee,
+          assigned_country: country
         });
-        console.log('Payment confirmation email sent to:', email);
+        console.log('Payment confirmation email with committee and country sent to:', email);
       } catch (emailError) {
-        console.error('Failed to send emails (async):', emailError);
+        console.error('Failed to send payment confirmation email (async):', emailError);
         // Intentionally not throwing: response already sent
       }
     });

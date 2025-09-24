@@ -28,7 +28,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Middleware
-app.use(cors());
+// Configure CORS to allow requests from development server
+app.use(cors({
+  origin: ['http://localhost:5173', 'http://localhost:3000', 'https://muncglobal.org'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(express.json());

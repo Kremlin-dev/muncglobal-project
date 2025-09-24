@@ -13,7 +13,7 @@ dotenv.config();
 const router = express.Router();
 
 // Paystack configuration
-const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY || 'sk_live_730c83b5d9b25915ae8f83322bcc4ec01e129781';
+const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
 const PAYSTACK_BASE_URL = 'https://api.paystack.co';
 const REGISTRATION_FEE = process.env.REGISTRATION_FEE || 970; // Default to 970 GHS
 
@@ -200,7 +200,9 @@ router.get('/verify/:reference', async (req, res) => {
       
       // Assign committee and country
       const { committee, country } = assignCommitteeAndCountry();
-      console.log('Assigned committee and country:', { committee, country });
+      console.log('PAYMENT VERIFICATION - Assigned committee and country:');
+      console.log('Committee:', committee);
+      console.log('Country:', country);
       
       // Update registration with assignments
       await existingRegistration.update({
@@ -213,7 +215,18 @@ router.get('/verify/:reference', async (req, res) => {
       
       // Send payment confirmation email with assignments
       try {
+        // Fetch the updated registration with all fields to ensure we have the latest data
         const updatedRegistration = await Registration.findByPk(existingRegistration.id);
+        
+        // Log the updated registration to verify committee and country are set
+        console.log('Updated registration before sending email:', {
+          id: updatedRegistration.id,
+          registration_code: updatedRegistration.registration_code,
+          assigned_committee: updatedRegistration.assigned_committee,
+          assigned_country: updatedRegistration.assigned_country
+        });
+        
+        // Send the email with the updated registration data
         await sendPaymentConfirmationEmail(updatedRegistration);
         console.log(`Payment confirmation email sent to ${updatedRegistration.email} with assignments`);
       } catch (emailError) {
@@ -297,7 +310,9 @@ router.post('/webhook', async (req, res) => {
             
             // Assign committee and country
             const { committee, country } = assignCommitteeAndCountry();
-            console.log('Webhook - Assigned committee and country:', { committee, country });
+            console.log('WEBHOOK - Assigned committee and country:');
+            console.log('Committee:', committee);
+            console.log('Country:', country);
             
             // Update registration payment status and assignments
             await registration.update({ 
@@ -314,8 +329,12 @@ router.post('/webhook', async (req, res) => {
               { where: { reference: reference } }
             );
             
-            // Get updated registration with assignments
-            const updatedRegistration = await Registration.findByPk(registration.id);
+            // Get updated registration with assignments - force a refresh from database
+            const updatedRegistration = await Registration.findByPk(registration.id, {
+              raw: false // Ensure we get a model instance, not a plain object
+            });
+            
+            // Verify the committee and country are set in the database
             console.log('Webhook - Updated registration fetched:', {
               id: updatedRegistration.id,
               registration_code: updatedRegistration.registration_code,
@@ -323,8 +342,27 @@ router.post('/webhook', async (req, res) => {
               assigned_country: updatedRegistration.assigned_country
             });
             
+            // If committee or country is still undefined, set them again directly
+            if (!updatedRegistration.assigned_committee || !updatedRegistration.assigned_country) {
+              console.log('Webhook - Committee or country still undefined, setting again');
+              const { committee, country } = assignCommitteeAndCountry();
+              updatedRegistration.assigned_committee = committee;
+              updatedRegistration.assigned_country = country;
+              await updatedRegistration.save();
+              
+              console.log('WEBHOOK FALLBACK - Forced update of committee and country:');
+              console.log('Committee:', committee);
+              console.log('Country:', country);
+            }
+            
             // Send payment confirmation email with committee and country assignments
             try {
+              console.log('BEFORE SENDING EMAIL - Registration data:');
+              console.log('Registration ID:', updatedRegistration.id);
+              console.log('Registration Code:', updatedRegistration.registration_code);
+              console.log('Assigned Committee:', updatedRegistration.assigned_committee);
+              console.log('Assigned Country:', updatedRegistration.assigned_country);
+              
               await sendPaymentConfirmationEmail(updatedRegistration);
               console.log(`Payment confirmation email sent to ${updatedRegistration.email} with assignments`);
             } catch (emailError) {

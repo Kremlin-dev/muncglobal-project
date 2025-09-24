@@ -149,9 +149,26 @@ export const uniqueCodePool = generateUniqueCodePool();
 
 
 export const sendPaymentConfirmationEmail = async (registration) => {
+  // Get the registration fee from environment variable
+  const registrationFee = process.env.REGISTRATION_FEE || 970; // Default to 970 GHS
   try {
     console.log('Payment confirmation email - Registration data:', JSON.stringify(registration));
-    const { first_name, surname, email, registration_code, assigned_committee, assigned_country } = registration;
+    
+    // Check if registration is a Sequelize model instance or plain object
+    const registrationData = registration.get ? registration.get({ plain: true }) : registration;
+    
+    // Extract fields with careful handling of potential undefined values
+    const first_name = registrationData.first_name;
+    const surname = registrationData.surname;
+    const email = registrationData.email;
+    const registration_code = registrationData.registration_code;
+    
+    // Log all properties to help debug
+    console.log('Registration object keys:', Object.keys(registrationData));
+    
+    // Extract committee and country with explicit property access
+    const assigned_committee = registrationData.assigned_committee;
+    const assigned_country = registrationData.assigned_country;
     
     console.log('Payment confirmation email - Extracted fields:', {
       first_name,
@@ -162,9 +179,13 @@ export const sendPaymentConfirmationEmail = async (registration) => {
       assigned_country
     });
     
-    // Ensure committee and country have fallback values if undefined
-    const committee = assigned_committee || 'General Assembly';
-    const country = assigned_country || 'Ghana';
+    // Use the assigned committee and country without fallbacks
+    const committee = assigned_committee;
+    const country = assigned_country;
+    
+    console.log('EMAIL - Committee and country being sent in email:');
+    console.log('Committee:', committee);
+    console.log('Country:', country);
     const transporter = createEmailTransporter();
     
     // If no transporter available, log and continue without sending email
@@ -192,12 +213,13 @@ export const sendPaymentConfirmationEmail = async (registration) => {
       Your registration code is: ${registration_code}
 
       Payment details:
+      - Amount: GHS ${registrationFee}
       - Date: ${formattedDate}
       - Status: Confirmed
 
-      Your Committee and Country Assignment:
+      ${committee && country ? `Your Committee and Country Assignment:
       - Committee: ${committee}
-      - Country: ${country}
+      - Country: ${country}` : 'Your committee and country will be assigned soon.'}
 
       Please keep this email for your records. You will need your registration code for check-in at the event.
 
@@ -222,21 +244,33 @@ export const sendPaymentConfirmationEmail = async (registration) => {
         <div style="background-color: #f0f9ff; padding: 15px; border-radius: 5px; margin: 20px 0;">
           <h3 style="margin-top: 0; color: #1E40AF;">Payment Confirmed</h3>
           <p><strong>Registration Code:</strong> ${registration_code}</p>
-          <p><strong>Amount:</strong> GHS 1 (Test amount)</p>
+          <p><strong>Amount:</strong> GHS ${registrationFee}</p>
           <p><strong>Date:</strong> ${formattedDate}</p>
           <p><strong>Status:</strong> <span style="color: #047857; font-weight: bold;">Confirmed</span></p>
         </div>
         
+        ${committee && country ? `
         <div style="background-color: #f0f7ff; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #3b82f6;">
           <h3 style="margin-top: 0; color: #1E40AF;">Your Committee and Country Assignment</h3>
           <p><strong>Committee:</strong> <span style="color: #1d4ed8; font-weight: bold;">${committee}</span></p>
           <p><strong>Country:</strong> <span style="color: #1d4ed8; font-weight: bold;">${country}</span></p>
           <p style="margin-top: 10px; font-style: italic; font-size: 14px;">Please prepare to represent your assigned country in your committee.</p>
         </div>
+        ` : `
+        <div style="background-color: #f0f7ff; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #3b82f6;">
+          <h3 style="margin-top: 0; color: #1E40AF;">Committee and Country Assignment</h3>
+          <p>Your committee and country will be assigned soon.</p>
+        </div>
+        `}
 
         <p>Please keep this email for your records. You will need your registration code for check-in at the event.</p>
 
-        <p>Having issues with payment? Contact us at <a href="mailto:info@muncglobal.com">info@muncglobal.com</a></p>
+        <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; border: 1px solid #e0e0e0;">
+          <h3 style="margin-top: 0; color: #1E40AF;">Need Help?</h3>
+          <p>If you have any questions or need assistance, please contact us:</p>
+          <p><strong>Email:</strong> <a href="mailto:info@muncglobal.com">info@muncglobal.com</a></p>
+          <p><strong>Phone:</strong> 0504314485</p>
+        </div>
 
         <p>Best regards,<br>MUNCGLOBAL Team</p>
 

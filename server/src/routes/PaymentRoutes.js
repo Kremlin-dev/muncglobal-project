@@ -11,7 +11,7 @@ dotenv.config();
 const router = express.Router();
 
 // Paystack configuration
-const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY || 'sk_live_730c83b5d9b25915ae8f83322bcc4ec01e129781';
+const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
 const PAYSTACK_BASE_URL = 'https://api.paystack.co';
 const REGISTRATION_FEE = process.env.REGISTRATION_FEE || 970; // Default to 970 GHS
 
@@ -463,8 +463,7 @@ router.get('/status/:registrationCode', async (req, res) => {
  */
 router.get('/config/public-key', (req, res) => {
   try {
-    // Use the hardcoded value from .env if environment variable isn't loaded
-    const publicKey = process.env.PAYSTACK_PUBLIC_KEY || 'pk_live_df53dc08f9351eeb066c843359fb156bcd2fb1b2';
+    const publicKey = process.env.PAYSTACK_PUBLIC_KEY;
     
     console.log('Using Paystack public key:', publicKey);
     
