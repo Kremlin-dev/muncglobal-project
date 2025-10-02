@@ -30,7 +30,7 @@ const __dirname = path.dirname(__filename);
 // Middleware
 // Configure CORS to allow requests from development server
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3000', 'https://muncglobal.org'],
+  origin: ['http://localhost:5173', 'http://localhost:3000', 'https://muncglobal.org', 'https://muncglobal.com'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
