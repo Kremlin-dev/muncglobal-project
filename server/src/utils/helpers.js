@@ -219,7 +219,8 @@ export const sendPaymentConfirmationEmail = async (registration) => {
 
       ${committee && country ? `Your Committee and Country Assignment:
       - Committee: ${committee}
-      - Country: ${country}` : 'Your committee and country will be assigned soon.'}
+      - Country: ${country}
+      - Topic: Tackling antimicrobial resistance on a global scale` : 'Your committee and country will be assigned soon.'}
 
       Please keep this email for your records. You will need your registration code for check-in at the event.
 
@@ -254,7 +255,8 @@ export const sendPaymentConfirmationEmail = async (registration) => {
           <h3 style="margin-top: 0; color: #1E40AF;">Your Committee and Country Assignment</h3>
           <p><strong>Committee:</strong> <span style="color: #1d4ed8; font-weight: bold;">${committee}</span></p>
           <p><strong>Country:</strong> <span style="color: #1d4ed8; font-weight: bold;">${country}</span></p>
-          <p style="margin-top: 10px; font-style: italic; font-size: 14px;">Please prepare to represent your assigned country in your committee.</p>
+          <p><strong>Topic:</strong> <span style="color: #059669; font-weight: bold;">Tackling antimicrobial resistance on a global scale</span></p>
+          <p style="margin-top: 10px; font-style: italic; font-size: 14px;">Please prepare to represent your assigned country in your committee and research the topic thoroughly.</p>
         </div>
         ` : `
         <div style="background-color: #f0f7ff; padding: 15px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #3b82f6;">
