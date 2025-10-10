@@ -32,7 +32,7 @@ const __dirname = path.dirname(__filename);
 app.use(cors({
   origin: ['http://localhost:5173', 'http://localhost:3000', 'https://muncglobal.org', 'https://muncglobal.com'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key'],
   credentials: true
 }));
 app.use(helmet());
