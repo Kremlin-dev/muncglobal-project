@@ -62,9 +62,9 @@ const EventsPage = () => {
               </div>
               <h3 className="text-xl font-bold text-teal-800 mb-2">Youth Diplomacy Workshop</h3>
               <p className="text-gray-700 mb-6">
-                Join our intensive two-day workshop focused on negotiation tactics, public speaking, and resolution drafting. Perfect for both beginners and experienced delegates looking to prepare for the MUNCGLOBAL Conference 2025.
+                Join our intensive two-day workshop focused on negotiation tactics, public speaking, and resolution drafting. Perfect for both beginners and experienced delegates looking to prepare for the MUNCGLOBAL Conference 2026.
                 <br /><br />
-                <strong>Date:</strong> May 20-21, 2025<br />
+                <strong>Date:</strong> May 20-21, 2026<br />
                 <strong>Location:</strong> Kwame Nkrumah University of Science and Technology<br />
                 <strong>Fee:</strong> GH₵350
               </p>
@@ -99,7 +99,7 @@ const EventsPage = () => {
               <p className="text-gray-700 mb-6">
                 A virtual session exploring how technology is transforming international relations and diplomacy. Learn about digital tools for global advocacy and networking.
                 <br /><br />
-                <strong>Date:</strong> June 5, 2025<br />
+                <strong>Date:</strong> June 5, 2026<br />
                 <strong>Platform:</strong> Zoom (link provided upon registration)<br />
                 <strong>Fee:</strong> Free (Registration required)
               </p>

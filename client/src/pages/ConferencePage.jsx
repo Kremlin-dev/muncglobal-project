@@ -110,7 +110,7 @@ const ConferencePage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">MUNC-GH 2025</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">MUNC-GH 2026</h1>
               <p className="text-xl md:text-2xl font-light mb-6">
                 "Securing the Future through Innovation and Inclusion"
               </p>
@@ -132,7 +132,7 @@ const ConferencePage = () => {
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  <span>October 21-24, 2025</span>
+                  <span>January 1-4, 2026</span>
                 </div>
               </div>
               <Link 
@@ -151,7 +151,7 @@ const ConferencePage = () => {
               transition={{ duration: 0.8, delay: 0.5 }}
             >
               <img 
-                src="/images/Artboard 2.jpg" 
+                src="/images/new-flyer.jpg" 
                 alt="MUNCGLOBAL Conference Flyer" 
                 className="rounded-lg shadow-xl w-full max-w-[260px] sm:max-w-[300px] md:max-w-[380px] lg:max-w-[450px] h-auto transform hover:scale-105 transition-transform duration-300"
                 style={{ maxHeight: "75vh" }}
@@ -174,10 +174,10 @@ const ConferencePage = () => {
             <motion.div variants={itemVariants}>
               <h2 className="text-3xl font-bold text-teal-800 mb-6">About the Conference</h2>
               <p className="text-gray-700 mb-4">
-                As we convene in 2025 from October 21st to 24th, MUNC-GH invites a new generation of delegates to embrace "Securing the Future through Innovation and Inclusion" building on the spirit of international cooperation. This year's conference unites tertiary and high school students across Ghana to confront today's most pressing issues through simulated United Nations committees.
+                As we convene in 2026 from January 1st to 4th, MUNC-GH invites a new generation of delegates to embrace "Securing the Future through Innovation and Inclusion" building on the spirit of international cooperation. This year's conference unites tertiary and high school students across Ghana to confront today's most pressing issues through simulated United Nations committees.
               </p>
               <p className="text-gray-700 mb-4">
-                Over five days of rigorous debate and collaboration, delegates will:
+                Over four days of rigorous debate and collaboration, delegates will:
               </p>
               <ul className="text-gray-700 mb-4 list-disc pl-5 space-y-2">
                 <li><span className="font-semibold">Forge Sustainable Solutions:</span> In UNEP and ECOFIN, examine policies on circular economies, biodiversity protection, and economic recovery in developing nations.</li>
@@ -244,7 +244,7 @@ const ConferencePage = () => {
             <motion.div variants={itemVariants} className="text-center mb-10">
               <h2 className="text-3xl font-bold text-teal-800 mb-4">Conference Committees</h2>
               <p className="text-gray-700 max-w-3xl mx-auto">
-                MUNCGLOBAL Conference 2025 features 13 diverse committees covering a wide range of global issues. 
+                MUNCGLOBAL Conference 2026 features 13 diverse committees covering a wide range of global issues. 
                 Delegates will have the opportunity to represent countries and engage in substantive 
                 debates on these topics while developing critical diplomatic and leadership skills.
               </p>
@@ -284,7 +284,7 @@ const ConferencePage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-2xl font-bold text-teal-800 mb-4">Ready to Join MUNC-GH 2025?</h2>
+            <h2 className="text-2xl font-bold text-teal-800 mb-4">Ready to Join MUNC-GH 2026?</h2>
             <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
               Registration fee is GH₵ 970 per delegate, which includes conference materials, meals during the event, 
               certificate of participation, and access to all conference activities. Register now to secure your spot!

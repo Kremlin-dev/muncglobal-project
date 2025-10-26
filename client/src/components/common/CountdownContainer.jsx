@@ -8,7 +8,7 @@ const CountdownContainer = ({
   className = '',
   onComplete = null
 }) => {
-  const conferenceDate = new Date('2025-10-21T09:00:00');
+  const conferenceDate = new Date('2026-01-01T09:00:00');
   
   const [timeRemaining, setTimeRemaining] = useState({
     days: 0,

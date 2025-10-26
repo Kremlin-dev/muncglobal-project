@@ -97,7 +97,7 @@ const HomePage = () => {
               transition={{ duration: 0.8, delay: 0.5 }}
             >
               <img 
-                src="/images/Artboard 1.jpg" 
+                src="/images/new-flyer.jpg" 
                 alt="MUNCGLOBAL Conference Flyer" 
                 className="rounded-lg shadow-xl w-full max-w-[260px] sm:max-w-[300px] md:max-w-[380px] lg:max-w-[450px] h-auto transform hover:scale-105 transition-transform duration-300"
                 style={{ maxHeight: "75vh" }}
@@ -361,11 +361,11 @@ const HomePage = () => {
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  <span>October 21-24, 2025</span>
+                  <span>January 1-4, 2026</span>
                 </div>
               </div>
               <p className="mb-8">
-                Join us for the annual Model United Nations Conference Ghana (MUNC-GH) 2025, 
+                Join us for the annual Model United Nations Conference Ghana (MUNC-GH) 2026, 
                 where young leaders from across the globe gather to address pressing global challenges 
                 through diplomatic dialogue and innovative solutions.
               </p>
