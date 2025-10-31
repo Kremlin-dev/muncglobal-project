@@ -6,7 +6,7 @@ const PaymentTestPage = () => {
   return (
     <>
       <Helmet>
-        <title>Payment Test | MUNCGLOBAL Conference 2025</title>
+        <title>Payment Test | MUNCGLOBAL Conference 2026</title>
       </Helmet>
       <div className="container mx-auto px-4 py-12">
         <h1 className="text-3xl font-bold text-center mb-8">Payment System Test</h1>
