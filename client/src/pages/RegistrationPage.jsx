@@ -31,7 +31,7 @@ const RegistrationPage = () => {
               Register for MUNC-GH 2025
             </h2>
             <p className="text-gray-700 max-w-2xl mx-auto">
-              Complete the form below to register for the MUNC-GH 2025 conference. 
+              Complete the form below to register for the MUNC-GH 2026 conference. 
               Registration fee is GH₵ 970, payable via MTN Mobile Money or card payment.
             </p>
           </div>
