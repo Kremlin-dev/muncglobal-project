@@ -44,7 +44,7 @@ const PaymentStep = ({ formData, onPaymentComplete }) => {
       <div className="mb-8 text-center">
         <h3 className="text-2xl font-bold text-teal-600 mb-2">Complete Your Payment</h3>
         <p className="text-gray-600">
-          Please complete your payment to finalize your registration for MUNC-GH 2025.
+          Please complete your payment to finalize your registration for MUNC-GH 2026.
         </p>
       </div>
 
