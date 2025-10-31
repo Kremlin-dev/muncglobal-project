@@ -56,7 +56,6 @@ const PaymentPoliciesPage = () => {
               </div>
               <div className="mt-4 md:mt-0">
                 <p className="text-gray-700 mb-2">Registration Deadline:</p>
-                <p className="text-xl font-semibold text-red-600">October 15, 2025</p>
               </div>
             </div>
             <div className="bg-white p-4 rounded-md">
@@ -158,13 +157,13 @@ const PaymentPoliciesPage = () => {
                   <a href="mailto:info@muncglobal.com" className="text-teal-600 hover:underline"> info@muncglobal.com</a>.
                 </p>
               </div>
-              <div className="bg-white p-5 border-l-4 border-green-600 shadow-sm">
+              {/* <div className="bg-white p-5 border-l-4 border-green-600 shadow-sm">
                 <h4 className="font-semibold text-gray-800 mb-2">Transfer Policy</h4>
                 <p className="text-gray-700 text-sm">
                   Registration may be transferred to another individual at no additional cost until October 15, 2025. 
                   Transfer requests must be submitted in writing with the new delegate's information.
                 </p>
-              </div>
+              </div> */}
             </div>
           </motion.div>
 
@@ -173,7 +172,7 @@ const PaymentPoliciesPage = () => {
             className="text-center mt-12"
             variants={itemVariants}
           >
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Ready to secure your spot at MUNCGLOBAL Conference 2025?</h3>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">Ready to secure your spot at MUNCGLOBAL Conference 2026?</h3>
             <Link 
               to="/registration" 
               className="inline-block px-8 py-3 bg-teal-700 text-white font-medium rounded-md hover:bg-teal-800 transition-colors"
