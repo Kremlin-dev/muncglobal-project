@@ -73,7 +73,7 @@ const HomePage = () => {
                   Explore Programs
                 </Link>
                 <Link to="/registration" className="btn btn-outline border-white text-white hover:bg-yellow-300 hover:text-teal-500">
-                  Register for MUNC-GH 2025
+                  Register for MUNC-GH 2026
                 </Link>
               </motion.div>
               
