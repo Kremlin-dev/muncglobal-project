@@ -28,7 +28,7 @@ const RegistrationPage = () => {
         >
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-teal-500 mb-4">
-              Register for MUNC-GH 2025
+              Register for MUNC-GH 2026
             </h2>
             <p className="text-gray-700 max-w-2xl mx-auto">
               Complete the form below to register for the MUNC-GH 2026 conference. 
