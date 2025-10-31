@@ -339,7 +339,7 @@ const HomePage = () => {
               variants={slideUp}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">MUNC-GH 2025</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">MUNC-GH 2026</h2>
               <h3 className="text-xl md:text-2xl font-semibold mb-4 text-yellow-300">
                 "Securing the Future through Innovation and Inclusion"
               </h3>
@@ -410,7 +410,7 @@ const HomePage = () => {
               Be part of a global movement of young leaders committed to making a positive impact in their communities.
             </p>
             <Link to="/registration" className="btn bg-teal-500 hover:bg-teal-600 text-white text-lg px-8 py-3">
-              Register for MUNC-GH 2025
+              Register for MUNC-GH 2026
             </Link>
           </motion.div>
         </div>
