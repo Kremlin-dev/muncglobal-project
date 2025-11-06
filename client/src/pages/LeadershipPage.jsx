@@ -42,7 +42,6 @@ const LeadershipPage = () => {
     {
       name: "Asante Samuel Christian",
       role: "Programs Director",
-      image: "/images/Asante.jpg",
       description: "Extensive experience in designing and delivering leadership development and community engagement initiatives."
     },
     {
