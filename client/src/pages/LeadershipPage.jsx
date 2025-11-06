@@ -40,11 +40,6 @@ const LeadershipPage = () => {
       description: "Dedicated to empowering young leaders and championing innovative social initiatives."
     },
     {
-      name: "Owusu Sekyere Kwadwo Marfo",
-      role: "Operations Manager",
-      description: "Excellent in coordinating conference logistics and streamlining organizational processes."
-    },
-    {
       name: "Asante Samuel Christian",
       role: "Programs Director",
       image: "/images/Asante.jpg",
