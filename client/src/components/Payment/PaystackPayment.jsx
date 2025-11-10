@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { REGISTRATION_FEE } from '../../config/constants';
 
 // Use environment variables
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://muncglobal-project-server.onrender.com/api';
 const PAYSTACK_PUBLIC_KEY = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
 
 const PaystackPayment = ({ registrationData, onPaymentSuccess, onPaymentError }) => {
@@ -37,13 +37,11 @@ const PaystackPayment = ({ registrationData, onPaymentSuccess, onPaymentError })
     };
   }, []);
 
-  // Handle payment success
   const handlePaymentSuccess = async (reference) => {
     try {
       setIsLoading(true);
       console.log('Payment successful! Reference:', reference);
       
-      // Get pending registration data from session storage
       const pendingRegistration = JSON.parse(sessionStorage.getItem('pendingRegistration'));
       if (!pendingRegistration) {
         throw new Error('Registration data not found in session storage');
@@ -51,7 +49,6 @@ const PaystackPayment = ({ registrationData, onPaymentSuccess, onPaymentError })
       
       console.log('Found pending registration data:', pendingRegistration.registrationCode);
       
-      // First verify the payment with Paystack
       console.log('Verifying payment with reference:', reference);
       const paymentVerifyResponse = await axios.get(`${API_BASE_URL}/payment/verify/${reference}`);
       console.log('Payment verification response:', paymentVerifyResponse.data);
@@ -60,33 +57,17 @@ const PaystackPayment = ({ registrationData, onPaymentSuccess, onPaymentError })
         throw new Error('Payment verification failed');
       }
       
-      // Now submit registration data to backend (this will save to database)
-      console.log('Payment verified successfully. Now submitting registration data...');
-      const registrationResponse = await axios.post(`${API_BASE_URL}/registration/complete`, {
-        ...pendingRegistration,
-        paymentReference: reference,
-        paymentVerified: true
-      });
+      console.log('Payment verified successfully');
       
-      if (registrationResponse.data.status !== 'success') {
-        throw new Error('Registration completion failed: ' + registrationResponse.data.message);
-      }
-      
-      console.log('Registration completed successfully:', registrationResponse.data);
-      
-      // Clear pending registration from session storage
       sessionStorage.removeItem('pendingRegistration');
       
-      // Show success message
-      toast.success('Registration and payment completed successfully!');
-      onPaymentSuccess && onPaymentSuccess(registrationResponse.data.data);
+      toast.success('Payment completed successfully!');
+      onPaymentSuccess && onPaymentSuccess(paymentVerifyResponse.data.data);
       
-      // Get registration code for redirection
       const regCode = pendingRegistration.registrationCode;
       
       console.log('Redirecting to success page with code:', regCode);
       
-      // Redirect immediately to success page
       window.location.href = `/registration?step=3&code=${regCode}`;
       
     } catch (error) {

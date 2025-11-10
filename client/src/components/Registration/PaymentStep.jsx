@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useToast } from '../../context/ToastContext';
 import { motion } from 'framer-motion';
 import PaystackPayment from '../Payment/PaystackPayment';
+import MomoPayment from './MomoPayment';
+import PaymentMethodSelector from './PaymentMethodSelector';
 import { REGISTRATION_FEE } from '../../config/constants';
 
 const formatAmount = (amount, currency = 'GHS') => {
@@ -16,23 +18,32 @@ const formatAmount = (amount, currency = 'GHS') => {
 const PaymentStep = ({ formData, onPaymentComplete }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [selectedMethod, setSelectedMethod] = useState(null);
   const toast = useToast();
 
-  // Handle successful payment
+  const handleMethodSelected = (method, data) => {
+    setSelectedMethod(method);
+  };
+
   const handlePaymentSuccess = (paymentData) => {
     toast.success('Payment successful!');
     
-    // Notify parent component
     if (onPaymentComplete) {
       onPaymentComplete(paymentData);
     }
   };
 
-  // Handle payment error
   const handlePaymentError = (error) => {
     console.error('Payment error:', error);
     setError(error.message || 'There was an error processing your payment. Please try again.');
     toast.error('Payment failed. Please try again.');
+  };
+
+  const handleMomoSubmitted = (paymentData) => {
+    toast.success('Payment details submitted! Admin will verify within 24 hours.');
+    if (onPaymentComplete) {
+      onPaymentComplete(paymentData);
+    }
   };
 
   return (
@@ -124,16 +135,43 @@ const PaymentStep = ({ formData, onPaymentComplete }) => {
           </div>
         )}
 
-        {/* Integrate Paystack Payment Component */}
-        <PaystackPayment 
-          registrationData={formData}
-          onPaymentSuccess={handlePaymentSuccess}
-          onPaymentError={handlePaymentError}
-        />
-
-        <div className="mt-4 text-center text-sm text-gray-500">
-          <p>Secured by Paystack. Your payment information is encrypted and secure.</p>
-        </div>
+        {!selectedMethod ? (
+          <PaymentMethodSelector 
+            formData={formData}
+            onMethodSelected={handleMethodSelected}
+          />
+        ) : selectedMethod === 'paystack' ? (
+          <>
+            <PaystackPayment 
+              registrationData={formData}
+              onPaymentSuccess={handlePaymentSuccess}
+              onPaymentError={handlePaymentError}
+            />
+            <div className="mt-4 text-center text-sm text-gray-500">
+              <p>Secured by Paystack. Your payment information is encrypted and secure.</p>
+            </div>
+            <button
+              onClick={() => setSelectedMethod(null)}
+              className="mt-4 w-full text-center text-teal-500 hover:text-teal-600 text-sm"
+            >
+              ← Choose different payment method
+            </button>
+          </>
+        ) : (
+          <>
+            <MomoPayment 
+              registrationData={formData}
+              onPaymentSubmitted={handleMomoSubmitted}
+              onPaymentError={handlePaymentError}
+            />
+            <button
+              onClick={() => setSelectedMethod(null)}
+              className="mt-4 w-full text-center text-teal-500 hover:text-teal-600 text-sm"
+            >
+              ← Choose different payment method
+            </button>
+          </>
+        )}
       </div>
 
       <div className="text-center text-sm text-gray-500">

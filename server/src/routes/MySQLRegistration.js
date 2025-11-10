@@ -35,7 +35,8 @@ router.post('/', async (req, res) => {
       previousExperience,
       howHeard,
       howHeardOther,
-      registrationCode
+      registrationCode,
+      paymentMethod
     } = req.body;
 
     // Validate required fields
@@ -61,7 +62,6 @@ router.post('/', async (req, res) => {
       });
     }
 
-    // Insert registration into database with pending payment status
     const registration = await Registration.create({
       registration_code: registrationCode,
       first_name: firstName,
@@ -86,7 +86,8 @@ router.post('/', async (req, res) => {
       previous_mun_experience: previousExperience,
       how_heard: howHeard,
       how_heard_other: howHeard === 'Other' ? howHeardOther : null,
-      payment_status: 'pending'
+      payment_status: 'pending',
+      payment_method: paymentMethod || null
     });
 
     // Send registration confirmation email (but note that registration is not complete until payment)
@@ -546,6 +547,148 @@ router.get('/export/csv', async (req, res) => {
     res.status(500).json({
       status: 'error',
       message: 'An error occurred during export',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+});
+
+/**
+ * @route   POST /api/registration/momo-payment
+ * @desc    Submit MoMo payment details for manual verification
+ * @access  Public
+ */
+router.post('/momo-payment', async (req, res) => {
+  try {
+    const {
+      registrationCode,
+      transactionId
+    } = req.body;
+
+    if (!registrationCode || !transactionId) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Please provide registration code and transaction ID'
+      });
+    }
+
+    const registration = await Registration.findOne({
+      where: { registration_code: registrationCode }
+    });
+
+    if (!registration) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'Registration not found'
+      });
+    }
+
+    if (registration.payment_status === 'paid') {
+      return res.status(400).json({
+        status: 'error',
+        message: 'This registration has already been paid'
+      });
+    }
+
+    await registration.update({
+      payment_method: 'momo',
+      payment_reference: transactionId,
+      payment_status: 'pending_verification'
+    });
+
+    res.status(200).json({
+      status: 'success',
+      message: 'MoMo payment details submitted. Admin will verify and confirm your payment shortly.',
+      data: {
+        registrationCode,
+        paymentStatus: 'pending_verification',
+        message: 'Please check your email for confirmation once payment is verified.'
+      }
+    });
+  } catch (error) {
+    console.error('MoMo payment submission error:', error);
+    res.status(500).json({
+      status: 'error',
+      message: 'An error occurred while submitting MoMo payment details',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
+  }
+});
+
+/**
+ * @route   POST /api/registration/confirm-momo/:registrationCode
+ * @desc    Admin confirms MoMo payment and updates registration
+ * @access  Private (Admin only)
+ */
+router.post('/confirm-momo/:registrationCode', async (req, res) => {
+  try {
+    const apiKey = req.headers['x-api-key'];
+    const expectedApiKey = process.env.ADMIN_API_KEY || 'muncglobal';
+    
+    if (!apiKey || apiKey.replace(/\s/g, '') !== expectedApiKey) {
+      return res.status(401).json({
+        status: 'error',
+        message: 'Unauthorized - Invalid API key'
+      });
+    }
+
+    const { registrationCode } = req.params;
+
+    if (!registrationCode) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Registration code is required'
+      });
+    }
+
+    const registration = await Registration.findOne({
+      where: { registration_code: registrationCode }
+    });
+
+    if (!registration) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'Registration not found'
+      });
+    }
+
+    if (registration.payment_method !== 'momo' || registration.payment_status !== 'pending_verification') {
+      return res.status(400).json({
+        status: 'error',
+        message: 'This registration is not pending MoMo verification'
+      });
+    }
+
+    const { committee, country } = assignCommitteeAndCountry();
+
+    await registration.update({
+      payment_status: 'paid',
+      assigned_committee: committee,
+      assigned_country: country
+    });
+
+    try {
+      const updatedRegistration = await Registration.findByPk(registration.id);
+      await sendPaymentConfirmationEmail(updatedRegistration);
+      console.log(`Payment confirmation email sent to ${updatedRegistration.email}`);
+    } catch (emailError) {
+      console.error('Error sending payment confirmation email:', emailError);
+    }
+
+    res.status(200).json({
+      status: 'success',
+      message: 'MoMo payment confirmed successfully',
+      data: {
+        registrationCode: registration.registration_code,
+        paymentStatus: 'paid',
+        assignedCommittee: committee,
+        assignedCountry: country
+      }
+    });
+  } catch (error) {
+    console.error('Error confirming MoMo payment:', error);
+    res.status(500).json({
+      status: 'error',
+      message: 'An error occurred while confirming payment',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }

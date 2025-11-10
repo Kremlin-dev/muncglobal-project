@@ -110,6 +110,11 @@ Registration.init({
     type: DataTypes.STRING,
     allowNull: true
   },
+  payment_method: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    defaultValue: null
+  },
   assigned_committee: {
     type: DataTypes.STRING,
     allowNull: true

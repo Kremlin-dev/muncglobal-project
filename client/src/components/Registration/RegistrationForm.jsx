@@ -17,7 +17,7 @@ const generateUniqueCode = () => {
 };
 
 // API base URL - use environment variable
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://muncglobal-project-server.onrender.com/api';
 
 // Form validation schema
 const schema = yup.object().shape({
@@ -88,15 +88,6 @@ const RegistrationForm = ({ onSubmit }) => {
       
       const registrationCode = generateUniqueCode();
       
-      // Check if email already exists
-      const emailCheckResponse = await axios.get(`${API_BASE_URL}/registration/email/${data.email}`);
-      if (emailCheckResponse.data.exists) {
-        toast.error('This email is already registered. Please use a different email address.');
-        setIsSubmitting(false);
-        return;
-      }
-      
-      // Format data for backend
       const registrationData = {
         firstName: data.firstName,
         middleName: data.middleName || '',
@@ -111,7 +102,7 @@ const RegistrationForm = ({ onSubmit }) => {
         educationalLevel: data.educationalLevel,
         nationality: data.nationality,
         city: data.city,
-        committeePreference: 'To be assigned', // Committee will be assigned by organizers
+        committeePreference: 'To be assigned',
         emergencyContact: data.emergencyContact,
         emergencyPhone: data.emergencyPhone,
         emergencyRelationship: data.emergencyRelationship === 'Other' ? data.emergencyRelationshipOther : data.emergencyRelationship,
@@ -123,13 +114,17 @@ const RegistrationForm = ({ onSubmit }) => {
         registrationCode
       };
       
-      // Store registration data in session storage for later submission after payment
+      const registrationResponse = await axios.post(`${API_BASE_URL}/registration`, registrationData);
+      
+      if (registrationResponse.data.status !== 'success') {
+        throw new Error(registrationResponse.data.message || 'Registration failed');
+      }
+      
       sessionStorage.setItem('pendingRegistration', JSON.stringify(registrationData));
       
-      // Pass the enriched data to parent component for payment processing
       onSubmit(registrationData);
       
-      toast.success('Registration data validated! Proceeding to payment...');
+      toast.success('Registration created! Proceeding to payment...');
     } catch (error) {
       console.error('Registration error:', error);
       const errorMessage = error.response?.data?.message || 'There was an error submitting your registration. Please try again.';

@@ -110,9 +110,9 @@ export const sendRegistrationEmail = async ({ email, name, registrationCode }) =
         <p>Please keep this code for future reference. You will need it to:</p>
         
         <ul>
-          <li>Mark your calendar for October 21-24, 2025</li>
           <li>Check-in at the event</li>
           <li>Receive your certificate</li>
+          <li>Access conference materials</li>
         </ul>
         
         <p>Having issues with payment? Contact us at <a href="mailto:info@muncglobal.com">info@muncglobal.com</a></p>

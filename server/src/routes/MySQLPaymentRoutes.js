@@ -204,9 +204,9 @@ router.get('/verify/:reference', async (req, res) => {
       console.log('Committee:', committee);
       console.log('Country:', country);
       
-      // Update registration with assignments
       await existingRegistration.update({
         payment_status: 'paid',
+        payment_method: 'paystack',
         assigned_committee: committee,
         assigned_country: country
       });

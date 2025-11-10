@@ -18,6 +18,7 @@ const formatAmount = (amount, currency = 'GHS') => {
 const SuccessStep = ({ formData, paymentData, delegateId }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState(paymentData?.status || 'pending');
+  const [registrationDetails, setRegistrationDetails] = useState(null);
   const registrationCodeRef = useRef(null);
   const [copiedCode, setCopiedCode] = useState(false);
   const toast = useToast();
@@ -30,6 +31,21 @@ const SuccessStep = ({ formData, paymentData, delegateId }) => {
     if (paymentData) {
       setPaymentStatus('success');
     }
+    
+    const fetchRegistrationDetails = async () => {
+      if (formData?.registrationCode) {
+        try {
+          const response = await axios.get(`${API_BASE_URL}/registration/code/${formData.registrationCode}`);
+          if (response.data.status === 'success') {
+            setRegistrationDetails(response.data.data);
+          }
+        } catch (error) {
+          console.error('Error fetching registration details:', error);
+        }
+      }
+    };
+    
+    fetchRegistrationDetails();
     setIsLoading(false);
   }, [formData, paymentData]); 
 
@@ -169,7 +185,7 @@ const SuccessStep = ({ formData, paymentData, delegateId }) => {
         </div>
       </div>
 
-      {paymentData ? (
+      {registrationDetails?.payment_method === 'paystack' && paymentData ? (
         <div className="bg-green-50 p-6 rounded-lg mb-8">
           <h4 className="text-lg font-semibold text-green-800 mb-4">Payment Confirmation</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
@@ -189,6 +205,41 @@ const SuccessStep = ({ formData, paymentData, delegateId }) => {
               <p className="text-sm text-gray-500">Date</p>
               <p className="font-medium">{new Date(paymentData.paid_at).toLocaleDateString('en-GB')}</p>
             </div>
+          </div>
+        </div>
+      ) : registrationDetails?.payment_method === 'momo' ? (
+        <div className="bg-blue-50 p-6 rounded-lg mb-8">
+          <h4 className="text-lg font-semibold text-blue-800 mb-4">Mobile Money Payment</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+            <div>
+              <p className="text-sm text-gray-500">Payment Method</p>
+              <p className="font-medium">Mobile Money (MoMo)</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500">Amount</p>
+              <p className="font-medium">{formatAmount(REGISTRATION_FEE)}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500">Transaction Reference</p>
+              <p className="font-medium">{registrationDetails?.payment_reference || 'Pending'}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500">Status</p>
+              <p className="font-medium">
+                {registrationDetails?.payment_status === 'paid' ? (
+                  <span className="text-green-600">Verified ✓</span>
+                ) : (
+                  <span className="text-yellow-600">Pending Verification</span>
+                )}
+              </p>
+            </div>
+          </div>
+          <div className="mt-4 p-3 bg-blue-100 rounded text-sm text-blue-800">
+            {registrationDetails?.payment_status === 'paid' ? (
+              'Your payment has been verified. Thank you!'
+            ) : (
+              'Your payment is pending verification. Admin will confirm within 24 hours. Check your email for updates.'
+            )}
           </div>
         </div>
       ) : (
