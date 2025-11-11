@@ -21,7 +21,7 @@ const MomoPayment = ({ registrationData, onPaymentSubmitted, onPaymentError }) =
   const [error, setError] = useState('');
   const toast = useToast();
 
-  const MOMO_ACCOUNT_NUMBER = import.meta.env.VITE_MOMO_ACCOUNT_NUMBER || '0552981800';
+  const MOMO_ACCOUNT_NUMBER = import.meta.env.VITE_MOMO_ACCOUNT_NUMBER || '054 198 0652';
   const MOMO_ACCOUNT_NAME = import.meta.env.VITE_MOMO_ACCOUNT_NAME || 'MODEL UNITED NATIONS CONFERENCE - GHANA MUNC-GH';
 
   const handleSubmit = async (e) => {
