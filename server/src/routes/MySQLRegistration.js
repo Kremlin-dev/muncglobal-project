@@ -90,13 +90,6 @@ router.post('/', async (req, res) => {
       payment_method: paymentMethod || null
     });
 
-    // Send registration confirmation email (but note that registration is not complete until payment)
-    await sendRegistrationEmail({
-      email,
-      name: `${firstName} ${surname}`,
-      registrationCode
-    });
-
     res.status(201).json({
       status: 'success',
       message: 'Registration successful',
@@ -105,12 +98,20 @@ router.post('/', async (req, res) => {
         registrationId: registration.id
       }
     });
+
+    sendRegistrationEmail({
+      email,
+      name: `${firstName} ${surname}`,
+      registrationCode
+    }).catch(err => console.error('Email send error:', err));
   } catch (error) {
     console.error('Registration error:', error);
+    console.error('Error details:', error.message, error.sql);
     res.status(500).json({
       status: 'error',
       message: 'An error occurred during registration',
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined,
+      details: process.env.NODE_ENV === 'development' ? error.sql : undefined
     });
   }
 });
@@ -666,14 +667,6 @@ router.post('/confirm-momo/:registrationCode', async (req, res) => {
       assigned_country: country
     });
 
-    try {
-      const updatedRegistration = await Registration.findByPk(registration.id);
-      await sendPaymentConfirmationEmail(updatedRegistration);
-      console.log(`Payment confirmation email sent to ${updatedRegistration.email}`);
-    } catch (emailError) {
-      console.error('Error sending payment confirmation email:', emailError);
-    }
-
     res.status(200).json({
       status: 'success',
       message: 'MoMo payment confirmed successfully',
@@ -684,6 +677,11 @@ router.post('/confirm-momo/:registrationCode', async (req, res) => {
         assignedCountry: country
       }
     });
+
+    Registration.findByPk(registration.id)
+      .then(updatedRegistration => sendPaymentConfirmationEmail(updatedRegistration))
+      .then(() => console.log(`Payment confirmation email sent to ${registration.email}`))
+      .catch(err => console.error('Error sending payment confirmation email:', err));
   } catch (error) {
     console.error('Error confirming MoMo payment:', error);
     res.status(500).json({
